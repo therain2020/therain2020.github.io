@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>therain2020</title><link>https://therain2020.github.io</link><description>the path to future</description><copyright>therain2020</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://therain2020.github.io</link></image><lastBuildDate>Tue, 22 Apr 2025 14:11:53 +0000</lastBuildDate><managingEditor>therain2020</managingEditor><ttl>60</ttl><webMaster>therain2020</webMaster><item><title>项目架构</title><link>https://therain2020.github.io/post/xiang-mu-jia-gou.html</link><description># 基于Github三件套设计一个分层架构方案，涵盖内容管理、自动化流程和功能扩展性：
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>therain2020</title><link>https://therain2020.github.io</link><description>the path to future</description><copyright>therain2020</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://therain2020.github.io</link></image><lastBuildDate>Tue, 22 Apr 2025 14:13:11 +0000</lastBuildDate><managingEditor>therain2020</managingEditor><ttl>60</ttl><webMaster>therain2020</webMaster><item><title>项目架构</title><link>https://therain2020.github.io/post/xiang-mu-jia-gou.html</link><description># 基于Github三件套设计一个分层架构方案，涵盖内容管理、自动化流程和功能扩展性：
 
 ## 一、核心架构分层
 
@@ -46,7 +46,7 @@ public class StaticGenerator {
 
 ### 1.配置中心
 
-```
+```Java
 @Configuration 
 public class BlogConfig {
     // 读取类似config.json 的配置（参考requirements.txt 依赖管理[3]()）
@@ -64,7 +64,7 @@ public class BlogConfig {
 ### 2.前端资源管理
 
 保留原JS插件体系的集成方式：
-```
+```Java
 public class AssetManager {
     // 将GmeekTocBot.js 等插件写入生成目录 
     public void copyPluginFiles(Path outputDir) {
@@ -75,7 +75,7 @@ public class AssetManager {
 ```
 
 ### 3.元数据处理器
-```
+```Java
 public class MetadataExtractor {
     // 实现类似plist.html 的标签处理逻辑[1]()
     public List&lt;String&gt; extractLabels(JSONObject issueJson) {
@@ -93,7 +93,7 @@ public class MetadataExtractor {
 ## 四、典型工作流程
 
 ### 1.Issue创建/更新事件触发
-```
+```Mermaid
 sequenceDiagram 
     Github Issues-&gt;&gt;Java服务: Webhook通知 
     Java服务-&gt;&gt;Github API: 获取Issue详情[2]()
@@ -104,7 +104,7 @@ sequenceDiagram
 
 
 ### 2.构建部署流程
-```
+```Bash
 # 通过Actions实现CI/CD[10]()
 mvn clean package 
 &amp;&amp; java -jar blog-generator.jar  
@@ -114,7 +114,7 @@ mvn clean package
 ## 五、扩展性设计
 
 ### 1.插件机制
-```
+```Java
 public interface BlogPlugin {
     void apply(PostContent post, TemplateContext context);
 }
@@ -129,7 +129,7 @@ public class VisitCounterPlugin implements BlogPlugin {
 
 ### 2.多仓库支持
 通过@ConfigurationProperties实现多源配置：
-```
+```Java
 @ConfigurationProperties(prefix = 'github')
 public class RepoConfig {
     private Map&lt;String, RepoProfile&gt; repositories;

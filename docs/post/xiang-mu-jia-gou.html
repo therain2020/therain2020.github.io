@@ -57,7 +57,7 @@ public class StaticGenerator {
 
 ### 1.配置中心
 
-```
+```Java
 @Configuration 
 public class BlogConfig {
     // 读取类似config.json 的配置（参考requirements.txt 依赖管理[3]()）
@@ -75,7 +75,7 @@ public class BlogConfig {
 ### 2.前端资源管理
 
 保留原JS插件体系的集成方式：
-```
+```Java
 public class AssetManager {
     // 将GmeekTocBot.js 等插件写入生成目录 
     public void copyPluginFiles(Path outputDir) {
@@ -86,7 +86,7 @@ public class AssetManager {
 ```
 
 ### 3.元数据处理器
-```
+```Java
 public class MetadataExtractor {
     // 实现类似plist.html 的标签处理逻辑[1]()
     public List<String> extractLabels(JSONObject issueJson) {
@@ -104,7 +104,7 @@ public class MetadataExtractor {
 ## 四、典型工作流程
 
 ### 1.Issue创建/更新事件触发
-```
+```Mermaid
 sequenceDiagram 
     Github Issues->>Java服务: Webhook通知 
     Java服务->>Github API: 获取Issue详情[2]()
@@ -115,7 +115,7 @@ sequenceDiagram
 
 
 ### 2.构建部署流程
-```
+```Bash
 # 通过Actions实现CI/CD[10]()
 mvn clean package 
 && java -jar blog-generator.jar  
@@ -125,7 +125,7 @@ mvn clean package
 ## 五、扩展性设计
 
 ### 1.插件机制
-```
+```Java
 public interface BlogPlugin {
     void apply(PostContent post, TemplateContext context);
 }
@@ -140,7 +140,7 @@ public class VisitCounterPlugin implements BlogPlugin {
 
 ### 2.多仓库支持
 通过@ConfigurationProperties实现多源配置：
-```
+```Java
 @ConfigurationProperties(prefix = 'github')
 public class RepoConfig {
     private Map<String, RepoProfile> repositories;
@@ -198,7 +198,7 @@ public class StaticGenerator {
 
 ### 1.配置中心
 
-```
+```Java
 @Configuration 
 public class BlogConfig {
     // 读取类似config.json 的配置（参考requirements.txt 依赖管理[3]()）
@@ -216,7 +216,7 @@ public class BlogConfig {
 ### 2.前端资源管理
 
 保留原JS插件体系的集成方式：
-```
+```Java
 public class AssetManager {
     // 将GmeekTocBot.js 等插件写入生成目录 
     public void copyPluginFiles(Path outputDir) {
@@ -227,7 +227,7 @@ public class AssetManager {
 ```
 
 ### 3.元数据处理器
-```
+```Java
 public class MetadataExtractor {
     // 实现类似plist.html 的标签处理逻辑[1]()
     public List<String> extractLabels(JSONObject issueJson) {
@@ -245,7 +245,7 @@ public class MetadataExtractor {
 ## 四、典型工作流程
 
 ### 1.Issue创建/更新事件触发
-```
+```Mermaid
 sequenceDiagram 
     Github Issues->>Java服务: Webhook通知 
     Java服务->>Github API: 获取Issue详情[2]()
@@ -256,7 +256,7 @@ sequenceDiagram
 
 
 ### 2.构建部署流程
-```
+```Bash
 # 通过Actions实现CI/CD[10]()
 mvn clean package 
 && java -jar blog-generator.jar  
@@ -266,7 +266,7 @@ mvn clean package
 ## 五、扩展性设计
 
 ### 1.插件机制
-```
+```Java
 public interface BlogPlugin {
     void apply(PostContent post, TemplateContext context);
 }
@@ -281,7 +281,7 @@ public class VisitCounterPlugin implements BlogPlugin {
 
 ### 2.多仓库支持
 通过@ConfigurationProperties实现多源配置：
-```
+```Java
 @ConfigurationProperties(prefix = 'github')
 public class RepoConfig {
     private Map<String, RepoProfile> repositories;
@@ -392,77 +392,70 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     <span class="pl-ent">publish_dir</span>: <span class="pl-s">./target/generated-site </span></pre></div>
 <h2>二、关键组件设计</h2>
 <h3>1.配置中心</h3>
-<pre class="notranslate"><code class="notranslate">@Configuration 
-public class BlogConfig {
-    // 读取类似config.json 的配置（参考requirements.txt 依赖管理[3]()）
-    @Value("${blog.baseUrl}")  
-    private String baseUrl;
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Configuration</span> 
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">BlogConfig</span> {
+    <span class="pl-c">// 读取类似config.json 的配置（参考requirements.txt 依赖管理[3]()）</span>
+    <span class="pl-c1">@</span><span class="pl-c1">Value</span>(<span class="pl-s">"${blog.baseUrl}"</span>)  
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> <span class="pl-s1">baseUrl</span>;
     
-    // 集成utteranc评论系统（对应post.html 的评论区块[9]()）
-    @Bean 
-    public CommentService commentService() {
-        return new UtterancCommentImpl();
+    <span class="pl-c">// 集成utteranc评论系统（对应post.html 的评论区块[9]()）</span>
+    <span class="pl-c1">@</span><span class="pl-c1">Bean</span> 
+    <span class="pl-k">public</span> <span class="pl-smi">CommentService</span> <span class="pl-en">commentService</span>() {
+        <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-smi">UtterancCommentImpl</span>();
     }
-}
-</code></pre>
+}</pre></div>
 <h3>2.前端资源管理</h3>
 <p>保留原JS插件体系的集成方式：</p>
-<pre class="notranslate"><code class="notranslate">public class AssetManager {
-    // 将GmeekTocBot.js 等插件写入生成目录 
-    public void copyPluginFiles(Path outputDir) {
-        Files.copy("src/main/resources/static/GmeekTOC.js",  
-                   outputDir.resolve("js/GmeekTOC.js")); 
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">AssetManager</span> {
+    <span class="pl-c">// 将GmeekTocBot.js 等插件写入生成目录 </span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">copyPluginFiles</span>(<span class="pl-smi">Path</span> <span class="pl-s1">outputDir</span>) {
+        <span class="pl-smi">Files</span>.<span class="pl-en">copy</span>(<span class="pl-s">"src/main/resources/static/GmeekTOC.js"</span>,  
+                   <span class="pl-s1">outputDir</span>.<span class="pl-en">resolve</span>(<span class="pl-s">"js/GmeekTOC.js"</span>)); 
     }
-}
-</code></pre>
+}</pre></div>
 <h3>3.元数据处理器</h3>
-<pre class="notranslate"><code class="notranslate">public class MetadataExtractor {
-    // 实现类似plist.html 的标签处理逻辑[1]()
-    public List&lt;String&gt; extractLabels(JSONObject issueJson) {
-        return Arrays.stream(issueJson.getJSONArray("labels")) 
-                     .map(label -&gt; label.getString("name")) 
-                     .collect(Collectors.toList()); 
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">MetadataExtractor</span> {
+    <span class="pl-c">// 实现类似plist.html 的标签处理逻辑[1]()</span>
+    <span class="pl-k">public</span> <span class="pl-smi">List</span>&lt;<span class="pl-smi">String</span>&gt; <span class="pl-en">extractLabels</span>(<span class="pl-smi">JSONObject</span> <span class="pl-s1">issueJson</span>) {
+        <span class="pl-k">return</span> <span class="pl-smi">Arrays</span>.<span class="pl-en">stream</span>(<span class="pl-s1">issueJson</span>.<span class="pl-en">getJSONArray</span>(<span class="pl-s">"labels"</span>)) 
+                     .<span class="pl-en">map</span>(<span class="pl-s1">label</span> -&gt; <span class="pl-s1">label</span>.<span class="pl-en">getString</span>(<span class="pl-s">"name"</span>)) 
+                     .<span class="pl-en">collect</span>(<span class="pl-smi">Collectors</span>.<span class="pl-en">toList</span>()); 
     }
-}
-</code></pre>
+}</pre></div>
 <h2>三、技术选型建议</h2>
 <p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/11dd2349-6f0b-4347-9b56-40423140a521"><img src="https://github.com/user-attachments/assets/11dd2349-6f0b-4347-9b56-40423140a521" alt="Image" style="max-width: 100%;"></a></p>
 <h2>四、典型工作流程</h2>
 <h3>1.Issue创建/更新事件触发</h3>
-<pre class="notranslate"><code class="notranslate">sequenceDiagram 
-    Github Issues-&gt;&gt;Java服务: Webhook通知 
-    Java服务-&gt;&gt;Github API: 获取Issue详情[2]()
-    Github API-&gt;&gt;Java服务: 返回JSON数据 
-    Java服务-&gt;&gt;StaticGenerator: 生成HTML（集成footer.html[6]() ）
-    StaticGenerator-&gt;&gt;Github Pages: 提交到gh-pages分支 
-</code></pre>
+<div class="highlight highlight-source-mermaid"><pre class="notranslate"><span class="pl-k">sequenceDiagram</span> 
+    <span class="pl-ent">Github Issues</span><span class="pl-k">-&gt;&gt;</span><span class="pl-ent">Java服务</span><span class="pl-k">:</span> <span class="pl-s">Webhook通知</span> 
+    <span class="pl-ent">Java服务</span><span class="pl-k">-&gt;&gt;</span><span class="pl-ent">Github API</span><span class="pl-k">:</span> <span class="pl-s">获取Issue详情[2]()</span>
+    <span class="pl-ent">Github API</span><span class="pl-k">-&gt;&gt;</span><span class="pl-ent">Java服务</span><span class="pl-k">:</span> <span class="pl-s">返回JSON数据</span> 
+    <span class="pl-ent">Java服务</span><span class="pl-k">-&gt;&gt;</span><span class="pl-ent">StaticGenerator</span><span class="pl-k">:</span> <span class="pl-s">生成HTML（集成footer.html[6]() ）</span>
+    <span class="pl-ent">StaticGenerator</span><span class="pl-k">-&gt;&gt;</span><span class="pl-ent">Github Pages</span><span class="pl-k">:</span> <span class="pl-s">提交到gh-pages分支</span> </pre></div>
 <h3>2.构建部署流程</h3>
-<pre class="notranslate"><code class="notranslate"># 通过Actions实现CI/CD[10]()
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span> 通过Actions实现CI/CD[10]()</span>
 mvn clean package 
-&amp;&amp; java -jar blog-generator.jar  
-&amp;&amp; gh-pages -d target/generated-site 
-</code></pre>
+<span class="pl-k">&amp;&amp;</span> java -jar blog-generator.jar  
+<span class="pl-k">&amp;&amp;</span> gh-pages -d target/generated-site </pre></div>
 <h2>五、扩展性设计</h2>
 <h3>1.插件机制</h3>
-<pre class="notranslate"><code class="notranslate">public interface BlogPlugin {
-    void apply(PostContent post, TemplateContext context);
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">interface</span> <span class="pl-smi">BlogPlugin</span> {
+    <span class="pl-smi">void</span> <span class="pl-en">apply</span>(<span class="pl-smi">PostContent</span> <span class="pl-s1">post</span>, <span class="pl-smi">TemplateContext</span> <span class="pl-s1">context</span>);
 }
-// 实现类似GmeekVercount的访问统计[5]()
-@Component 
-public class VisitCounterPlugin implements BlogPlugin {
-    public void apply(PostContent post, TemplateContext ctx) {
-        ctx.addScript("&lt;script  src='/js/GmeekVercount.js'&gt;&lt;/script&gt;"); 
+<span class="pl-c">// 实现类似GmeekVercount的访问统计[5]()</span>
+<span class="pl-c1">@</span><span class="pl-c1">Component</span> 
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">VisitCounterPlugin</span> <span class="pl-k">implements</span> <span class="pl-smi">BlogPlugin</span> {
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">apply</span>(<span class="pl-smi">PostContent</span> <span class="pl-s1">post</span>, <span class="pl-smi">TemplateContext</span> <span class="pl-s1">ctx</span>) {
+        <span class="pl-s1">ctx</span>.<span class="pl-en">addScript</span>(<span class="pl-s">"&lt;script  src='/js/GmeekVercount.js'&gt;&lt;/script&gt;"</span>); 
     }
-}
-</code></pre>
+}</pre></div>
 <h3>2.多仓库支持</h3>
 <p>通过<a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/ConfigurationProperties/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/ConfigurationProperties">@ConfigurationProperties</a>实现多源配置：</p>
-<pre class="notranslate"><code class="notranslate">@ConfigurationProperties(prefix = "github")
-public class RepoConfig {
-    private Map&lt;String, RepoProfile&gt; repositories;
-    // 支持同时管理多个Github Pages站点 
-}
-</code></pre>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">ConfigurationProperties</span>(<span class="pl-s1">prefix</span> = <span class="pl-s">"github"</span>)
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">RepoConfig</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">Map</span>&lt;<span class="pl-smi">String</span>, <span class="pl-smi">RepoProfile</span>&gt; <span class="pl-s1">repositories</span>;
+    <span class="pl-c">// 支持同时管理多个Github Pages站点 </span>
+}</pre></div>
 <p>ps：看到Gmeek的第一眼我就忘本了，我也想做一个这玩意。</p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
