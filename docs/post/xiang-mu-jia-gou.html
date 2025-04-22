@@ -28,41 +28,125 @@ public class IssueFetcher {
 
 ### 2.静态生成层
 
-      - 模板系统
-      - 静态生成
+采用Thymeleaf模板引擎替代Jinja2
+```Java
+@Component 
+public class StaticGenerator {
+    // 生成文章页（集成lightbox.js 图片预览功能[13]()）
+    public void generatePostPage(PostContent post, Path outputDir);
+    // 生成索引页（实现plist.html 的分页逻辑[1]()）
+    public void generateIndexPage(List<PostContent> posts, int pageNum); 
+}
+```
 
 ### 3.自动化部署层
 
-      - Github Actions流水线
-      - 触发条件：issues内容变更 / 手动触发
-      - 构建阶段：安装依赖(PyGithub/Jinja2) -> 生成HTML -> 压缩资源
-      - 部署阶段：通过actions/upload-pages-artifact发布到Github Pages
+集成Github Actions的Java实现方案
+```Yaml
+# .github/workflows/build.yml  核心配置 
+- name: Build with Maven 
+  run: mvn -B package --file pom.xml  
+- name: Deploy to Pages 
+  uses: peaceiris/actions-gh-pages@v3 
+  with:
+    github_token: ${{ secrets.GITHUB_TOKEN }}
+    publish_dir: ./target/generated-site 
+```
 
-### 4.前端表现层
+## 二、关键组件设计
 
-      - 核心样式
-      - 插件系统
-      - 内容目录：TocBot动态生成
-      - 图片灯箱：lightbox.js 实现交互
-      - 访问统计：Vercount集成busuanz
+### 1.配置中心
 
-##关键数据流设计
+```
+@Configuration 
+public class BlogConfig {
+    // 读取类似config.json 的配置（参考requirements.txt 依赖管理[3]()）
+    @Value('${blog.baseUrl}')  
+    private String baseUrl;
+    
+    // 集成utteranc评论系统（对应post.html 的评论区块[9]()）
+    @Bean 
+    public CommentService commentService() {
+        return new UtterancCommentImpl();
+    }
+}
+```
 
-### 1.内容加工流水线：
+### 2.前端资源管理
 
-Markdown写作 -> Issues提交 -> Actions触发 -> Python处理(transliterate/xpinyin) -> Jinja2渲染 -> 静态HTML 
+保留原JS插件体系的集成方式：
+```
+public class AssetManager {
+    // 将GmeekTocBot.js 等插件写入生成目录 
+    public void copyPluginFiles(Path outputDir) {
+        Files.copy('src/main/resources/static/GmeekTOC.js',  
+                   outputDir.resolve('js/GmeekTOC.js')); 
+    }
+}
+```
 
-### 2.模板继承体系：
+### 3.元数据处理器
+```
+public class MetadataExtractor {
+    // 实现类似plist.html 的标签处理逻辑[1]()
+    public List<String> extractLabels(JSONObject issueJson) {
+        return Arrays.stream(issueJson.getJSONArray('labels')) 
+                     .map(label -> label.getString('name')) 
+                     .collect(Collectors.toList()); 
+    }
+}
+```
 
-base.html （全局框架）
-├─ plist.html （文章列表）
-├─ tag.html （标签分类）
-└─ post.html （文章详情）
+## 三、技术选型建议
 
-### 3.前端资源加载：
+![Image](https://github.com/user-attachments/assets/11dd2349-6f0b-4347-9b56-40423140a521)
+
+## 四、典型工作流程
+
+### 1.Issue创建/更新事件触发
+```
+sequenceDiagram 
+    Github Issues->>Java服务: Webhook通知 
+    Java服务->>Github API: 获取Issue详情[2]()
+    Github API->>Java服务: 返回JSON数据 
+    Java服务->>StaticGenerator: 生成HTML（集成footer.html[6]() ）
+    StaticGenerator->>Github Pages: 提交到gh-pages分支 
+```
 
 
+### 2.构建部署流程
+```
+# 通过Actions实现CI/CD[10]()
+mvn clean package 
+&& java -jar blog-generator.jar  
+&& gh-pages -d target/generated-site 
+```
 
+## 五、扩展性设计
+
+### 1.插件机制
+```
+public interface BlogPlugin {
+    void apply(PostContent post, TemplateContext context);
+}
+// 实现类似GmeekVercount的访问统计[5]()
+@Component 
+public class VisitCounterPlugin implements BlogPlugin {
+    public void apply(PostContent post, TemplateContext ctx) {
+        ctx.addScript('<script  src='/js/GmeekVercount.js'></script>'); 
+    }
+}
+```
+
+### 2.多仓库支持
+通过@ConfigurationProperties实现多源配置：
+```
+@ConfigurationProperties(prefix = 'github')
+public class RepoConfig {
+    private Map<String, RepoProfile> repositories;
+    // 支持同时管理多个Github Pages站点 
+}
+```
 
 
 ps：看到Gmeek的第一眼我就忘本了，我也想做一个这玩意。">
@@ -85,41 +169,125 @@ public class IssueFetcher {
 
 ### 2.静态生成层
 
-      - 模板系统
-      - 静态生成
+采用Thymeleaf模板引擎替代Jinja2
+```Java
+@Component 
+public class StaticGenerator {
+    // 生成文章页（集成lightbox.js 图片预览功能[13]()）
+    public void generatePostPage(PostContent post, Path outputDir);
+    // 生成索引页（实现plist.html 的分页逻辑[1]()）
+    public void generateIndexPage(List<PostContent> posts, int pageNum); 
+}
+```
 
 ### 3.自动化部署层
 
-      - Github Actions流水线
-      - 触发条件：issues内容变更 / 手动触发
-      - 构建阶段：安装依赖(PyGithub/Jinja2) -> 生成HTML -> 压缩资源
-      - 部署阶段：通过actions/upload-pages-artifact发布到Github Pages
+集成Github Actions的Java实现方案
+```Yaml
+# .github/workflows/build.yml  核心配置 
+- name: Build with Maven 
+  run: mvn -B package --file pom.xml  
+- name: Deploy to Pages 
+  uses: peaceiris/actions-gh-pages@v3 
+  with:
+    github_token: ${{ secrets.GITHUB_TOKEN }}
+    publish_dir: ./target/generated-site 
+```
 
-### 4.前端表现层
+## 二、关键组件设计
 
-      - 核心样式
-      - 插件系统
-      - 内容目录：TocBot动态生成
-      - 图片灯箱：lightbox.js 实现交互
-      - 访问统计：Vercount集成busuanz
+### 1.配置中心
 
-##关键数据流设计
+```
+@Configuration 
+public class BlogConfig {
+    // 读取类似config.json 的配置（参考requirements.txt 依赖管理[3]()）
+    @Value('${blog.baseUrl}')  
+    private String baseUrl;
+    
+    // 集成utteranc评论系统（对应post.html 的评论区块[9]()）
+    @Bean 
+    public CommentService commentService() {
+        return new UtterancCommentImpl();
+    }
+}
+```
 
-### 1.内容加工流水线：
+### 2.前端资源管理
 
-Markdown写作 -> Issues提交 -> Actions触发 -> Python处理(transliterate/xpinyin) -> Jinja2渲染 -> 静态HTML 
+保留原JS插件体系的集成方式：
+```
+public class AssetManager {
+    // 将GmeekTocBot.js 等插件写入生成目录 
+    public void copyPluginFiles(Path outputDir) {
+        Files.copy('src/main/resources/static/GmeekTOC.js',  
+                   outputDir.resolve('js/GmeekTOC.js')); 
+    }
+}
+```
 
-### 2.模板继承体系：
+### 3.元数据处理器
+```
+public class MetadataExtractor {
+    // 实现类似plist.html 的标签处理逻辑[1]()
+    public List<String> extractLabels(JSONObject issueJson) {
+        return Arrays.stream(issueJson.getJSONArray('labels')) 
+                     .map(label -> label.getString('name')) 
+                     .collect(Collectors.toList()); 
+    }
+}
+```
 
-base.html （全局框架）
-├─ plist.html （文章列表）
-├─ tag.html （标签分类）
-└─ post.html （文章详情）
+## 三、技术选型建议
 
-### 3.前端资源加载：
+![Image](https://github.com/user-attachments/assets/11dd2349-6f0b-4347-9b56-40423140a521)
+
+## 四、典型工作流程
+
+### 1.Issue创建/更新事件触发
+```
+sequenceDiagram 
+    Github Issues->>Java服务: Webhook通知 
+    Java服务->>Github API: 获取Issue详情[2]()
+    Github API->>Java服务: 返回JSON数据 
+    Java服务->>StaticGenerator: 生成HTML（集成footer.html[6]() ）
+    StaticGenerator->>Github Pages: 提交到gh-pages分支 
+```
 
 
+### 2.构建部署流程
+```
+# 通过Actions实现CI/CD[10]()
+mvn clean package 
+&& java -jar blog-generator.jar  
+&& gh-pages -d target/generated-site 
+```
 
+## 五、扩展性设计
+
+### 1.插件机制
+```
+public interface BlogPlugin {
+    void apply(PostContent post, TemplateContext context);
+}
+// 实现类似GmeekVercount的访问统计[5]()
+@Component 
+public class VisitCounterPlugin implements BlogPlugin {
+    public void apply(PostContent post, TemplateContext ctx) {
+        ctx.addScript('<script  src='/js/GmeekVercount.js'></script>'); 
+    }
+}
+```
+
+### 2.多仓库支持
+通过@ConfigurationProperties实现多源配置：
+```
+@ConfigurationProperties(prefix = 'github')
+public class RepoConfig {
+    private Map<String, RepoProfile> repositories;
+    // 支持同时管理多个Github Pages站点 
+}
+```
 
 
 ps：看到Gmeek的第一眼我就忘本了，我也想做一个这玩意。">
@@ -204,31 +372,97 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     <span class="pl-k">public</span> <span class="pl-smi">PostContent</span> <span class="pl-en">parseIssueBody</span>(<span class="pl-smi">String</span> <span class="pl-s1">markdownContent</span>);
 }</pre></div>
 <h3>2.静态生成层</h3>
-<pre class="notranslate"><code class="notranslate">  - 模板系统
-  - 静态生成
-</code></pre>
+<p>采用Thymeleaf模板引擎替代Jinja2</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-c1">@</span><span class="pl-c1">Component</span> 
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">StaticGenerator</span> {
+    <span class="pl-c">// 生成文章页（集成lightbox.js 图片预览功能[13]()）</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">generatePostPage</span>(<span class="pl-smi">PostContent</span> <span class="pl-s1">post</span>, <span class="pl-smi">Path</span> <span class="pl-s1">outputDir</span>);
+    <span class="pl-c">// 生成索引页（实现plist.html 的分页逻辑[1]()）</span>
+    <span class="pl-k">public</span> <span class="pl-smi">void</span> <span class="pl-en">generateIndexPage</span>(<span class="pl-smi">List</span>&lt;<span class="pl-smi">PostContent</span>&gt; <span class="pl-s1">posts</span>, <span class="pl-smi">int</span> <span class="pl-s1">pageNum</span>); 
+}</pre></div>
 <h3>3.自动化部署层</h3>
-<pre class="notranslate"><code class="notranslate">  - Github Actions流水线
-  - 触发条件：issues内容变更 / 手动触发
-  - 构建阶段：安装依赖(PyGithub/Jinja2) -&gt; 生成HTML -&gt; 压缩资源
-  - 部署阶段：通过actions/upload-pages-artifact发布到Github Pages
+<p>集成Github Actions的Java实现方案</p>
+<div class="highlight highlight-source-yaml"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span> .github/workflows/build.yml  核心配置 </span>
+- <span class="pl-ent">name</span>: <span class="pl-s">Build with Maven </span>
+  <span class="pl-ent">run</span>: <span class="pl-s">mvn -B package --file pom.xml  </span>
+- <span class="pl-ent">name</span>: <span class="pl-s">Deploy to Pages </span>
+  <span class="pl-ent">uses</span>: <span class="pl-s">peaceiris/actions-gh-pages@v3 </span>
+  <span class="pl-ent">with</span>:
+    <span class="pl-ent">github_token</span>: <span class="pl-s">${{ secrets.GITHUB_TOKEN }}</span>
+    <span class="pl-ent">publish_dir</span>: <span class="pl-s">./target/generated-site </span></pre></div>
+<h2>二、关键组件设计</h2>
+<h3>1.配置中心</h3>
+<pre class="notranslate"><code class="notranslate">@Configuration 
+public class BlogConfig {
+    // 读取类似config.json 的配置（参考requirements.txt 依赖管理[3]()）
+    @Value("${blog.baseUrl}")  
+    private String baseUrl;
+    
+    // 集成utteranc评论系统（对应post.html 的评论区块[9]()）
+    @Bean 
+    public CommentService commentService() {
+        return new UtterancCommentImpl();
+    }
+}
 </code></pre>
-<h3>4.前端表现层</h3>
-<pre class="notranslate"><code class="notranslate">  - 核心样式
-  - 插件系统
-  - 内容目录：TocBot动态生成
-  - 图片灯箱：lightbox.js 实现交互
-  - 访问统计：Vercount集成busuanz
+<h3>2.前端资源管理</h3>
+<p>保留原JS插件体系的集成方式：</p>
+<pre class="notranslate"><code class="notranslate">public class AssetManager {
+    // 将GmeekTocBot.js 等插件写入生成目录 
+    public void copyPluginFiles(Path outputDir) {
+        Files.copy("src/main/resources/static/GmeekTOC.js",  
+                   outputDir.resolve("js/GmeekTOC.js")); 
+    }
+}
 </code></pre>
-<p>##关键数据流设计</p>
-<h3>1.内容加工流水线：</h3>
-<p>Markdown写作 -&gt; Issues提交 -&gt; Actions触发 -&gt; Python处理(transliterate/xpinyin) -&gt; Jinja2渲染 -&gt; 静态HTML</p>
-<h3>2.模板继承体系：</h3>
-<p>base.html （全局框架）<br>
-├─ plist.html （文章列表）<br>
-├─ tag.html （标签分类）<br>
-└─ post.html （文章详情）</p>
-<h3>3.前端资源加载：</h3>
+<h3>3.元数据处理器</h3>
+<pre class="notranslate"><code class="notranslate">public class MetadataExtractor {
+    // 实现类似plist.html 的标签处理逻辑[1]()
+    public List&lt;String&gt; extractLabels(JSONObject issueJson) {
+        return Arrays.stream(issueJson.getJSONArray("labels")) 
+                     .map(label -&gt; label.getString("name")) 
+                     .collect(Collectors.toList()); 
+    }
+}
+</code></pre>
+<h2>三、技术选型建议</h2>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/11dd2349-6f0b-4347-9b56-40423140a521"><img src="https://github.com/user-attachments/assets/11dd2349-6f0b-4347-9b56-40423140a521" alt="Image" style="max-width: 100%;"></a></p>
+<h2>四、典型工作流程</h2>
+<h3>1.Issue创建/更新事件触发</h3>
+<pre class="notranslate"><code class="notranslate">sequenceDiagram 
+    Github Issues-&gt;&gt;Java服务: Webhook通知 
+    Java服务-&gt;&gt;Github API: 获取Issue详情[2]()
+    Github API-&gt;&gt;Java服务: 返回JSON数据 
+    Java服务-&gt;&gt;StaticGenerator: 生成HTML（集成footer.html[6]() ）
+    StaticGenerator-&gt;&gt;Github Pages: 提交到gh-pages分支 
+</code></pre>
+<h3>2.构建部署流程</h3>
+<pre class="notranslate"><code class="notranslate"># 通过Actions实现CI/CD[10]()
+mvn clean package 
+&amp;&amp; java -jar blog-generator.jar  
+&amp;&amp; gh-pages -d target/generated-site 
+</code></pre>
+<h2>五、扩展性设计</h2>
+<h3>1.插件机制</h3>
+<pre class="notranslate"><code class="notranslate">public interface BlogPlugin {
+    void apply(PostContent post, TemplateContext context);
+}
+// 实现类似GmeekVercount的访问统计[5]()
+@Component 
+public class VisitCounterPlugin implements BlogPlugin {
+    public void apply(PostContent post, TemplateContext ctx) {
+        ctx.addScript("&lt;script  src='/js/GmeekVercount.js'&gt;&lt;/script&gt;"); 
+    }
+}
+</code></pre>
+<h3>2.多仓库支持</h3>
+<p>通过<a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/ConfigurationProperties/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/ConfigurationProperties">@ConfigurationProperties</a>实现多源配置：</p>
+<pre class="notranslate"><code class="notranslate">@ConfigurationProperties(prefix = "github")
+public class RepoConfig {
+    private Map&lt;String, RepoProfile&gt; repositories;
+    // 支持同时管理多个Github Pages站点 
+}
+</code></pre>
 <p>ps：看到Gmeek的第一眼我就忘本了，我也想做一个这玩意。</p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 

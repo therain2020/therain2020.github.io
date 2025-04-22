@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>therain2020</title><link>https://therain2020.github.io</link><description>the path to future</description><copyright>therain2020</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://therain2020.github.io</link></image><lastBuildDate>Tue, 22 Apr 2025 14:04:39 +0000</lastBuildDate><managingEditor>therain2020</managingEditor><ttl>60</ttl><webMaster>therain2020</webMaster><item><title>项目架构</title><link>https://therain2020.github.io/post/xiang-mu-jia-gou.html</link><description># 基于Github三件套设计一个分层架构方案，涵盖内容管理、自动化流程和功能扩展性：
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>therain2020</title><link>https://therain2020.github.io</link><description>the path to future</description><copyright>therain2020</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://therain2020.github.io</link></image><lastBuildDate>Tue, 22 Apr 2025 14:11:53 +0000</lastBuildDate><managingEditor>therain2020</managingEditor><ttl>60</ttl><webMaster>therain2020</webMaster><item><title>项目架构</title><link>https://therain2020.github.io/post/xiang-mu-jia-gou.html</link><description># 基于Github三件套设计一个分层架构方案，涵盖内容管理、自动化流程和功能扩展性：
 
 ## 一、核心架构分层
 
@@ -17,41 +17,125 @@ public class IssueFetcher {
 
 ### 2.静态生成层
 
-      - 模板系统
-      - 静态生成
+采用Thymeleaf模板引擎替代Jinja2
+```Java
+@Component 
+public class StaticGenerator {
+    // 生成文章页（集成lightbox.js 图片预览功能[13]()）
+    public void generatePostPage(PostContent post, Path outputDir);
+    // 生成索引页（实现plist.html 的分页逻辑[1]()）
+    public void generateIndexPage(List&lt;PostContent&gt; posts, int pageNum); 
+}
+```
 
 ### 3.自动化部署层
 
-      - Github Actions流水线
-      - 触发条件：issues内容变更 / 手动触发
-      - 构建阶段：安装依赖(PyGithub/Jinja2) -&gt; 生成HTML -&gt; 压缩资源
-      - 部署阶段：通过actions/upload-pages-artifact发布到Github Pages
+集成Github Actions的Java实现方案
+```Yaml
+# .github/workflows/build.yml  核心配置 
+- name: Build with Maven 
+  run: mvn -B package --file pom.xml  
+- name: Deploy to Pages 
+  uses: peaceiris/actions-gh-pages@v3 
+  with:
+    github_token: ${{ secrets.GITHUB_TOKEN }}
+    publish_dir: ./target/generated-site 
+```
 
-### 4.前端表现层
+## 二、关键组件设计
 
-      - 核心样式
-      - 插件系统
-      - 内容目录：TocBot动态生成
-      - 图片灯箱：lightbox.js 实现交互
-      - 访问统计：Vercount集成busuanz
+### 1.配置中心
 
-##关键数据流设计
+```
+@Configuration 
+public class BlogConfig {
+    // 读取类似config.json 的配置（参考requirements.txt 依赖管理[3]()）
+    @Value('${blog.baseUrl}')  
+    private String baseUrl;
+    
+    // 集成utteranc评论系统（对应post.html 的评论区块[9]()）
+    @Bean 
+    public CommentService commentService() {
+        return new UtterancCommentImpl();
+    }
+}
+```
 
-### 1.内容加工流水线：
+### 2.前端资源管理
 
-Markdown写作 -&gt; Issues提交 -&gt; Actions触发 -&gt; Python处理(transliterate/xpinyin) -&gt; Jinja2渲染 -&gt; 静态HTML 
+保留原JS插件体系的集成方式：
+```
+public class AssetManager {
+    // 将GmeekTocBot.js 等插件写入生成目录 
+    public void copyPluginFiles(Path outputDir) {
+        Files.copy('src/main/resources/static/GmeekTOC.js',  
+                   outputDir.resolve('js/GmeekTOC.js')); 
+    }
+}
+```
 
-### 2.模板继承体系：
+### 3.元数据处理器
+```
+public class MetadataExtractor {
+    // 实现类似plist.html 的标签处理逻辑[1]()
+    public List&lt;String&gt; extractLabels(JSONObject issueJson) {
+        return Arrays.stream(issueJson.getJSONArray('labels')) 
+                     .map(label -&gt; label.getString('name')) 
+                     .collect(Collectors.toList()); 
+    }
+}
+```
 
-base.html （全局框架）
-├─ plist.html （文章列表）
-├─ tag.html （标签分类）
-└─ post.html （文章详情）
+## 三、技术选型建议
 
-### 3.前端资源加载：
+![Image](https://github.com/user-attachments/assets/11dd2349-6f0b-4347-9b56-40423140a521)
+
+## 四、典型工作流程
+
+### 1.Issue创建/更新事件触发
+```
+sequenceDiagram 
+    Github Issues-&gt;&gt;Java服务: Webhook通知 
+    Java服务-&gt;&gt;Github API: 获取Issue详情[2]()
+    Github API-&gt;&gt;Java服务: 返回JSON数据 
+    Java服务-&gt;&gt;StaticGenerator: 生成HTML（集成footer.html[6]() ）
+    StaticGenerator-&gt;&gt;Github Pages: 提交到gh-pages分支 
+```
 
 
+### 2.构建部署流程
+```
+# 通过Actions实现CI/CD[10]()
+mvn clean package 
+&amp;&amp; java -jar blog-generator.jar  
+&amp;&amp; gh-pages -d target/generated-site 
+```
 
+## 五、扩展性设计
+
+### 1.插件机制
+```
+public interface BlogPlugin {
+    void apply(PostContent post, TemplateContext context);
+}
+// 实现类似GmeekVercount的访问统计[5]()
+@Component 
+public class VisitCounterPlugin implements BlogPlugin {
+    public void apply(PostContent post, TemplateContext ctx) {
+        ctx.addScript('&lt;script  src='/js/GmeekVercount.js'&gt;&lt;/script&gt;'); 
+    }
+}
+```
+
+### 2.多仓库支持
+通过@ConfigurationProperties实现多源配置：
+```
+@ConfigurationProperties(prefix = 'github')
+public class RepoConfig {
+    private Map&lt;String, RepoProfile&gt; repositories;
+    // 支持同时管理多个Github Pages站点 
+}
+```
 
 
 ps：看到Gmeek的第一眼我就忘本了，我也想做一个这玩意。</description><guid isPermaLink="true">https://therain2020.github.io/post/xiang-mu-jia-gou.html</guid><pubDate>Tue, 22 Apr 2025 14:01:23 +0000</pubDate></item><item><title>Linux和Windows 在内核上的区别</title><link>https://therain2020.github.io/post/Linux-he-Windows%20-zai-nei-he-shang-de-qu-bie.html</link><description># Linux和Windows 在内核上的区别 
