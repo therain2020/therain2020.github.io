@@ -1,5 +1,61 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>therain2020</title><link>https://therain2020.github.io</link><description>the path to future</description><copyright>therain2020</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://therain2020.github.io</link></image><lastBuildDate>Tue, 22 Apr 2025 07:20:25 +0000</lastBuildDate><managingEditor>therain2020</managingEditor><ttl>60</ttl><webMaster>therain2020</webMaster><item><title>Linux和Windows 在内核上的区别</title><link>https://therain2020.github.io/post/Linux-he-Windows%20-zai-nei-he-shang-de-qu-bie.html</link><description># Linux和Windows 在内核上的区别 
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>therain2020</title><link>https://therain2020.github.io</link><description>the path to future</description><copyright>therain2020</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://therain2020.github.io</link></image><lastBuildDate>Tue, 22 Apr 2025 14:01:51 +0000</lastBuildDate><managingEditor>therain2020</managingEditor><ttl>60</ttl><webMaster>therain2020</webMaster><item><title>项目架构</title><link>https://therain2020.github.io/post/xiang-mu-jia-gou.html</link><description># 基于Github三件套设计一个分层架构方案，涵盖内容管理、自动化流程和功能扩展性：
+
+## 一、核心架构分层
+
+### 1.数据获取层
+
+使用Github API Client for Java实现Issue数据抓取
+‘’‘Java
+public class IssueFetcher {
+    // 实现基于标签过滤的Issue查询（对应MD文档的标签要求）
+    public List&lt;IssueDTO&gt; fetchIssuesByLabel(String repo, String label);
+    
+    // 解析Issue正文中的Markdown和元数据（参考post.html 模板）
+    public PostContent parseIssueBody(String markdownContent);
+}
+’‘’
+
+### 2.静态生成层
+
+      - 模板系统
+      - 静态生成
+
+### 3.自动化部署层
+
+      - Github Actions流水线
+      - 触发条件：issues内容变更 / 手动触发
+      - 构建阶段：安装依赖(PyGithub/Jinja2) -&gt; 生成HTML -&gt; 压缩资源
+      - 部署阶段：通过actions/upload-pages-artifact发布到Github Pages
+
+### 4.前端表现层
+
+      - 核心样式
+      - 插件系统
+      - 内容目录：TocBot动态生成
+      - 图片灯箱：lightbox.js 实现交互
+      - 访问统计：Vercount集成busuanz
+
+##关键数据流设计
+
+### 1.内容加工流水线：
+
+Markdown写作 -&gt; Issues提交 -&gt; Actions触发 -&gt; Python处理(transliterate/xpinyin) -&gt; Jinja2渲染 -&gt; 静态HTML 
+
+### 2.模板继承体系：
+
+base.html （全局框架）
+├─ plist.html （文章列表）
+├─ tag.html （标签分类）
+└─ post.html （文章详情）
+
+### 3.前端资源加载：
+
+
+
+
+
+ps：看到Gmeek的第一眼我就忘本了，我也想做一个这玩意。</description><guid isPermaLink="true">https://therain2020.github.io/post/xiang-mu-jia-gou.html</guid><pubDate>Tue, 22 Apr 2025 14:01:23 +0000</pubDate></item><item><title>Linux和Windows 在内核上的区别</title><link>https://therain2020.github.io/post/Linux-he-Windows%20-zai-nei-he-shang-de-qu-bie.html</link><description># Linux和Windows 在内核上的区别 
 ## 什么是内核
 ## 内核的作用
 ## 内核如何工作
