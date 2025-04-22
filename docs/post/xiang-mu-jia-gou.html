@@ -12,6 +12,61 @@
     </script>
 <meta name="description" content="# 基于Github三件套设计一个分层架构方案，涵盖内容管理、自动化流程和功能扩展性：
 
+```Text
+AIGmeek/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── aigmeek/
+│   │   │           ├── config/                # 配置中心（Spring Boot标准）
+│   │   │           │   ├── GitHubConfig.java   # OAuth认证配置 
+│   │   │           │   └── TemplateConfig.java  # 模板引擎配置 
+│   │   │           ├── core/
+│   │   │           │   ├── generator/        # 静态生成器（替代Python脚本）
+│   │   │           │   │   ├── HtmlGenerator.java  
+│   │   │           │   │   └── SitemapBuilder.java  
+│   │   │           │   └── processor/       # 内容处理器 
+│   │   │           │       ├── IssueParser.java  
+│   │   │           │       └── MarkdownConverter.java  
+│   │   │           ├── github/               # API交互层 
+│   │   │           │   ├── client/
+│   │   │           │   │   ├── IssueClient.java   # 实现PyGithub功能 
+│   │   │           │   │   └── RepoClient.java  
+│   │   │           │   └── model/            # 数据模型（Record类型）
+│   │   │           │       └── GIssue.java  
+│   │   │           └── web/
+│   │   │               └── controller/       # 预览功能API端点 
+│   │   │                   └── PreviewController.java  
+│   │   └── resources/
+│   │       ├── static/                      # 全量保留原前端资源 
+│   │       │   ├── css/
+│   │       │   │   ├── style.css            # 增强响应式布局 
+│   │       │   │   └── dark-mode.css        # 支持2025新CSS特性 
+│   │       │   ├── js/
+│   │       │   │   ├── plugins/           # 插件体系（热加载）
+│   │       │   │   │   ├── lightbox.js     # 图片灯箱优化版 
+│   │       │   │   │   └── vercount.js     # 访问统计模块 
+│   │       │   │   └── GmeekTOC.js         # 目录生成器 
+│   │       │   └── img/                   # 静态资源托管 
+│   │       └── templates/                 # Thymeleaf模板 
+│   │           ├── fragments/             # 模块化组件 
+│   │           │   ├── header.html  
+│   │           │   └── comment.html        # 集成utteranc评论 
+│   │           ├── post.html               # 文章页（支持SEO优化）
+│   │           └── index.html              # 首页（分页逻辑）
+│   └── test/                              # 测试套件 
+│       └── java/
+│           └── com/
+│               └── aigmeek/
+│                   └── core/
+│                       └── generator/      # 生成器单元测试 
+├── .github/                               # 自动化流水线 
+│   └── workflows/
+│       └── gh-pages.yml                   # 深度优化的Java构建流程 
+└── HELP.md                                # 新版文档（含AI助手指引）
+```
+
 ## 一、核心架构分层
 
 ### 1.数据获取层
@@ -152,6 +207,61 @@ public class RepoConfig {
 ps：看到Gmeek的第一眼我就忘本了，我也想做一个这玩意。">
 <meta property="og:title" content="项目架构">
 <meta property="og:description" content="# 基于Github三件套设计一个分层架构方案，涵盖内容管理、自动化流程和功能扩展性：
+
+```Text
+AIGmeek/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── aigmeek/
+│   │   │           ├── config/                # 配置中心（Spring Boot标准）
+│   │   │           │   ├── GitHubConfig.java   # OAuth认证配置 
+│   │   │           │   └── TemplateConfig.java  # 模板引擎配置 
+│   │   │           ├── core/
+│   │   │           │   ├── generator/        # 静态生成器（替代Python脚本）
+│   │   │           │   │   ├── HtmlGenerator.java  
+│   │   │           │   │   └── SitemapBuilder.java  
+│   │   │           │   └── processor/       # 内容处理器 
+│   │   │           │       ├── IssueParser.java  
+│   │   │           │       └── MarkdownConverter.java  
+│   │   │           ├── github/               # API交互层 
+│   │   │           │   ├── client/
+│   │   │           │   │   ├── IssueClient.java   # 实现PyGithub功能 
+│   │   │           │   │   └── RepoClient.java  
+│   │   │           │   └── model/            # 数据模型（Record类型）
+│   │   │           │       └── GIssue.java  
+│   │   │           └── web/
+│   │   │               └── controller/       # 预览功能API端点 
+│   │   │                   └── PreviewController.java  
+│   │   └── resources/
+│   │       ├── static/                      # 全量保留原前端资源 
+│   │       │   ├── css/
+│   │       │   │   ├── style.css            # 增强响应式布局 
+│   │       │   │   └── dark-mode.css        # 支持2025新CSS特性 
+│   │       │   ├── js/
+│   │       │   │   ├── plugins/           # 插件体系（热加载）
+│   │       │   │   │   ├── lightbox.js     # 图片灯箱优化版 
+│   │       │   │   │   └── vercount.js     # 访问统计模块 
+│   │       │   │   └── GmeekTOC.js         # 目录生成器 
+│   │       │   └── img/                   # 静态资源托管 
+│   │       └── templates/                 # Thymeleaf模板 
+│   │           ├── fragments/             # 模块化组件 
+│   │           │   ├── header.html  
+│   │           │   └── comment.html        # 集成utteranc评论 
+│   │           ├── post.html               # 文章页（支持SEO优化）
+│   │           └── index.html              # 首页（分页逻辑）
+│   └── test/                              # 测试套件 
+│       └── java/
+│           └── com/
+│               └── aigmeek/
+│                   └── core/
+│                       └── generator/      # 生成器单元测试 
+├── .github/                               # 自动化流水线 
+│   └── workflows/
+│       └── gh-pages.yml                   # 深度优化的Java构建流程 
+└── HELP.md                                # 新版文档（含AI助手指引）
+```
 
 ## 一、核心架构分层
 
@@ -362,6 +472,59 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
     <div id="content">
 <div class="markdown-body" id="postBody"><h1>基于Github三件套设计一个分层架构方案，涵盖内容管理、自动化流程和功能扩展性：</h1>
+<pre lang="Text" class="notranslate"><code class="notranslate">AIGmeek/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── aigmeek/
+│   │   │           ├── config/                # 配置中心（Spring Boot标准）
+│   │   │           │   ├── GitHubConfig.java   # OAuth认证配置 
+│   │   │           │   └── TemplateConfig.java  # 模板引擎配置 
+│   │   │           ├── core/
+│   │   │           │   ├── generator/        # 静态生成器（替代Python脚本）
+│   │   │           │   │   ├── HtmlGenerator.java  
+│   │   │           │   │   └── SitemapBuilder.java  
+│   │   │           │   └── processor/       # 内容处理器 
+│   │   │           │       ├── IssueParser.java  
+│   │   │           │       └── MarkdownConverter.java  
+│   │   │           ├── github/               # API交互层 
+│   │   │           │   ├── client/
+│   │   │           │   │   ├── IssueClient.java   # 实现PyGithub功能 
+│   │   │           │   │   └── RepoClient.java  
+│   │   │           │   └── model/            # 数据模型（Record类型）
+│   │   │           │       └── GIssue.java  
+│   │   │           └── web/
+│   │   │               └── controller/       # 预览功能API端点 
+│   │   │                   └── PreviewController.java  
+│   │   └── resources/
+│   │       ├── static/                      # 全量保留原前端资源 
+│   │       │   ├── css/
+│   │       │   │   ├── style.css            # 增强响应式布局 
+│   │       │   │   └── dark-mode.css        # 支持2025新CSS特性 
+│   │       │   ├── js/
+│   │       │   │   ├── plugins/           # 插件体系（热加载）
+│   │       │   │   │   ├── lightbox.js     # 图片灯箱优化版 
+│   │       │   │   │   └── vercount.js     # 访问统计模块 
+│   │       │   │   └── GmeekTOC.js         # 目录生成器 
+│   │       │   └── img/                   # 静态资源托管 
+│   │       └── templates/                 # Thymeleaf模板 
+│   │           ├── fragments/             # 模块化组件 
+│   │           │   ├── header.html  
+│   │           │   └── comment.html        # 集成utteranc评论 
+│   │           ├── post.html               # 文章页（支持SEO优化）
+│   │           └── index.html              # 首页（分页逻辑）
+│   └── test/                              # 测试套件 
+│       └── java/
+│           └── com/
+│               └── aigmeek/
+│                   └── core/
+│                       └── generator/      # 生成器单元测试 
+├── .github/                               # 自动化流水线 
+│   └── workflows/
+│       └── gh-pages.yml                   # 深度优化的Java构建流程 
+└── HELP.md                                # 新版文档（含AI助手指引）
+</code></pre>
 <h2>一、核心架构分层</h2>
 <h3>1.数据获取层</h3>
 <p>使用Github API Client for Java实现Issue数据抓取</p>
