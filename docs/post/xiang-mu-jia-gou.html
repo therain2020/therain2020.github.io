@@ -17,15 +17,14 @@
 ### 1.数据获取层
 
 使用Github API Client for Java实现Issue数据抓取
-‘’‘Java
+```Java
 public class IssueFetcher {
     // 实现基于标签过滤的Issue查询（对应MD文档的标签要求）
     public List<IssueDTO> fetchIssuesByLabel(String repo, String label);
-    
     // 解析Issue正文中的Markdown和元数据（参考post.html 模板）
     public PostContent parseIssueBody(String markdownContent);
 }
-’‘’
+```
 
 ### 2.静态生成层
 
@@ -75,15 +74,14 @@ ps：看到Gmeek的第一眼我就忘本了，我也想做一个这玩意。">
 ### 1.数据获取层
 
 使用Github API Client for Java实现Issue数据抓取
-‘’‘Java
+```Java
 public class IssueFetcher {
     // 实现基于标签过滤的Issue查询（对应MD文档的标签要求）
     public List<IssueDTO> fetchIssuesByLabel(String repo, String label);
-    
     // 解析Issue正文中的Markdown和元数据（参考post.html 模板）
     public PostContent parseIssueBody(String markdownContent);
 }
-’‘’
+```
 
 ### 2.静态生成层
 
@@ -129,7 +127,7 @@ ps：看到Gmeek的第一眼我就忘本了，我也想做一个这玩意。">
 <meta property="og:url" content="https://therain2020.github.io/post/xiang-mu-jia-gou.html">
 <meta property="og:image" content="https://github.githubassets.com/favicons/favicon.svg">
 <title>项目架构</title>
-
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
 
 
 </head>
@@ -198,16 +196,13 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <div class="markdown-body" id="postBody"><h1>基于Github三件套设计一个分层架构方案，涵盖内容管理、自动化流程和功能扩展性：</h1>
 <h2>一、核心架构分层</h2>
 <h3>1.数据获取层</h3>
-<p>使用Github API Client for Java实现Issue数据抓取<br>
-‘’‘Java<br>
-public class IssueFetcher {<br>
-// 实现基于标签过滤的Issue查询（对应MD文档的标签要求）<br>
-public List fetchIssuesByLabel(String repo, String label);</p>
-<pre class="notranslate"><code class="notranslate">// 解析Issue正文中的Markdown和元数据（参考post.html 模板）
-public PostContent parseIssueBody(String markdownContent);
-</code></pre>
-<p>}<br>
-’‘’</p>
+<p>使用Github API Client for Java实现Issue数据抓取</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">IssueFetcher</span> {
+    <span class="pl-c">// 实现基于标签过滤的Issue查询（对应MD文档的标签要求）</span>
+    <span class="pl-k">public</span> <span class="pl-smi">List</span>&lt;<span class="pl-smi">IssueDTO</span>&gt; <span class="pl-en">fetchIssuesByLabel</span>(<span class="pl-smi">String</span> <span class="pl-s1">repo</span>, <span class="pl-smi">String</span> <span class="pl-s1">label</span>);
+    <span class="pl-c">// 解析Issue正文中的Markdown和元数据（参考post.html 模板）</span>
+    <span class="pl-k">public</span> <span class="pl-smi">PostContent</span> <span class="pl-en">parseIssueBody</span>(<span class="pl-smi">String</span> <span class="pl-s1">markdownContent</span>);
+}</pre></div>
 <h3>2.静态生成层</h3>
 <pre class="notranslate"><code class="notranslate">  - 模板系统
   - 静态生成
