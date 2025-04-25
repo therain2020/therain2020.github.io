@@ -34,17 +34,17 @@
 
 ## 3 技术架构
 
-![image-20240620203904041](StudySrc/image-20240620203904041.png)
+![image-20240620203904041](imgs/image-20240620203904041.png)
 
 
 
 ## 4 业务流程
 
-![image-20240620210153207](StudySrc/image-20240620210153207.png)
+![image-20240620210153207](imgs/image-20240620210153207.png)
 
-![image-20240620210245930](StudySrc/image-20240620210245930.png)
+![image-20240620210245930](imgs/image-20240620210245930.png)
 
-![image-20240620210300386](StudySrc/image-20240620210300386.png)
+![image-20240620210300386](imgs/image-20240620210300386.png)
 
 
 
@@ -54,7 +54,7 @@
 * 修改maven和jdk环境
 * 下载依赖
 
-![image-20240620211506463](StudySrc/image-20240620211506463.png)
+![image-20240620211506463](imgs/image-20240620211506463.png)
 
 
 
@@ -64,7 +64,7 @@
 
 ### 1 搭建前端环境概述
 
-![image-20240409111320359](StudySrc\image-20240409111320359.png)
+![image-20240409111320359](imgs/image-20240409111320359.png)
 
 
 
@@ -74,27 +74,27 @@
 
 第二步 点击立即注册，注册开发者账号
 
-![image-20240409111534910](StudySrc\image-20240409111534910.png)
+![image-20240409111534910](imgs/image-20240409111534910.png)
 
 第三步 选择注册类型，小程序
 
-![image-20240409111609420](StudySrc\image-20240409111609420.png)
+![image-20240409111609420](imgs/image-20240409111609420.png)
 
 第四步 按照页面提示，填写相关信息
 
-![image-20240409111648482](StudySrc\image-20240409111648482.png)
+![image-20240409111648482](imgs/image-20240409111648482.png)
 
 第五步 填写注册信息之后，完成注册，进行登录。
 
 * 在微信公众平台首页，使用微信扫描登录
 
-![image-20240409111935147](StudySrc\image-20240409111935147.png)
+![image-20240409111935147](imgs/image-20240409111935147.png)
 
 第六步 填写小程序类目
 
 * 代驾
 
-![image-20240409112149818](StudySrc\image-20240409112149818.png)
+![image-20240409112149818](imgs/image-20240409112149818.png)
 
 
 
@@ -102,23 +102,23 @@
 
 #### 3.1 获取appid和app秘钥
 
-![image-20240409142806321](StudySrc\image-20240409142806321.png)
+![image-20240409142806321](imgs/image-20240409142806321.png)
 
 
 
 #### 3.2 开通服务
 
-![image-20240409142918764](StudySrc\image-20240409142918764.png)
+![image-20240409142918764](imgs/image-20240409142918764.png)
 
 
 
-![image-20240409143027920](StudySrc\image-20240409143027920.png)
+![image-20240409143027920](imgs/image-20240409143027920.png)
 
 
 
 #### 3.3 开通插件
 
-![image-20240409143310362](StudySrc\image-20240409143310362.png)
+![image-20240409143310362](imgs/image-20240409143310362.png)
 
 * 在浏览器输入两个地址
 
@@ -134,7 +134,7 @@ https://fuwu.weixin.qq.com/search?tab=3&type=&serviceType=3&page=1&kw=微信同�
 
 https://nodejs.org/en/download
 
-![image-20240409145220766](StudySrc\image-20240409145220766.png)
+![image-20240409145220766](imgs/image-20240409145220766.png)
 
 * 按照提示，一步一步进行操作就可以了
 
@@ -146,9 +146,9 @@ https://nodejs.org/en/download
 
 * 官网下载安装软件
 
-![image-20240409145357268](StudySrc\image-20240409145357268.png)
+![image-20240409145357268](imgs/image-20240409145357268.png)
 
-![image-20240409145416885](StudySrc\image-20240409145416885.png)
+![image-20240409145416885](imgs/image-20240409145416885.png)
 
 * 按照提示，下一步下一步安装就可以了
 
@@ -156,7 +156,7 @@ https://nodejs.org/en/download
 
 微信开发者工具需要安装两次，两次安装过程相同的，不同是安装目录不一样
 
-![image-20240409145601210](StudySrc\image-20240409145601210.png)
+![image-20240409145601210](imgs/image-20240409145601210.png)
 
 ### 6 微信开发者工具运行前端项目
 
@@ -170,7 +170,7 @@ https://nodejs.org/en/download
 
 ### 1 搭建后端环境概述
 
-![image-20240411101937244](StudySrc\image-20240411101937244.png)
+![image-20240411101937244](imgs/image-20240411101937244.png)
 
 ### 2 安装软件环境
 
@@ -238,7 +238,7 @@ docker run -d --name=rabbitmq --restart=always -p 5672:5672 -p 15672:15672 rabbi
 * 使用工具连接MySQL数据库
 * 在工具里面执行创建数据库和表语句
 
-![image-20240411134324391](StudySrc\image-20240411134324391.png)
+![image-20240411134324391](imgs/image-20240411134324391.png)
 
 
 
@@ -378,7 +378,7 @@ seata:
 
 ## 2 Mybatis-Plus入门案例
 
-![image-20240412114944581](StudySrc\image-20240412114944581.png)
+![image-20240412114944581](imgs/image-20240412114944581.png)
 
 **第一步 创建数据库和表**
 
@@ -609,15 +609,15 @@ public class MpDemo1 {
 
 ### 逻辑删除
 
-![image-20240412155449561](StudySrc\image-20240412155449561.png)
+![image-20240412155449561](imgs/image-20240412155449561.png)
 
 第一步 表添加逻辑删除标志位字段
 
-![image-20240412155137820](StudySrc\image-20240412155137820.png)
+![image-20240412155137820](imgs/image-20240412155137820.png)
 
 第二步 在对应实体类添加逻辑删除标志属性，在属性上面添加注解
 
-![image-20240412155149460](StudySrc\image-20240412155149460.png)
+![image-20240412155149460](imgs/image-20240412155149460.png)
 
 第三步 在配置文件指定逻辑删除规则，默认0没有删除，1删除
 
@@ -674,7 +674,7 @@ public void select3() {
 
 * mp默认主键策略，生成唯一的值
 
-![image-20240413152845643](StudySrc\image-20240413152845643.png)
+![image-20240413152845643](imgs/image-20240413152845643.png)
 
 ### 第一个策略：ASSIGN_ID
 
@@ -686,9 +686,9 @@ public void select3() {
 
 * 生成唯一的值，包含数字和字母，表对应字段类型varchar类型
 
-![image-20240413153654310](StudySrc\image-20240413153654310.png)
+![image-20240413153654310](imgs/image-20240413153654310.png)
 
-![image-20240413153803223](StudySrc\image-20240413153803223.png)
+![image-20240413153803223](imgs/image-20240413153803223.png)
 
 ### 第三个策略：AUTO
 
@@ -761,7 +761,7 @@ public void selectPage() {
 
 ## 乘客端登录：微信小程序登录流程
 
-![image-20240506112804142](StudySrc/image-20240506112804142.png)
+![image-20240506112804142](imgs/image-20240506112804142.png)
 
 
 
@@ -771,7 +771,7 @@ public void selectPage() {
 
 * 项目工程结构
 
-![image-20240506141852990](StudySrc/image-20240506141852990.png)
+![image-20240506141852990](imgs/image-20240506141852990.png)
 
 * 引入微信工具包相关依赖
 
@@ -857,7 +857,7 @@ public class WxConfigOperator {
 
 ### 2 功能具体实现-基础模块
 
-![image-20240506153904519](StudySrc/image-20240506153904519.png)
+![image-20240506153904519](imgs/image-20240506153904519.png)
 
 * 在service-customer的CustomerInfoController
 
@@ -1054,7 +1054,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 ### 1 实现流程
 
-![image-20240507094816943](StudySrc/image-20240507094816943.png)
+![image-20240507094816943](imgs/image-20240507094816943.png)
 
 
 
@@ -1186,17 +1186,17 @@ public CustomerLoginVo getCustomerInfo(Long customerId) {
 
 -- 使用**自定义注解** + **aop** 进行优化
 
-![image-20240507135812851](StudySrc/image-20240507135812851.png)
+![image-20240507135812851](imgs/image-20240507135812851.png)
 
 
 
 * **aop基础知识**
 
-![image-20240507140803142](StudySrc/image-20240507140803142.png)
+![image-20240507140803142](imgs/image-20240507140803142.png)
 
 * **aop实现流程**
 
-![image-20240507140821251](StudySrc/image-20240507140821251.png)
+![image-20240507140821251](imgs/image-20240507140821251.png)
 
 ## 2 创建注解
 
@@ -1261,7 +1261,7 @@ public class GuiguLoginAspect {
 
 ## 1 流程
 
-![image-20240507214147107](StudySrc/image-20240507214147107.png)
+![image-20240507214147107](imgs/image-20240507214147107.png)
 
 ## 2 service-customer
 
@@ -1333,7 +1333,7 @@ public Boolean updateWxPhoneNumber(UpdateWxPhoneForm updateWxPhoneForm) {
 
 # 司机端登录与认证
 
-![image-20240510135339274](StudySrc/image-20240510135339274.png)
+![image-20240510135339274](imgs/image-20240510135339274.png)
 
 ## 司机端微信小程序登录
 
@@ -1400,7 +1400,7 @@ public class WxConfigOperator {
 
 ### 2 接口开发
 
-![image-20240510145930054](StudySrc/image-20240510145930054.png)
+![image-20240510145930054](imgs/image-20240510145930054.png)
 
 
 
@@ -1583,7 +1583,7 @@ public class DriverServiceImpl implements DriverService {
 
 ## 获取登录司机信息
 
-![image-20240510212326682](StudySrc/image-20240510212326682.png)
+![image-20240510212326682](imgs/image-20240510212326682.png)
 
 ### 1 service-driver
 
@@ -1659,7 +1659,7 @@ public Result<DriverLoginVo> getDriverLoginInfo() {
 
 ### 1 腾讯云对象存储概述
 
-![image-20240511145325304](StudySrc/image-20240511145325304.png)
+![image-20240511145325304](imgs/image-20240511145325304.png)
 
 * 我们项目基于腾讯云对象存储服务COS，存储司机认证相关资料（身份证、驾驶证）
 
@@ -1674,7 +1674,7 @@ public Result<DriverLoginVo> getDriverLoginInfo() {
 
 https://cloud.tencent.com/document/product/436/10199
 
-![image-20240512091653939](StudySrc/image-20240512091653939.png)
+![image-20240512091653939](imgs/image-20240512091653939.png)
 
 ### 1 web-driver
 
@@ -1753,7 +1753,7 @@ public interface CosFeignClient {
 
 * 把腾讯云需要值放到配置文件
 
-![image-20240512094222787](StudySrc/image-20240512094222787.png)
+![image-20240512094222787](imgs/image-20240512094222787.png)
 
 * 创建类读取配置文件内容
 
@@ -1887,7 +1887,7 @@ public String getImageUrl(String path) {
 
 ### 4 上传接口完善
 
-![image-20240512163417481](StudySrc/image-20240512163417481.png)
+![image-20240512163417481](imgs/image-20240512163417481.png)
 
 ```java
 @Override
@@ -1931,7 +1931,7 @@ public CosUploadVo upload(MultipartFile file, String path) {
 }
 ```
 
-![image-20240512164101985](StudySrc/image-20240512164101985.png)
+![image-20240512164101985](imgs/image-20240512164101985.png)
 
 
 
@@ -1943,7 +1943,7 @@ public CosUploadVo upload(MultipartFile file, String path) {
 
 身份证识别API地址：https://cloud.tencent.com/document/product/866/33524
 
-![image-20240513095424660](StudySrc/image-20240513095424660.png)
+![image-20240513095424660](imgs/image-20240513095424660.png)
 
 
 
@@ -1951,7 +1951,7 @@ public CosUploadVo upload(MultipartFile file, String path) {
 
 文档地址：https://console.cloud.tencent.com/api/explorer?Product=ocr&Version=2018-11-19&Action=IDCardOCR
 
-![image-20240513100024180](StudySrc/image-20240513100024180.png)
+![image-20240513100024180](imgs/image-20240513100024180.png)
 
 ### 3 service-driver
 
@@ -2428,13 +2428,13 @@ public Boolean updateDriverAuthInfo(UpdateDriverAuthInfoForm updateDriverAuthInf
 
 * **开通人脸识别**
 
-![image-20240516102951800](StudySrc/image-20240516102951800.png)
+![image-20240516102951800](imgs/image-20240516102951800.png)
 
 * **创建人员库**
 
-![image-20240516103159814](StudySrc/image-20240516103159814.png)
+![image-20240516103159814](imgs/image-20240516103159814.png)
 
-![image-20240516103308184](StudySrc/image-20240516103308184.png)
+![image-20240516103308184](imgs/image-20240516103308184.png)
 
 
 
@@ -2444,7 +2444,7 @@ public Boolean updateDriverAuthInfo(UpdateDriverAuthInfoForm updateDriverAuthInf
 
 * 修改配置文件值
 
-![image-20240516103511921](StudySrc/image-20240516103511921.png)
+![image-20240516103511921](imgs/image-20240516103511921.png)
 
 * 修改项目配置类
 
@@ -2592,7 +2592,7 @@ public Boolean creatDriverFaceModel(DriverFaceModelForm driverFaceModelForm) {
 
 最终在司机数据库表更新认证信息（身份证、驾驶证、人脸失败信息等等）
 
-![image-20240528085344002](StudySrc/image-20240528085344002.png)
+![image-20240528085344002](imgs/image-20240528085344002.png)
 
 * **启动相关服务**
 
@@ -2602,7 +2602,7 @@ service-driver服务
 
 web-driver服务
 
-![image-20240528085627977](StudySrc/image-20240528085627977.png)
+![image-20240528085627977](imgs/image-20240528085627977.png)
 
 
 
@@ -2612,7 +2612,7 @@ web-driver服务
 
 字段：腾讯云人脸模型id face_model_id
 
-![image-20240607102811439](StudySrc/image-20240607102811439.png)
+![image-20240607102811439](imgs/image-20240607102811439.png)
 
 
 
@@ -2624,7 +2624,7 @@ web-driver服务
 
 ## 开通文字识别服务
 
-![image-20240607102826311](StudySrc/image-20240607102826311.png)
+![image-20240607102826311](imgs/image-20240607102826311.png)
 
 
 
@@ -2677,17 +2677,17 @@ public class OrderController {
 
 第四步 在应用管理 -- 我的应用 ，创建应用
 
-![image-20240528123552499](StudySrc/image-20240528123552499.png)
+![image-20240528123552499](imgs/image-20240528123552499.png)
 
 第五步 在创建应用中，添加key
 
-![image-20240528123729573](StudySrc/image-20240528123729573.png)
+![image-20240528123729573](imgs/image-20240528123729573.png)
 
-![image-20240528123749125](StudySrc/image-20240528123749125.png)
+![image-20240528123749125](imgs/image-20240528123749125.png)
 
 第六步 找到添加key的值
 
-![image-20240528123825452](StudySrc/image-20240528123825452.png)
+![image-20240528123825452](imgs/image-20240528123825452.png)
 
 
 
@@ -2697,13 +2697,13 @@ public class OrderController {
 
 * 修改Nacos配置文件，修改腾讯位置服务key
 
-![image-20240529120806131](StudySrc/image-20240529120806131.png)
+![image-20240529120806131](imgs/image-20240529120806131.png)
 
-![image-20240529120828267](StudySrc/image-20240529120828267.png)
+![image-20240529120828267](imgs/image-20240529120828267.png)
 
 * 在service-map模块中编写接口
 
-![image-20240529120929784](StudySrc/image-20240529120929784.png)
+![image-20240529120929784](imgs/image-20240529120929784.png)
 
 * controller
 
@@ -2838,19 +2838,19 @@ public interface MapFeignClient {
 
 里程费=基础里程费+超出起步里程费
 
-![image-20240529130045186](StudySrc/image-20240529130045186.png)
+![image-20240529130045186](imgs/image-20240529130045186.png)
 
 
 
 ### 2.2 等候费
 
-![image-20240529130155425](StudySrc/image-20240529130155425.png)
+![image-20240529130155425](imgs/image-20240529130155425.png)
 
 
 
 ### 2.3 远途费
 
-![image-20240529130243528](StudySrc/image-20240529130243528.png)
+![image-20240529130243528](imgs/image-20240529130243528.png)
 
 
 
@@ -2915,7 +2915,7 @@ public class DroolsConfig {
 
 * 创建规则文件
 
-![image-20240530151317551](StudySrc/image-20240530151317551.png)
+![image-20240530151317551](imgs/image-20240530151317551.png)
 
 * 测试规则文件
 
@@ -2956,11 +2956,11 @@ public void test01() {
 
 * 输入对象
 
-![image-20240530153208905](StudySrc/image-20240530153208905.png)
+![image-20240530153208905](imgs/image-20240530153208905.png)
 
 * 输出对象
 
-![image-20240530153250215](StudySrc/image-20240530153250215.png)
+![image-20240530153250215](imgs/image-20240530153250215.png)
 
 ### 4.2 费用规则文件
 
@@ -3274,7 +3274,7 @@ public interface FeeRuleFeignClient {
 
 ### 第一步 创建SpringBoot工程
 
-![image-20240529202037057](StudySrc/image-20240529202037057.png)
+![image-20240529202037057](imgs/image-20240529202037057.png)
 
 
 
@@ -3486,7 +3486,7 @@ drools规则引擎由以下三部分构成：
 
 * 在使用Drools时非常重要的一个工作就是编写规则文件，通常规则文件的后缀为.drl
 
-![image-20240529204819712](StudySrc/image-20240529204819712.png)
+![image-20240529204819712](imgs/image-20240529204819712.png)
 
 ### 3.2 规则体语法结构
 
@@ -3828,15 +3828,15 @@ public ExpectOrderVo expectOrder(ExpectOrderForm expectOrderForm) {
 
 前端：
 
-![image-20240530203510975](StudySrc/image-20240530203510975.png)
+![image-20240530203510975](imgs/image-20240530203510975.png)
 
 
 
 * **启动后端服务**
 
-![image-20240530203608148](StudySrc/image-20240530203608148.png)
+![image-20240530203608148](imgs/image-20240530203608148.png)
 
-![image-20240530204113385](StudySrc/image-20240530204113385.png)
+![image-20240530204113385](imgs/image-20240530204113385.png)
 
 
 
@@ -3844,7 +3844,7 @@ public ExpectOrderVo expectOrder(ExpectOrderForm expectOrderForm) {
 
 ## 1 需求
 
-![image-20240531093727574](StudySrc/image-20240531093727574.png)
+![image-20240531093727574](imgs/image-20240531093727574.png)
 
 ## 2 乘客下单接口
 
@@ -4154,7 +4154,7 @@ GEORADIUS zhagnsan 116.4000 39.9000 1 km WITHDIST
 
 #### 封装位置相关接口
 
-![image-20240603105305455](StudySrc/image-20240603105305455.png)
+![image-20240603105305455](imgs/image-20240603105305455.png)
 
 ##### controller
 
@@ -4246,7 +4246,7 @@ public interface LocationFeignClient {
 
 #### 司机web端
 
-![image-20240603110559538](StudySrc/image-20240603110559538.png)
+![image-20240603110559538](imgs/image-20240603110559538.png)
 
 ##### controller
 
@@ -4297,9 +4297,9 @@ public class LocationServiceImpl implements LocationService {
 
 #### daijia_driver数据库里面driver_set表
 
-![image-20240603151902855](StudySrc/image-20240603151902855.png)
+![image-20240603151902855](imgs/image-20240603151902855.png)
 
-![image-20240603152119649](StudySrc/image-20240603152119649.png)
+![image-20240603152119649](imgs/image-20240603152119649.png)
 
 * driver_id ：司机id
 * service_status: 状态值1表示司机开始接单，状态值0表示司机没有接单，只有接单时候才能做后续功能
@@ -4502,9 +4502,9 @@ service-map 和 service-driver
 
 ### 2.1 需求描述
 
-![image-20240605154200851](StudySrc/image-20240605154200851.png)
+![image-20240605154200851](imgs/image-20240605154200851.png)
 
-![image-20240605154215696](StudySrc/image-20240605154215696.png)
+![image-20240605154215696](imgs/image-20240605154215696.png)
 
 
 
@@ -4522,7 +4522,7 @@ service-map 和 service-driver
 
 **下载XXL-JOB示例代码，解压，使用idea打开**
 
-![image-20240606103957819](StudySrc/image-20240606103957819.png)
+![image-20240606103957819](imgs/image-20240606103957819.png)
 
 
 
@@ -4530,9 +4530,9 @@ service-map 和 service-driver
 
 **创建XXL-JOB使用数据库和相关表**
 
-![image-20240606104320872](StudySrc/image-20240606104320872.png)
+![image-20240606104320872](imgs/image-20240606104320872.png)
 
-![image-20240606104345321](StudySrc/image-20240606104345321.png)
+![image-20240606104345321](imgs/image-20240606104345321.png)
 
 #### 第三步 
 
@@ -4540,9 +4540,9 @@ service-map 和 service-driver
 
 * 修改xxl-job-admin项目里面配置文件
 
-![image-20240606104609564](StudySrc/image-20240606104609564.png)
+![image-20240606104609564](imgs/image-20240606104609564.png)
 
-![image-20240606104712951](StudySrc/image-20240606104712951.png)
+![image-20240606104712951](imgs/image-20240606104712951.png)
 
 * 启动调度中心
 
@@ -4550,7 +4550,7 @@ service-map 和 service-driver
 
 * 默认用户名和密码： admin/123456
 
-![image-20240606104931387](StudySrc/image-20240606104931387.png)
+![image-20240606104931387](imgs/image-20240606104931387.png)
 
 
 
@@ -4560,12 +4560,12 @@ service-map 和 service-driver
 
 * 要做的具体业务（事情）
 
-![image-20240606105306171](StudySrc/image-20240606105306171.png)
+![image-20240606105306171](imgs/image-20240606105306171.png)
 
 * 引入相关依赖
 * 修改配置文件，把执行器项目在调度中心进行注册
 
-![image-20240606105554870](StudySrc/image-20240606105554870.png)
+![image-20240606105554870](imgs/image-20240606105554870.png)
 
 ```properties
 # web port
@@ -4599,19 +4599,19 @@ xxl.job.executor.logretentiondays=30
 
 * 创建配置类，获取任务调用过程中需要使用相关参数
 
-![image-20240606105811148](StudySrc/image-20240606105811148.png)
+![image-20240606105811148](imgs/image-20240606105811148.png)
 
 
 
 * 启动执行器项目
 
-![image-20240606110147063](StudySrc/image-20240606110147063.png)
+![image-20240606110147063](imgs/image-20240606110147063.png)
 
 
 
 * 注册到调度中心里面
 
-![image-20240606110924625](StudySrc/image-20240606110924625.png)
+![image-20240606110924625](imgs/image-20240606110924625.png)
 
 
 
@@ -4619,7 +4619,7 @@ xxl.job.executor.logretentiondays=30
 
 **开发执行器项目job方法**
 
-![image-20240606111101722](StudySrc/image-20240606111101722.png)
+![image-20240606111101722](imgs/image-20240606111101722.png)
 
 
 
@@ -4630,13 +4630,13 @@ xxl.job.executor.logretentiondays=30
 * 通过图形化界面方式进行操作
 * 新增任务
 
-![image-20240606111512026](StudySrc/image-20240606111512026.png)
+![image-20240606111512026](imgs/image-20240606111512026.png)
 
 * 启动任务
 
-![image-20240606111618087](StudySrc/image-20240606111618087.png)
+![image-20240606111618087](imgs/image-20240606111618087.png)
 
-![image-20240606111721238](StudySrc/image-20240606111721238.png)
+![image-20240606111721238](imgs/image-20240606111721238.png)
 
 
 
@@ -4644,7 +4644,7 @@ xxl.job.executor.logretentiondays=30
 
 * **操作service-dispatch模块**
 
-![image-20240606145052080](StudySrc/image-20240606145052080.png)
+![image-20240606145052080](imgs/image-20240606145052080.png)
 
 #### 引入依赖
 
@@ -4761,11 +4761,11 @@ public class DispatchJobHandler {
 
 * 因为任务调度是灵活过程，需要封装相关方法，通过方法实现添加并启动任务
 
-![image-20240606154850604](StudySrc/image-20240606154850604.png)
+![image-20240606154850604](imgs/image-20240606154850604.png)
 
 #### 调度中心创建任务方法xxl-job-admin
 
-![image-20240606155123730](StudySrc/image-20240606155123730.png)
+![image-20240606155123730](imgs/image-20240606155123730.png)
 
 ```java
 //自定义任务操作的方法
@@ -4832,7 +4832,7 @@ public ReturnT<String> addAndStartJob(@RequestBody XxlJobInfo jobInfo) {
 
 * 到nacos里面找到配置文件 service-dispatch-dev.yaml
 
-![image-20240606160049621](StudySrc/image-20240606160049621.png)
+![image-20240606160049621](imgs/image-20240606160049621.png)
 
 
 
@@ -5028,7 +5028,7 @@ public RestTemplate restTemplate() {
 
 ### 2.6 后续功能流程
 
-![image-20240606165157268](StudySrc/image-20240606165157268.png)
+![image-20240606165157268](imgs/image-20240606165157268.png)
 
 ### 2.7 创建并启动任务接口
 
@@ -5247,7 +5247,7 @@ public void executeTask(long jobId) {
 
 ### 2.9 乘客下单添加任务调度
 
-![image-20240606213518928](StudySrc/image-20240606213518928.png)
+![image-20240606213518928](imgs/image-20240606213518928.png)
 
 ```java
 // //乘客下单
@@ -5413,7 +5413,7 @@ public List<NewOrderDataVo> findNewOrderQueueData(Long driverId) {
 
 第五，当司机开始接单之后，清空司机临时队列新订单信息
 
-![image-20240607161728050](StudySrc/image-20240607161728050.png)
+![image-20240607161728050](imgs/image-20240607161728050.png)
 
 
 
@@ -5440,7 +5440,7 @@ public Result<CurrentOrderInfoVo> searchDriverCurrentOrder() {
 
 * 首先，找到数据库表，存储司机当日认证信息数据
 
-![image-20240607201039826](StudySrc/image-20240607201039826.png)
+![image-20240607201039826](imgs/image-20240607201039826.png)
 
 * 实现过程：根据司机id和当日日期，两个条件进行查询，根据查询结果判断
 
@@ -5795,11 +5795,11 @@ public Boolean stopService(Long driverId) {
 
 * 启动后端服务
 
-![image-20240611113554467](StudySrc/image-20240611113554467.png)
+![image-20240611113554467](imgs/image-20240611113554467.png)
 
 * XXL-JOB调度中心服务
 
-![image-20240611113632226](StudySrc/image-20240611113632226.png)
+![image-20240611113632226](imgs/image-20240611113632226.png)
 
 
 
@@ -5944,7 +5944,7 @@ public Boolean robNewOrder(Long driverId, Long orderId) {
 
 **第二种 使用乐观锁解决**，通过版本号进行控制
 
-![image-20240611131652319](StudySrc/image-20240611131652319.png)
+![image-20240611131652319](imgs/image-20240611131652319.png)
 
 **第三种  加锁解决**，学习过synchronized 及lock锁，本地锁，目前微服务架构，分布式部署方式。
 
@@ -6087,7 +6087,7 @@ public class TestServiceImpl implements TestService{
 
 **在redis添加初始值，num=0**
 
-![image-20240611154438137](StudySrc/image-20240611154438137.png)
+![image-20240611154438137](imgs/image-20240611154438137.png)
 
 
 
@@ -6103,27 +6103,27 @@ public class TestServiceImpl implements TestService{
 
 **第一步 修改nacos配置中心端口配置，端口部分注释掉**
 
-![image-20240611155521637](StudySrc/image-20240611155521637.png)
+![image-20240611155521637](imgs/image-20240611155521637.png)
 
 **第二步 项目配置文件中添加端口号 bootstrap.properties**
 
-![image-20240611155631898](StudySrc/image-20240611155631898.png)
+![image-20240611155631898](imgs/image-20240611155631898.png)
 
 **第三步 操作idea添加多个端口号**
 
-![image-20240611155829795](StudySrc/image-20240611155829795.png)
+![image-20240611155829795](imgs/image-20240611155829795.png)
 
 **第四步 启动集群服务，还需要启动网关服务**
 
 * 网关模块配置文件添加路由规则
 
-![image-20240611160755179](StudySrc/image-20240611160755179.png)
+![image-20240611160755179](imgs/image-20240611160755179.png)
 
 
 
 * 修改测试工具端口号，是网关端口号
 
-![image-20240611160351740](StudySrc/image-20240611160351740.png)
+![image-20240611160351740](imgs/image-20240611160351740.png)
 
 
 
@@ -6131,7 +6131,7 @@ public class TestServiceImpl implements TestService{
 
 #### 1 setnx+过期时间实现
 
-![image-20240611163400677](StudySrc/image-20240611163400677.png)
+![image-20240611163400677](imgs/image-20240611163400677.png)
 
 ```java
 @Override
@@ -6200,7 +6200,7 @@ public void testLock() {
 
 最终等于没锁的情况
 
-![image-20240611170514777](StudySrc/image-20240611170514777.png)
+![image-20240611170514777](imgs/image-20240611170514777.png)
 
 ```java
 //uuid防止误删
@@ -6251,7 +6251,7 @@ public void testLock() {
 
 * **通过uuid防止误删，但是还是存在问题，不具备原子性的**
 
-![image-20240611172029776](StudySrc/image-20240611172029776.png)
+![image-20240611172029776](imgs/image-20240611172029776.png)
 
 ```java
 //lua脚本保证原子性
@@ -6366,7 +6366,7 @@ testLock();
 
 #### 2 准备工作
 
-![image-20240611195448327](StudySrc/image-20240611195448327.png)
+![image-20240611195448327](imgs/image-20240611195448327.png)
 
 ##### 引入依赖
 
@@ -6806,7 +6806,7 @@ public OrderInfoVo getOrderInfo(Long orderId, Long driverId) {
 
 ## 2 司乘同显
 
-![image-20240612211627429](StudySrc/image-20240612211627429.png)
+![image-20240612211627429](imgs/image-20240612211627429.png)
 
 * 司机抢单成功后要赶往上车点，我们要计算司机赶往上车点的最佳线路，司机端与乘客端都要显示司机乘同显，这样乘客就能实时看见司机的动向。
 
@@ -7216,7 +7216,7 @@ public Boolean updateOrderCart(UpdateOrderCartForm updateOrderCartForm) {
 
 * 启动后端服务
 
-![image-20240613122552727](StudySrc/image-20240613122552727.png)
+![image-20240613122552727](imgs/image-20240613122552727.png)
 
 
 
@@ -7253,9 +7253,9 @@ public class FileController {
 }
 ```
 
-![image-20240613123515838](StudySrc/image-20240613123515838.png)
+![image-20240613123515838](imgs/image-20240613123515838.png)
 
-![image-20240613123827129](StudySrc/image-20240613123827129.png)
+![image-20240613123827129](imgs/image-20240613123827129.png)
 
 
 
@@ -7872,9 +7872,9 @@ docker run \
 
 * 在minio控制台创建buckets
 
-![image-20240613231015182](StudySrc/image-20240613231015182.png)
+![image-20240613231015182](imgs/image-20240613231015182.png)
 
-![image-20240613232333159](StudySrc/image-20240613232333159.png)
+![image-20240613232333159](imgs/image-20240613232333159.png)
 
 
 
@@ -8057,11 +8057,11 @@ public Boolean upload(MultipartFile file, OrderMonitorForm orderMonitorForm) {
 
 * 官方网址：https://cloud.tencent.com/product/ci
 
-![image-20240614134255012](StudySrc/image-20240614134255012.png)
+![image-20240614134255012](imgs/image-20240614134255012.png)
 
-![image-20240614134324898](StudySrc/image-20240614134324898.png)
+![image-20240614134324898](imgs/image-20240614134324898.png)
 
-![image-20240614134545725](StudySrc/image-20240614134545725.png)
+![image-20240614134545725](imgs/image-20240614134545725.png)
 
 
 
@@ -8069,7 +8069,7 @@ public Boolean upload(MultipartFile file, OrderMonitorForm orderMonitorForm) {
 
 #### 封装图片审核方法
 
-![image-20240614135055702](StudySrc/image-20240614135055702.png)
+![image-20240614135055702](imgs/image-20240614135055702.png)
 
 ```java
 @Service
@@ -8124,7 +8124,7 @@ public class CiServiceImpl implements CiService {
 
 #### 腾讯云COS图片增加审核
 
-![image-20240614135913741](StudySrc/image-20240614135913741.png)
+![image-20240614135913741](imgs/image-20240614135913741.png)
 
 ```JAVA
 //图片审核
@@ -8238,7 +8238,7 @@ Result<TextAuditingVo> textAuditing(@RequestBody String content);
 
 ### 6.5 订单监控接口完善
 
-![image-20240614143008956](StudySrc/image-20240614143008956.png)
+![image-20240614143008956](imgs/image-20240614143008956.png)
 
 ```java
 @Override
@@ -8290,11 +8290,11 @@ public Boolean upload(MultipartFile file, OrderMonitorForm orderMonitorForm) {
 
 ### 2.1 准备计算距离工具类
 
-![image-20240614221825609](StudySrc/image-20240614221825609.png)
+![image-20240614221825609](imgs/image-20240614221825609.png)
 
 ### 2.2 地图微服务接口
 
-![image-20240614222008358](StudySrc/image-20240614222008358.png)
+![image-20240614222008358](imgs/image-20240614222008358.png)
 
 ```java
 @Operation(summary = "代驾服务：计算订单实际里程")
@@ -8365,7 +8365,7 @@ Result<BigDecimal> calculateOrderRealDistance(@PathVariable Long orderId);
 
 ## 3 计算系统奖励
 
-![image-20240614231941330](StudySrc/image-20240614231941330.png)
+![image-20240614231941330](imgs/image-20240614231941330.png)
 
 ```
 系统奖励
@@ -8376,7 +8376,7 @@ Result<BigDecimal> calculateOrderRealDistance(@PathVariable Long orderId);
 
 ### 3.1 创建规则文件
 
-![image-20240614231416172](StudySrc/image-20240614231416172.png)
+![image-20240614231416172](imgs/image-20240614231416172.png)
 
 ### 3.2 添加规则引擎工具类
 
@@ -8457,7 +8457,7 @@ Result<RewardRuleResponseVo> calculateOrderRewardFee(@RequestBody RewardRuleRequ
 
 ## 4 根据时间段获取订单数
 
-![image-20240614233417799](StudySrc/image-20240614233417799.png)
+![image-20240614233417799](imgs/image-20240614233417799.png)
 
 ### 4.1 订单微服务接口
 
@@ -8504,7 +8504,7 @@ Result<Long> getOrderNumByTime(@PathVariable("startTime") String startTime, @Pat
 
 ### 5.1 创建规则文件
 
-![image-20240615001825720](StudySrc/image-20240615001825720.png)
+![image-20240615001825720](imgs/image-20240615001825720.png)
 
 ### 5.2 编写分账接口
 
@@ -8576,7 +8576,7 @@ Result<ProfitsharingRuleResponseVo> calculateOrderProfitsharingFee(@RequestBody 
 
 ### 6.1 订单微服务接口
 
-![image-20240615011509506](StudySrc/image-20240615011509506.png)
+![image-20240615011509506](imgs/image-20240615011509506.png)
 
 ```java
 @Operation(summary = "结束代驾服务更新订单账单")
@@ -8645,7 +8645,7 @@ Result<Boolean> endDrive(@RequestBody UpdateOrderBillForm updateOrderBillForm);
 
 ## 7 结束代驾
 
-![image-20240615105724006](StudySrc/image-20240615105724006.png)
+![image-20240615105724006](imgs/image-20240615105724006.png)
 
 ### controller
 
@@ -8764,7 +8764,7 @@ public Boolean endDrive(OrderFeeForm orderFeeForm) {
 
 * **判断预估里程和实际里程差别**
 
-![image-20240615141115839](StudySrc/image-20240615141115839.png)
+![image-20240615141115839](imgs/image-20240615141115839.png)
 
 ```JAVA
 //司机到达代驾起始地点
@@ -8818,7 +8818,7 @@ if(distance > SystemConstant.DRIVER_END_LOCATION_DISTION) {
 
 #### 订单微服务接口
 
-![image-20240615200005537](StudySrc/image-20240615200005537.png)
+![image-20240615200005537](imgs/image-20240615200005537.png)
 
 controller
 
@@ -9516,7 +9516,7 @@ public OrderInfoVo getOrderInfo(Long orderId, Long customerId) {
 
 ### 1.1 获取乘客openid
 
-![image-20240616142805526](StudySrc/image-20240616142805526.png)
+![image-20240616142805526](imgs/image-20240616142805526.png)
 
 ```java
 @Operation(summary = "获取客户OpenId")
@@ -9558,7 +9558,7 @@ Result<String> getCustomerOpenId(@PathVariable("customerId") Long customerId);
 
 ### 1.3 获取订单支付信息
 
-![image-20240616143435753](StudySrc/image-20240616143435753.png)
+![image-20240616143435753](imgs/image-20240616143435753.png)
 
 ```java
 @Operation(summary = "获取订单支付信息")
@@ -9620,7 +9620,7 @@ Result<OrderPayVo> getOrderPayVo(@PathVariable("orderNo") String orderNo, @PathV
 
 ### 2.2 微信支付准备工作
 
-![image-20240616153713006](StudySrc/image-20240616153713006.png)
+![image-20240616153713006](imgs/image-20240616153713006.png)
 
 * 引入支付依赖
 
@@ -9815,7 +9815,7 @@ public WxPrepayVo createWxPayment(CreateWxPaymentForm createWxPaymentForm) {
 
 ## 3 支付结果查询
 
-![image-20240616211848555](StudySrc/image-20240616211848555.png)
+![image-20240616211848555](imgs/image-20240616211848555.png)
 
 ### 3.1 根据订单编号查询支付状态
 
@@ -9966,7 +9966,7 @@ public Map<String,Object> notify(HttpServletRequest request) {
 
 #### 封装RabbitMQ
 
-![image-20240616221233240](StudySrc/image-20240616221233240.png)
+![image-20240616221233240](imgs/image-20240616221233240.png)
 
 ```java
 @Service
@@ -10003,7 +10003,7 @@ public class RabbitService {
 
 * service-payment-dev.yaml
 
-![image-20240616221744271](StudySrc/image-20240616221744271.png)
+![image-20240616221744271](imgs/image-20240616221744271.png)
 
 
 
@@ -10347,13 +10347,13 @@ public void handleOrder(String orderNo) {
 
 #### 2.2 TCC
 
-![image-20240617173723855](StudySrc/image-20240617173723855.png)
+![image-20240617173723855](imgs/image-20240617173723855.png)
 
 * TCC是Try ( 尝试 ) — Confirm(确认) — Cancel ( 取消 )
 
-![image-20240617173443551](StudySrc/image-20240617173443551.png)
+![image-20240617173443551](imgs/image-20240617173443551.png)
 
-![image-20240617173500844](StudySrc/image-20240617173500844.png)
+![image-20240617173500844](imgs/image-20240617173500844.png)
 
 * TCC不是强一致性，保证最终一致性
 
@@ -10397,7 +10397,7 @@ public void handleOrder(String orderNo) {
 * 安装seata可以在Linux系统中使用docker安装
 * 安装到windows里面（测试）
 
-![image-20240617210138914](StudySrc/image-20240617210138914.png)
+![image-20240617210138914](imgs/image-20240617210138914.png)
 
 
 
@@ -10434,7 +10434,7 @@ seata.service.grouplist.default=127.0.0.1:8091
 
 ### 3.4 在具体业务方法添加注解
 
-![image-20240617210755490](StudySrc/image-20240617210755490.png)
+![image-20240617210755490](imgs/image-20240617210755490.png)
 
 
 
@@ -10482,7 +10482,7 @@ seata.service.grouplist.default=127.0.0.1:8091
 
 -- 队列最大长度
 
-![image-20240618195845067](StudySrc/image-20240618195845067.png)
+![image-20240618195845067](imgs/image-20240618195845067.png)
 
 
 
@@ -10498,7 +10498,7 @@ delayedQueue.offer(): 向队列中存储数据
 
 blockingDeque.take(): 从队列中获取数据
 
-![image-20240618200718435](StudySrc/image-20240618200718435.png)
+![image-20240618200718435](imgs/image-20240618200718435.png)
 
 * **在OrderInfoServiceImpl里面saveOrderInfo方法**
 
@@ -10628,7 +10628,7 @@ public void orderCancel(long orderId) {
 
 乘客端有优惠券频道，未使用、未领取及已使用三个菜单，在结束代驾服务后，乘客支付时可以选择一张满足条件的优惠券进行抵扣支付。
 
-![image-20240618205931226](StudySrc/image-20240618205931226.png)
+![image-20240618205931226](imgs/image-20240618205931226.png)
 
 ## 2 查询乘客未领取优惠卷
 
