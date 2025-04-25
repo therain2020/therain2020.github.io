@@ -1,8 +1,16 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>therain2020</title><link>https://therain2020.github.io</link><description>the path to future</description><copyright>therain2020</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://therain2020.github.io</link></image><lastBuildDate>Fri, 25 Apr 2025 16:14:56 +0000</lastBuildDate><managingEditor>therain2020</managingEditor><ttl>60</ttl><webMaster>therain2020</webMaster><item><title>一些要做的事情</title><link>https://therain2020.github.io/post/yi-xie-yao-zuo-de-shi-qing.html</link><description>项目话术：
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>therain2020</title><link>https://therain2020.github.io</link><description>the path to future</description><copyright>therain2020</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://therain2020.github.io</link></image><lastBuildDate>Fri, 25 Apr 2025 17:08:10 +0000</lastBuildDate><managingEditor>therain2020</managingEditor><ttl>60</ttl><webMaster>therain2020</webMaster><item><title>一些要做的事情</title><link>https://therain2020.github.io/post/yi-xie-yao-zuo-de-shi-qing.html</link><description>1.项目话术：
 
 - [校园快送](https://blog.csdn.net/qq_45195447/article/details/143307640)
-- [诚通出行]()。</description><guid isPermaLink="true">https://therain2020.github.io/post/yi-xie-yao-zuo-de-shi-qing.html</guid><pubDate>Fri, 25 Apr 2025 16:14:29 +0000</pubDate></item><item><title>项目架构</title><link>https://therain2020.github.io/post/xiang-mu-jia-gou.html</link><description># 基于Github三件套设计一个分层架构方案，涵盖内容管理、自动化流程和功能扩展性：
+- [诚通出行]()
+
+2.信息概论答辩###4月28日上午
+
+3.HSBC 面试预约
+
+4.招商训练营
+
+5.今天对自己的简历进行了大改，部分地方需要进行强化，尤其是①数据是否正确，怎么来的②相对陌生的技术。</description><guid isPermaLink="true">https://therain2020.github.io/post/yi-xie-yao-zuo-de-shi-qing.html</guid><pubDate>Fri, 25 Apr 2025 16:14:29 +0000</pubDate></item><item><title>项目架构</title><link>https://therain2020.github.io/post/xiang-mu-jia-gou.html</link><description># 基于Github三件套设计一个分层架构方案，涵盖内容管理、自动化流程和功能扩展性：
 
 ```Text
 AIGmeek/
