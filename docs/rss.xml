@@ -1,5 +1,57 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>therain2020</title><link>https://therain2020.github.io</link><description>the path to future</description><copyright>therain2020</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://therain2020.github.io</link></image><lastBuildDate>Mon, 28 Apr 2025 12:36:51 +0000</lastBuildDate><managingEditor>therain2020</managingEditor><ttl>60</ttl><webMaster>therain2020</webMaster><item><title>软件测试面经</title><link>https://therain2020.github.io/post/ruan-jian-ce-shi-mian-jing.html</link><description>### 测试工作是怎么进行的
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>therain2020</title><link>https://therain2020.github.io</link><description>the path to future</description><copyright>therain2020</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://therain2020.github.io</link></image><lastBuildDate>Mon, 28 Apr 2025 14:08:05 +0000</lastBuildDate><managingEditor>therain2020</managingEditor><ttl>60</ttl><webMaster>therain2020</webMaster><item><title>牛客上收集的测试面经（一）</title><link>https://therain2020.github.io/post/niu-ke-shang-shou-ji-de-ce-shi-mian-jing-%EF%BC%88-yi-%EF%BC%89.html</link><description> **1、get和post方法的区别？**
+根据 RFC 规范：
+```
+GET 的语义是从服务器获取指定的资源
+推理得到：GET 方法安全且幂等，因为GET只读，数据可以缓存在浏览器（保存为书签）/代理（nginx）中
+``` 
+```
+POST 的语义是根据请求负荷（报文body）对指定的资源做出处理，具体的处理方式视资源类型而不同
+推理得到：POST 因为会修改数据，所以不安全，因为重复请求会导致结果不一样，所以不是幂等的，综上POST请求不会被缓存，也不能保存为浏览器书签
+``` 
+
+
+
+**2、http和https的区别？**
+
+协议：HTTP 即超文本传输协议，默认明文传输，不安全；HTTPS 在 TCP 和 HTTP 之间增加SSL/TLS 安全协议 加密传输 
+握手：HTTP TCP 三次握手即可传输 ； HTTPS 增加 SSL/TLS 的握手
+端口：HTTP 80 ；HTTPS 443
+建议跳转 [小林](https://xiaolincoding.com/interview/linux.html#linux-%E5%91%BD%E4%BB%A4%E9%9D%A2%E8%AF%95%E9%A2%98)
+
+**3、Linux常用命令？**
+
+文件相关(mv mkdir cd ls)
+进程相关( ps top netstate )
+权限相关(chmod chown useradd groupadd)
+网络相关(netstat ip addr)
+测试相关(测试网络连通性:ping 测试端口连通性:telnet)
+
+**4、Java中equals()方法和==的区别？**
+对于字符串变量
+```
+'=='比较内存中的首地址 ； 'equals'比较字符串包含内容，因为Java中参数为string的equals是默认重写的
+``` 
+
+
+对于非字符串变量
+```
+如果没有重写equals方法，那么都是比较堆内存中的首地址
+``` 
+
+**5、Java中基本数据类型？**
+8种
+* 6种数值型：整数类型（byte、short、int、long）和浮点类型（float、double）
+* 字符型：char
+* 布尔型：boolean 
+
+**6、Java多线程有哪些实现方式？**
+思想 &gt; 代码
+什么是：类似一心多用，一机多用
+怎么实现
+way1
+```
+1.定义一个类，继承Thread类，重写run方法（这个方法里面写线程的功能）。</description><guid isPermaLink="true">https://therain2020.github.io/post/niu-ke-shang-shou-ji-de-ce-shi-mian-jing-%EF%BC%88-yi-%EF%BC%89.html</guid><pubDate>Mon, 28 Apr 2025 14:07:40 +0000</pubDate></item><item><title>软件测试面经</title><link>https://therain2020.github.io/post/ruan-jian-ce-shi-mian-jing.html</link><description>### 测试工作是怎么进行的
 
 &gt; [!NOTE]
 &gt;  根据需求规格说明书做测试需求分析，制定测试计划（包括测试分组、测试模块分工、测试时间以及进度安排），组员按分工编写用例，用例编写完成进行审核，审核通过后按测试时用例和功能分工进行测试，测试时考虑浏览器是否兼容，发现bug则提交issue，并对bug进行跟踪直到缺陷可以接受，最后分析测试结果，撰写测试报告。</description><guid isPermaLink="true">https://therain2020.github.io/post/ruan-jian-ce-shi-mian-jing.html</guid><pubDate>Mon, 28 Apr 2025 12:36:18 +0000</pubDate></item><item><title>本地上传项目的最速流程</title><link>https://therain2020.github.io/post/ben-di-shang-chuan-xiang-mu-de-zui-su-liu-cheng.html</link><description>若本地已有项目，想将其上传到新的 GitHub 仓库，可按以下步骤操作：
