@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://github.githubassets.com/favicons/favicon.svg"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="### Redis 常见数据类型和应用场景
+
+常见的有五种：String、Hash、List、Set、Zset
+
+新版本增加的：BitMap、HyperLogLog、GEO、Stream
+
+### Redis为什么那么快？
+1.是内存数据库，所有操作都在内存上进行
+2.Redis实现的数据结构使得我们在对数据进行增删改查操作时，Redis能高效处理
+（Redis实现的数据结构支持对数据进行高效的增删改查操作）
+
+> PS:
+> Redis数据结构并不是数据类型（String、List、Hash、Zset、Set），数据类型是Redis键值对中value的数据类型，即数据的保存形式。">
+<meta property="og:title" content="Redis相关面经">
+<meta property="og:description" content="### Redis 常见数据类型和应用场景
+
+常见的有五种：String、Hash、List、Set、Zset
+
+新版本增加的：BitMap、HyperLogLog、GEO、Stream
+
+### Redis为什么那么快？
+1.是内存数据库，所有操作都在内存上进行
+2.Redis实现的数据结构使得我们在对数据进行增删改查操作时，Redis能高效处理
+（Redis实现的数据结构支持对数据进行高效的增删改查操作）
+
+> PS:
+> Redis数据结构并不是数据类型（String、List、Hash、Zset、Set），数据类型是Redis键值对中value的数据类型，即数据的保存形式。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://therain2020.github.io/post/Redis-xiang-guan-mian-jing.html">
+<meta property="og:image" content="https://github.githubassets.com/favicons/favicon.svg">
+<title>Redis相关面经</title>
+
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">Redis相关面经</h1>
+<div class="title-right">
+    <a href="https://therain2020.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/therain2020/therain2020.github.io/issues/14" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><h3>Redis 常见数据类型和应用场景</h3>
+<p>常见的有五种：String、Hash、List、Set、Zset</p>
+<p>新版本增加的：BitMap、HyperLogLog、GEO、Stream</p>
+<h3>Redis为什么那么快？</h3>
+<p>1.是内存数据库，所有操作都在内存上进行<br>
+2.Redis实现的数据结构使得我们在对数据进行增删改查操作时，Redis能高效处理<br>
+（Redis实现的数据结构支持对数据进行高效的增删改查操作）</p>
+<blockquote>
+<p>PS:<br>
+Redis数据结构并不是数据类型（String、List、Hash、Zset、Set），数据类型是Redis键值对中value的数据类型，即数据的保存形式。这些对象的底层实现方式就用到了数据结构<br>
+1.那么键值对数据库是怎么实现的的？Redis的键值对中的key一般是String，而value则可以是字符串对象，也可以是集合数据类型的对象（List对象、Hash对象、Set对象、Zset对象）<br>
+2.为什么String适合做Key？String对象不可变，一旦创建就无法修改。这确保了key的稳定性。若key可变，则可能导致hashCode和equals方法不一致，进而影响HashMap的正确性。<br>
+3.（不同数据类型的）键值对如何保存在Redis中？使用 →哈希表← 保存所有键值对，O(1)查询。哈希表（一种数组）中元素叫做哈希桶。<br>
+4.Redis的哈希桶如何保存键值对数据？哈希桶存放的是指向键值对数据的指针（dictEntry*），通过指针寻找键值对数据。因为键值对的Value可以保存字符串对象和几何数据类型的对象，所以键值对的数据结构中并不是直接保存值本身，而是保存了void * key和void * value指针，分别指向实际的键对象和值对象，这样一来即使是集合数据也可以通过void * value指针找到。</p>
+</blockquote>
+<p>旧版（Redis 3.0）：SDS、双向链表、压缩列表、哈希表、整数集合、跳表<br>
+新版（2021-11-29）：SDS、quicklist、listpack、哈希表、整数集合、跳表</p>
+<h2>细说各种数据结构：</h2>
+<h3>一、SDS</h3>
+<p>Redis是由C语言实现的，但因为char* 字符数组无法满足需求，所以Redis自己封装了一个名为简单动态字符串（simple dynamic string，SDS）的数据结构来表示字符串</p>
+<h4>C语言字符串的缺陷</h4>
+<p>我们首先应该知道C语言字符串以"\0"作为结尾位置，也是字符串的一部分，且字符串操作函数读取到"\0"时停止操作。<br>
+①C语言通过遍历获取字符串长度，时间复杂度为O(N)<br>
+②因为以"\0"作为结尾位置，导致字符串里面不能含"\0"字符，否则会被误认为字符串结尾，导致C语言的字符串只能保存文本数据，不能保存图片、音频、视频等二进制数据。<br>
+③C语言的字符串在拼接的时候，不会记录自身的缓冲区大小，如果分配的内存不够时，就会发生缓冲区溢出，造成程序运行终止。同时，拼接操作时间复杂度也是O(N)</p>
+<h4>SDS如何解决问题</h4>
+<p>①从数据结构来说<br>
+len（字符串长度，获取字符串长度时复杂度降低为O(1)）<br>
+alloc（分配的空间长度，判断不够用时自动扩大）<br>
+flags（sds类型，表示不同类型的SDS，灵活保存不同大小的字符串，节省空间）<br>
+buf[]（字节数组，保存实际数据，因为无需"\0"判断结尾，所以可以存二进制数据）</p>
+<h3>二、链表</h3>
+<p>List对象的底层实现之一就是链表，C语言本身没有链表这个数据结构，Redis自己设计了一个链表数据结构<br>
+链表节点设计：前置节点+后置节点+节点值<br>
+链表结构设计：头节点+尾节点+节点值复制函数+节点值释放函数+节点值比较函数+链表节点数量<br>
+优势：获取当前节点的前后节点时间复杂度为O(1)，无环链表（指针可以指向null）；获取头/尾节点、节点数量的时间复杂度为O(1)；链表节点可以保存不同类型的值。<br>
+缺陷：内存不连续，无法很好利用CPU缓存；内存开销大(每保存一个链表节点都需要一个链表节点结构头的分配)；</p>
+<h3>三、压缩列表:</h3>
+<p>结构设计：由连续内存块组成的顺序型数据结构，即zlbytes（占用的内存字节数）+zltail（尾部节点距离起始地址多少字节，换言之列表尾的偏移量）+zllen（压缩列表包含的节点数量）+entry1+entry2+...+entryN+zlend（结束点，固定值0xFF，十进制里面的255）<br>
+节点设计：prevlen（前一个节点的长度）+encoding（当前节点的数据类型和长度）+data（当前节点的数据）<br>
+如果前一个节点长度&lt;254字节，则prevlen需要1字节空间，否则需要5字节空间<br>
+当前节点数据类型为整数，encoding需要1字节空间，若为字符串，则需要1/2/5字节空间<br>
+①问题：由于结构设计导致查找居于中间的元素时，复杂度会偏高<br>
+②问题：新增/修改某元素时，若空间不够，则需要重新分配压缩列表占用的内存空间，就好像多米诺骨牌一样，造成连锁更新的后果。</p>
+<h3>四、哈希表</h3>
+<p>最大优点：查询时间复杂度O(1)——key通过Hash函数的计算，进而定位数据在表中位置，哈希表（实际上是数组）可以通过索引值快速查询到数据。<br>
+哈希冲突——链式哈希解决，将具有相同哈希值的数据串联起来，形成单向链表。<br>
+哈希冲突太严重时，需要对哈希表的大小进行扩展——即rehash，</p>
+<h4>rehash有多种做法，主要的区别在于数据迁移部分。</h4>
+<p>做法1：直接迁移，不适合数据量大的情况，因为大量数据拷贝会阻塞Redis，导致其他请求无法得到服务。<br>
+做法2：渐进式，在rehash进行期间，每次哈希表元素增删改查时，还会顺序将 →哈希表1← 中索引位置上的所有key-value迁移到 →哈希表2←上。</p>
+<h4>什么时候触发rehash？（负载因子=哈希表已经保存节点数量/哈希表大小）</h4>
+<p>情况1：负载因子 &gt;= 1 且 Redis没有执行bgsave（RDB快照）/bgrewiteaof（AOF重写）<br>
+情况2：负载因子 &gt;=5 强制进行rehash</p>
+<h3>五、整数集合</h3>
+<p>整数升级操作：新增一个元素，其类型比现有的所有元素的类型都要长时，在原本的空间大小（contents.length）之上扩容，（（contents.length+1） * 新元素类型长度）-（contents.length * 原元素类型长度））<br>
+好处是避免用长类型数组存放短类型数组，可以节省内存资源，但不支持降级操作</p>
+<h3>六、跳表——Zset，时间复杂度O(logN)</h3>
+<p>结构设计：基于链表实现多层有序链表，所以跳表是一个带有层级关系的链表，每一层级可以包含多个节点，每个节点通过指针连接，这一特性依赖于zskiplistLevel结构体类型的level数组。<br>
+节点查询过程<br>
+节点层数设置<br>
+为什么不用平衡树？<br>
+①内存占用来说，跳表相对平衡树更灵活，每个节点包含的指针数目平均为1/(1-p),Redis里p=1/4，平均包含1.33个指针，小于平衡树的2个<br>
+②范围查找来说，跳表相对平衡树更简单，找到指定范围的小值后，对第一层链表进行若干步遍历即可，平衡树则需要以中序遍历的顺序继续寻找其他不超过大值的节点。<br>
+③实现难度来说，跳表相对平衡树更简单，跳表的插入和删除只需要修改相邻节点的指针，平衡树则可能引发子树的调整。</p></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://therain2020.github.io">therain2020</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if("04/22/2025"!=""){
+    var startSite=new Date("04/22/2025");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","therain2020/therain2020.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+
+
+</script>
+
+
+</html>
