@@ -1,5 +1,21 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>therain2020</title><link>https://therain2020.github.io</link><description>the path to future</description><copyright>therain2020</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://therain2020.github.io</link></image><lastBuildDate>Thu, 08 May 2025 08:11:20 +0000</lastBuildDate><managingEditor>therain2020</managingEditor><ttl>60</ttl><webMaster>therain2020</webMaster><item><title>Redis相关面经</title><link>https://therain2020.github.io/post/Redis-xiang-guan-mian-jing.html</link><description>### Redis 常见数据类型和应用场景
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>therain2020</title><link>https://therain2020.github.io</link><description>the path to future</description><copyright>therain2020</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://therain2020.github.io</link></image><lastBuildDate>Sat, 10 May 2025 06:29:32 +0000</lastBuildDate><managingEditor>therain2020</managingEditor><ttl>60</ttl><webMaster>therain2020</webMaster><item><title>Redis持久化</title><link>https://therain2020.github.io/post/Redis-chi-jiu-hua.html</link><description># Redis持久化
+
+## AOF持久化如何实现
+整体流程：客户端发送写命令、Redis执行写操作命令（在内存中）、Redis记录写操作命令到日志（位于硬盘）
+### 1.AOF日志
+是什么：保存了Redis执行过的**写操作命令**的文本文件（不保存读操作命令，因为没意义）
+查看：`cat`命令
+先执行再保存的好处：①避免检查命令是否正确的开销②不会阻塞当前写操作命令的执行
+先执行再保存的风险：①执行完未写入宕机导致丢失②可能阻塞下一个写操作命令的执行
+综上，我们可以得出AOF日志写回硬盘的时机很重要，引出第二点——写回策略
+### 2.三种写回策略
+写入日志的细化流程：执行写操作命令、命令追加到`server.aof_buf`缓冲区、I/O系统调用`write()`、将`aof_buf`缓冲区数据拷贝到内核缓冲区`page cache`、内核发起写操作、写入硬盘
+在`redis.conf`配置文件中的`appendfsync`配置项目中有以下3种参数可选：
+&gt; Always，每次写操作命令执行完毕，同步将AOF日志数据写回硬盘
+&gt; Everysec，每次写操作命令执行完毕，先将AOF命令写入AOF文件的内核缓冲区，然后每隔1s将缓冲区里的内容写回到硬盘
+&gt; No，意味着不由Redis控制写回硬盘的时机，由操作系统决定何时将内核缓冲区内容写回硬盘
+由于**主进程阻塞**和**减少数据丢失**是对立问题，这三个策略无法同时完美解决这两个问题。</description><guid isPermaLink="true">https://therain2020.github.io/post/Redis-chi-jiu-hua.html</guid><pubDate>Thu, 08 May 2025 08:12:46 +0000</pubDate></item><item><title>Redis相关面经</title><link>https://therain2020.github.io/post/Redis-xiang-guan-mian-jing.html</link><description>### Redis 常见数据类型和应用场景
 
 常见的有五种：String、Hash、List、Set、Zset
 
