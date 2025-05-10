@@ -1,5 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>therain2020</title><link>https://therain2020.github.io</link><description>the path to future</description><copyright>therain2020</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://therain2020.github.io</link></image><lastBuildDate>Sat, 10 May 2025 06:36:43 +0000</lastBuildDate><managingEditor>therain2020</managingEditor><ttl>60</ttl><webMaster>therain2020</webMaster><item><title>合肥大智慧二面</title><link>https://therain2020.github.io/post/he-fei-da-zhi-hui-er-mian.html</link><description>### 如何在一个文档中快速定位一个关键词
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>therain2020</title><link>https://therain2020.github.io</link><description>the path to future</description><copyright>therain2020</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://therain2020.github.io</link></image><lastBuildDate>Sat, 10 May 2025 11:19:32 +0000</lastBuildDate><managingEditor>therain2020</managingEditor><ttl>60</ttl><webMaster>therain2020</webMaster><item><title>Net——IP篇</title><link>https://therain2020.github.io/post/Net%E2%80%94%E2%80%94IP-pian.html</link><description># 1IP基础知识全家桶
+
+
+## 1.1认识IP
+
+IP位于TCP/IP参考模型中的第三层，网络层
+网络层主要作用是：实现主机与主机之间的通信，也叫点对点（end to end）通信
+&gt; 网络层和数据链路层有什么关系
+&gt; IP的负责在**没有直连**的两个网络之间进行通信传输，换句话说作用是在复杂的网络环境中，将数据包发送给最终目的主机
+&gt; MAC的作用是实现**直连**的两个设备之间的通信
+&gt; 在没有使用NAT网络的情况下，源IP和目标IP地址在传输过程中不会变化，只有源MAC地址和目标MAC一直变化。</description><guid isPermaLink="true">https://therain2020.github.io/post/Net%E2%80%94%E2%80%94IP-pian.html</guid><pubDate>Sat, 10 May 2025 11:19:04 +0000</pubDate></item><item><title>合肥大智慧二面</title><link>https://therain2020.github.io/post/he-fei-da-zhi-hui-er-mian.html</link><description>### 如何在一个文档中快速定位一个关键词
 数据量小的情况下可以用字符串匹配
 
 ### 有哪些字符串匹配算法，怎么优化
