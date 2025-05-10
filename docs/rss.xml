@@ -1,5 +1,16 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>therain2020</title><link>https://therain2020.github.io</link><description>the path to future</description><copyright>therain2020</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://therain2020.github.io</link></image><lastBuildDate>Sat, 10 May 2025 06:34:27 +0000</lastBuildDate><managingEditor>therain2020</managingEditor><ttl>60</ttl><webMaster>therain2020</webMaster><item><title>华资软件二面面经</title><link>https://therain2020.github.io/post/hua-zi-ruan-jian-er-mian-mian-jing.html</link><description>基础：
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>therain2020</title><link>https://therain2020.github.io</link><description>the path to future</description><copyright>therain2020</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://therain2020.github.io</link></image><lastBuildDate>Sat, 10 May 2025 06:36:43 +0000</lastBuildDate><managingEditor>therain2020</managingEditor><ttl>60</ttl><webMaster>therain2020</webMaster><item><title>合肥大智慧二面</title><link>https://therain2020.github.io/post/he-fei-da-zhi-hui-er-mian.html</link><description>### 如何在一个文档中快速定位一个关键词
+数据量小的情况下可以用字符串匹配
+
+### 有哪些字符串匹配算法，怎么优化
+KMP算法
+
+### 如何在上亿个文档中快速定位一个关键词
+可以用倒排索引
+
+
+### ES分词错误的情况如何处理/es分词导致查询结果不准确
+问题的具体描述是：索引里面有数据，却无法查询出来。</description><guid isPermaLink="true">https://therain2020.github.io/post/he-fei-da-zhi-hui-er-mian.html</guid><pubDate>Sat, 10 May 2025 06:36:16 +0000</pubDate></item><item><title>华资软件二面面经</title><link>https://therain2020.github.io/post/hua-zi-ruan-jian-er-mian-mian-jing.html</link><description>基础：
 ### 1.Mybatis中的#和$的区别
 - 在处理 #{} 时，会创建预编译的 SQL 语句，将 SQL 中的 #{} 替换为 ? 号，在执行 SQL 时会为预编译 SQL 中的占位符（?）赋值，调用 PreparedStatement 的 set 方法来赋值，预编译的 SQL 语句执行效率高，并且可以防止SQL 注入，提供更高的安全性，适合传递参数值。</description><guid isPermaLink="true">https://therain2020.github.io/post/hua-zi-ruan-jian-er-mian-mian-jing.html</guid><pubDate>Sat, 10 May 2025 06:33:58 +0000</pubDate></item><item><title>Redis持久化</title><link>https://therain2020.github.io/post/Redis-chi-jiu-hua.html</link><description># Redis持久化
 
