@@ -1,5 +1,18 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>therain2020</title><link>https://therain2020.github.io</link><description>the path to future</description><copyright>therain2020</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://therain2020.github.io</link></image><lastBuildDate>Thu, 22 May 2025 09:52:09 +0000</lastBuildDate><managingEditor>therain2020</managingEditor><ttl>60</ttl><webMaster>therain2020</webMaster><item><title>算法_枚举Part1</title><link>https://therain2020.github.io/post/suan-fa-_-mei-ju-Part1.html</link><description>枚举
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>therain2020</title><link>https://therain2020.github.io</link><description>the path to future</description><copyright>therain2020</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://therain2020.github.io</link></image><lastBuildDate>Thu, 22 May 2025 09:55:09 +0000</lastBuildDate><managingEditor>therain2020</managingEditor><ttl>60</ttl><webMaster>therain2020</webMaster><item><title>JUC_线程池</title><link>https://therain2020.github.io/post/JUC_-xian-cheng-chi.html</link><description>  # 线程池的核心参数
+```
+
+  public ThreadPoolExecutor(int corePoolSize,//线程池的核心线程数量
+                              int maximumPoolSize,//线程池的最大线程数
+                              long keepAliveTime,//当线程数大于核心线程数时，多余的空闲线程存活的最长时间
+                              TimeUnit unit,//时间单位
+                              BlockingQueue&lt;Runnable&gt; workQueue,//任务队列，用来储存等待执行任务的队列
+                              ThreadFactory threadFactory,//线程工厂，用来创建线程，一般默认即可
+                              RejectedExecutionHandler handler//拒绝策略，当提交的任务过多而不能及时处理时，我们可以定制策略来处理任务
+                               )
+```
+# 线程池处理任务的流程：
+如果当前运行的线程数小于核心线程数，那么就会新建一个线程来执行任务。</description><guid isPermaLink="true">https://therain2020.github.io/post/JUC_-xian-cheng-chi.html</guid><pubDate>Thu, 22 May 2025 09:54:39 +0000</pubDate></item><item><title>算法_枚举Part1</title><link>https://therain2020.github.io/post/suan-fa-_-mei-ju-Part1.html</link><description>枚举
 
 思想是不断地猜测，从可能的集合中一一尝试，然后再判断题目的条件是否成立。</description><guid isPermaLink="true">https://therain2020.github.io/post/suan-fa-_-mei-ju-Part1.html</guid><pubDate>Thu, 22 May 2025 08:46:54 +0000</pubDate></item><item><title>数据结构_链表Part1</title><link>https://therain2020.github.io/post/shu-ju-jie-gou-_-lian-biao-Part1.html</link><description>Part1
 
