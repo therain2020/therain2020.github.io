@@ -10,13 +10,81 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="# Redisson的可重入锁（Reentrant Lock）是基于Redis实现的分布式锁。">
-<meta property="og:title" content="Redission可重入、重试锁以及MultiLock原理">
-<meta property="og:description" content="# Redisson的可重入锁（Reentrant Lock）是基于Redis实现的分布式锁。">
+<meta name="description" content="# BigDecimal
+
+float：4个字节，32bit，23bit小数
+double：8个字节，64bit，52bit小数
+
+##  1.构造方法
+```
+public BigDecimal(double val)//传递double类型数值，不精确
+
+public BigDecimal(String val)//传递字符串，精确
+
+public BigDecimal valueOf（double val）//静态方法获取对象，0~10的对象已经提前准备好，其他的值则创建新对象，且值不能超出double
+```
+
+## 成员方法
+
+```
+//加减乘除
+public BigDecimal add(BigDecimal val)
+
+public BigDecimal subtract(BigDecimal val)
+
+public BigDecimal multiply(BigDecimal val)
+
+public BigDecimal divide(BigDecimal val)
+
+public BigDecimal divide(BigDecimal val,int 精确几位,RoundingMode 舍入模式)//一般除不尽使用
+//不记得参数是什么了可以ctrl + p 查看
+//关于RoundingMode枚举类：在数轴上，UP代表远离零方向舍入，DOWN向零方向舍入，CEILING向正无穷大方向舍入，FLOOR向负无穷大方向舍入，HALF_UP四舍五入
+
+```
+
+
+## 底层存储方式
+遍历得到字符串的每一个字符，获取字符对应ASCII数值，形成数组。">
+<meta property="og:title" content="JavaSE_API_BigDecimal">
+<meta property="og:description" content="# BigDecimal
+
+float：4个字节，32bit，23bit小数
+double：8个字节，64bit，52bit小数
+
+##  1.构造方法
+```
+public BigDecimal(double val)//传递double类型数值，不精确
+
+public BigDecimal(String val)//传递字符串，精确
+
+public BigDecimal valueOf（double val）//静态方法获取对象，0~10的对象已经提前准备好，其他的值则创建新对象，且值不能超出double
+```
+
+## 成员方法
+
+```
+//加减乘除
+public BigDecimal add(BigDecimal val)
+
+public BigDecimal subtract(BigDecimal val)
+
+public BigDecimal multiply(BigDecimal val)
+
+public BigDecimal divide(BigDecimal val)
+
+public BigDecimal divide(BigDecimal val,int 精确几位,RoundingMode 舍入模式)//一般除不尽使用
+//不记得参数是什么了可以ctrl + p 查看
+//关于RoundingMode枚举类：在数轴上，UP代表远离零方向舍入，DOWN向零方向舍入，CEILING向正无穷大方向舍入，FLOOR向负无穷大方向舍入，HALF_UP四舍五入
+
+```
+
+
+## 底层存储方式
+遍历得到字符串的每一个字符，获取字符对应ASCII数值，形成数组。">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://therain2020.github.io/post/Redission-ke-zhong-ru-%E3%80%81-zhong-shi-suo-yi-ji-MultiLock-yuan-li.html">
+<meta property="og:url" content="https://therain2020.github.io/post/JavaSE_API_BigDecimal.html">
 <meta property="og:image" content="https://github.githubassets.com/favicons/favicon.svg">
-<title>Redission可重入、重试锁以及MultiLock原理</title>
+<title>JavaSE_API_BigDecimal</title>
 
 
 
@@ -59,7 +127,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 
 <body>
     <div id="header">
-<h1 class="postTitle">Redission可重入、重试锁以及MultiLock原理</h1>
+<h1 class="postTitle">JavaSE_API_BigDecimal</h1>
 <div class="title-right">
     <a href="https://therain2020.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
         <svg class="octicon" width="16" height="16">
@@ -67,7 +135,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
         </svg>
     </a>
     
-    <a href="https://github.com/therain2020/therain2020.github.io/issues/10" target="_blank" class="btn btn-invisible circle" title="Issue">
+    <a href="https://github.com/therain2020/therain2020.github.io/issues/22" target="_blank" class="btn btn-invisible circle" title="Issue">
         <svg class="octicon" width="16" height="16">
             <path id="pathIssue" fill-rule="evenodd"></path>
         </svg>
@@ -83,127 +151,33 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 </div>
     <div id="content">
-<div class="markdown-body" id="postBody"><h1>Redisson的可重入锁（Reentrant Lock）是基于Redis实现的分布式锁。</h1>
-<p>用于在分布式系统中提供线程安全的锁机制。它允许同一个线程在不释放锁的情况下多次获得锁，并在所有锁操作完成后，锁才真正被释放。</p>
-<h3>1.基本原理</h3>
-<p>可重入锁的核心思想是，同一线程可以多次获取同一个锁，且只有当所有锁释放操作都完成后，锁才会真正释放。</p>
-<h4>锁的可重入特性</h4>
-<p>Redisson通过维护一个计数器来实现锁的可重入特性。</p>
-<ul>
-<li>当同一个线程第一次获取锁时，Redis会记录下这个线程的，并将锁的持有次数设置为1。</li>
-<li>如果这个线程再次请求锁（即可重入操作），Redisson会检测到当前持有锁的与当前线程相同，则不会重新设置锁，而是简单地增加计数器，表示这个线程再次持有了锁。</li>
-<li>每次释放锁时，Redisson会减少计数器，只有当计数器减为0时，锁才会真正释放。</li>
-</ul>
-<h4>锁的释放操作</h4>
-<p>锁的释放操作需要确保只有持有锁的线程才能释放锁。Redisson会在释放锁时检查Redis中存储的与当前线程的ID是否匹配，确保线程安全。</p>
-<p>释放锁的Lua脚本逻辑：如果当前线程ID与Redis中保存的线程ID相同，则检查计数器的值。如果计数器减为0，删除锁；否则，只减少计数器值。</p>
-<pre class="notranslate"><code class="notranslate">-- 如果Redis中存储的锁的持有者与当前线程的标识符相等（ARGV[1]），则进行解锁操作
-if redis.call('get', KEYS[1]) == ARGV[1] then
-    -- 尝试递减计数器（KEYS[2]为计数器的Key），表示释放一次锁
-    if redis.call('decr', KEYS[2]) == 0 then
-        -- 如果计数器减为0，说明锁完全释放，删除锁的Key
-        return redis.call('del', KEYS[1])
-    else
-        -- 如果计数器未减为0，返回0表示锁未完全释放，暂时不删除锁
-        return 0
-    end
-else
-    -- 如果当前线程标识不匹配，说明不是该线程持有的锁，返回0表示无法解锁
-    return 0
-end
-</code></pre>
-<h3>2.关键机制</h3>
-<ul>
-<li>锁的自动过期</li>
-</ul>
-<pre class="notranslate"><code class="notranslate">为了防止死锁，Redisson为锁设置了过期时间。
-如果持有锁的线程因为意外情况（如崩溃、网络分区等）未能及时释放锁，Redis会在锁的过期时间后自动释放，防止锁长时间占用资源。
-</code></pre>
-<ul>
-<li>Watchdog机制（看门狗）</li>
-</ul>
-<pre class="notranslate"><code class="notranslate">Redisson提供了Watchdog机制，用于动态延长锁的有效期。默认情况下，Redisson的锁在过期之前，会通过看门狗定期检查线程的状态：
+<div class="markdown-body" id="postBody"><h1>BigDecimal</h1>
+<p>float：4个字节，32bit，23bit小数<br>
+double：8个字节，64bit，52bit小数</p>
+<h2>1.构造方法</h2>
+<pre class="notranslate"><code class="notranslate">public BigDecimal(double val)//传递double类型数值，不精确
 
-如果线程仍然在持有锁（即线程还在运行且没有释放锁），看门狗会自动延长锁的过期时间，防止锁过早释放。
-默认的看门狗延时是30秒，Redisson会在锁的持有期间不断续期。
+public BigDecimal(String val)//传递字符串，精确
+
+public BigDecimal valueOf（double val）//静态方法获取对象，0~10的对象已经提前准备好，其他的值则创建新对象，且值不能超出double
 </code></pre>
-<ul>
-<li>Lua脚本保证原子性</li>
-</ul>
-<pre class="notranslate"><code class="notranslate">Redisson使用了Redis的Lua脚本来执行锁的加锁、释放等操作。
-Lua脚本在Redis中具有原子性，这意味着即使在分布式环境下，这些操作也不会受到并发影响，从而保证了锁的安全性和一致性。
+<h2>成员方法</h2>
+<pre class="notranslate"><code class="notranslate">//加减乘除
+public BigDecimal add(BigDecimal val)
+
+public BigDecimal subtract(BigDecimal val)
+
+public BigDecimal multiply(BigDecimal val)
+
+public BigDecimal divide(BigDecimal val)
+
+public BigDecimal divide(BigDecimal val,int 精确几位,RoundingMode 舍入模式)//一般除不尽使用
+//不记得参数是什么了可以ctrl + p 查看
+//关于RoundingMode枚举类：在数轴上，UP代表远离零方向舍入，DOWN向零方向舍入，CEILING向正无穷大方向舍入，FLOOR向负无穷大方向舍入，HALF_UP四舍五入
+
 </code></pre>
-<h3>3.Redisson 可重入锁的代码示例</h3>
-<pre class="notranslate"><code class="notranslate">RLock lock = redissonClient.getLock("myLock");
- 
-try {
-    // 尝试加锁，最多等待10秒，上锁以后20秒自动解锁
-    boolean isLocked = lock.tryLock(10, 20, TimeUnit.SECONDS);
-    
-    if (isLocked) {
-        // 执行业务逻辑
-    }
-} catch (InterruptedException e) {
-    e.printStackTrace();
-} finally {
-    if (lock.isHeldByCurrentThread()) {
-        lock.unlock();  // 释放锁
-    }
-}
-</code></pre>
-<h3>4.MultiLock</h3>
-<h4>原理解析</h4>
-<ul>
-<li>
-<p>多锁合并：MultiLock 包含多个 RLock 实例。它会尝试同时获取这些锁，只有当所有锁都成功获取时，才算加锁成功。</p>
-</li>
-<li>
-<p>加锁过程：</p>
-</li>
-<li>
-<ul>
-<li>当调用 lock() 方法时，MultiLock 会依次尝试获取多个 RLock（即多个 Redis 实例上的锁），并且每个锁都有独立的超时时间。</li>
-</ul>
-</li>
-<li>
-<ul>
-<li>如果某一个锁获取失败，MultiLock 会回滚已经获取的锁，确保加锁操作的原子性——要么全部加锁成功，要么加锁失败，并释放已获得的锁。</li>
-</ul>
-</li>
-<li>
-<p>解锁过程：</p>
-</li>
-<li>
-<ul>
-<li>当所有锁都被成功获取并且业务处理完成时，unlock() 方法会逐个释放这些锁。解锁时同样遵循先加锁的顺序。</li>
-</ul>
-</li>
-<li>
-<ul>
-<li>如果某个锁释放失败，系统会继续尝试释放其他锁，确保整体资源的一致性。</li>
-</ul>
-</li>
-</ul>
-<h4>可重入性：</h4>
-<ul>
-<li>MultiLock 是可重入的，如果一个线程已经持有某些资源的锁，它可以再次申请这些锁，而不会阻塞。这是通过 Redis 的可重入锁机制实现的，类似于单个 RLock 的可重入锁。</li>
-</ul>
-<h4>超时和看门狗机制：</h4>
-<ul>
-<li>和普通的 Redisson 锁一样，MultiLock 也可以配置超时时间，并通过 Redisson 的看门狗机制自动续期，以防止锁在任务尚未完成时被意外释放。</li>
-</ul>
-<h4>具体实现过程</h4>
-<ul>
-<li>
-<p>加锁请求：当客户端尝试加锁时，MultiLock 会向多个 Redis 实例发送加锁请求。每个加锁请求带有一个唯一标识符（通常为线程ID），并设置一个过期时间来防止死锁。</p>
-</li>
-<li>
-<p>全成功条件：只有当所有的加锁请求都成功（即多个 RLock 都被锁定），MultiLock 才算是成功加锁。如果任何一个锁失败，则需要释放已经成功的锁。</p>
-</li>
-<li>
-<p>释放锁：释放锁时，同样会发送多个解锁请求，只有当所有锁都被释放时，才算成功解锁。</p>
-</li>
-</ul></div>
+<h2>底层存储方式</h2>
+<p>遍历得到字符串的每一个字符，获取字符对应ASCII数值，形成数组。</p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>

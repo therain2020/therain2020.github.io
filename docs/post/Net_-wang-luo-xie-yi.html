@@ -10,35 +10,19 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="### 如何在一个文档中快速定位一个关键词
-数据量小的情况下可以用字符串匹配
-
-### 有哪些字符串匹配算法，怎么优化
-KMP算法
-
-### 如何在上亿个文档中快速定位一个关键词
-可以用倒排索引
-
-
-### ES分词错误的情况如何处理/es分词导致查询结果不准确
-问题的具体描述是：索引里面有数据，却无法查询出来。">
-<meta property="og:title" content="合肥大智慧二面">
-<meta property="og:description" content="### 如何在一个文档中快速定位一个关键词
-数据量小的情况下可以用字符串匹配
-
-### 有哪些字符串匹配算法，怎么优化
-KMP算法
-
-### 如何在上亿个文档中快速定位一个关键词
-可以用倒排索引
-
-
-### ES分词错误的情况如何处理/es分词导致查询结果不准确
-问题的具体描述是：索引里面有数据，却无法查询出来。">
+<meta name="description" content="### 应用层网络协议
+- HTTP——Hypertext Transfer Protocol，基于TCP，用于传输超文本和多媒体内容，为Web浏览器和Web服务器之间的通信而设计
+- SMTP——Simple Mail Transfer Protocol，基于TCP，用于发送电子邮件，只负责发送
+- POP3/IMAP——邮件接收协议，基于TCP，用于电子邮件接收，IMAP比POP3强大，支持邮件搜索、标记、分类、归档等，且可以在多个设备之间同步邮件状态。">
+<meta property="og:title" content="Net_网络协议">
+<meta property="og:description" content="### 应用层网络协议
+- HTTP——Hypertext Transfer Protocol，基于TCP，用于传输超文本和多媒体内容，为Web浏览器和Web服务器之间的通信而设计
+- SMTP——Simple Mail Transfer Protocol，基于TCP，用于发送电子邮件，只负责发送
+- POP3/IMAP——邮件接收协议，基于TCP，用于电子邮件接收，IMAP比POP3强大，支持邮件搜索、标记、分类、归档等，且可以在多个设备之间同步邮件状态。">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://therain2020.github.io/post/he-fei-da-zhi-hui-er-mian.html">
+<meta property="og:url" content="https://therain2020.github.io/post/Net_-wang-luo-xie-yi.html">
 <meta property="og:image" content="https://github.githubassets.com/favicons/favicon.svg">
-<title>合肥大智慧二面</title>
+<title>Net_网络协议</title>
 
 
 
@@ -71,7 +55,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 
 <body>
     <div id="header">
-<h1 class="postTitle">合肥大智慧二面</h1>
+<h1 class="postTitle">Net_网络协议</h1>
 <div class="title-right">
     <a href="https://therain2020.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
         <svg class="octicon" width="16" height="16">
@@ -79,7 +63,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
         </svg>
     </a>
     
-    <a href="https://github.com/therain2020/therain2020.github.io/issues/17" target="_blank" class="btn btn-invisible circle" title="Issue">
+    <a href="https://github.com/therain2020/therain2020.github.io/issues/29" target="_blank" class="btn btn-invisible circle" title="Issue">
         <svg class="octicon" width="16" height="16">
             <path id="pathIssue" fill-rule="evenodd"></path>
         </svg>
@@ -95,46 +79,37 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 </div>
     <div id="content">
-<div class="markdown-body" id="postBody"><h3>如何在一个文档中快速定位一个关键词</h3>
-<p>数据量小的情况下可以用字符串匹配</p>
-<h3>有哪些字符串匹配算法，怎么优化</h3>
-<p>KMP算法</p>
-<h3>如何在上亿个文档中快速定位一个关键词</h3>
-<p>可以用倒排索引</p>
-<h3>ES分词错误的情况如何处理/es分词导致查询结果不准确</h3>
-<p>问题的具体描述是：索引里面有数据，却无法查询出来。<br>
-1.增加自定义词库，修改es的配置文件IKAnalyzer.cfg.xml，但这种方案无法一次性解决问题，每次遇到此问题时才能将未查询到的词组加入自定义词库且需要重启es，会影响线上功能。<br>
-2.不直接使用原文进行查询，而是先将原文通过多个分词器进行分词，再使用分词后的结果进行查询，缺点是如果分词结果太多会比较消耗性能。</p>
-<h2>ES知识恶补：</h2>
-<h3>一、全文搜索（Full-text search）的工作原理如下：</h3>
-<p>-<strong>文本分析（Text analysis）</strong>：通过使用stemming、lowercasing、stop word elimination等一系列技巧将文本有序分析成一个便于搜索的格式。Es内置多种分析器和分词器，也可以自定义分析器。</p>
-<p>-<strong>创建倒排索引（Inverted index creation）</strong>：完成文本分析后，会得到resulting tokens。Es依据它来构建倒排索引。倒排索引是一种数据结构，将每个令牌映射到包含它的文档。有两个关键组成部分：- 字典（Dictionary）：A sorted list of all unique terms（术语） in the collection of documents in your index. - 发布列表（Posting list）：For each term, a list of document IDs where the term appears, along with optional metadata like term frequency and position.</p>
-<p>-<strong>相关性评分（Relevance scoring）</strong>：每个文档的相关性分数用称为"_score"的正浮点数表示，越高越相关。Es计算相关性评分的默认相似性算法是OkapiBM25，属于TF-IDF算法的变体，基于术语频率、文档频率、文档长度计算相关性分析。[这篇技术博客深入分析了BM25]（<a href="https://www.elastic.co/blog/practical-bm25-part-2-the-bm25-algorithm-and-its-variables%EF%BC%89" rel="nofollow">https://www.elastic.co/blog/practical-bm25-part-2-the-bm25-algorithm-and-its-variables）</a></p>
-<p>-<strong>全文搜索查询（Full-text search query）</strong>：被查询的文本，其分析方式和索引文本相同，生成的词元用于搜索倒排索引。</p>
-<h3>二、全文搜索允许使用同义词（synonyms）进行搜索</h3>
-<h4>同义词可以改善搜索体验并扩大搜索结果的范围。</h4>
-<p>同义词的好处如下：</p>
+<div class="markdown-body" id="postBody"><h3>应用层网络协议</h3>
 <ul>
-<li>提高搜索相关性</li>
-<li>用户改善特定领域的词汇的搜索体验</li>
-<li>用于定义常见拼写错误和打字错误</li>
+<li>HTTP——Hypertext Transfer Protocol，基于TCP，用于传输超文本和多媒体内容，为Web浏览器和Web服务器之间的通信而设计</li>
+<li>SMTP——Simple Mail Transfer Protocol，基于TCP，用于发送电子邮件，只负责发送</li>
+<li>POP3/IMAP——邮件接收协议，基于TCP，用于电子邮件接收，IMAP比POP3强大，支持邮件搜索、标记、分类、归档等，且可以在多个设备之间同步邮件状态。</li>
+<li>FTP——File Transfer Protocol，基于TCP，用于在计算机之间传输文件，可以屏蔽操作系统和文件存储方式，但不安全，不会加密数据。敏感数据可以用更安全的SFTP传输。</li>
+<li>Telnet——远程登录协议，基于TCP，用于通过一个终端登录到其他服务器，但所有数据以明文形式发送，不安全，逐渐被SSH替代。</li>
+<li>SSH——Secure Shell Protocol，基于TCP协议，通过加密和认证机制实现安全的访问和文件传输等业务</li>
+<li>RTP——Real-time Transport Protocol，基于UCP，也支持TCP。提供了端到端的实时传输数据的功能，但不包含资源预留存，不保证实时传输质量，这些功能由WebRTC实现。</li>
+<li>DNS——Domain Name System，基于UDP，用于解决域名和IP地址的映射问题</li>
 </ul>
-<h4>同义词集合（Synonyms sets）数量无上限，使用同义词集合的方法如下：</h4>
+<h3>传输层</h3>
 <ul>
-<li>存储同义词集合数据</li>
-<li>配置同义词token过滤器和分析器</li>
+<li>
+<p>UDP<br>
+无连接的，尽最大努力的，简单高效</p>
+</li>
+<li>
+<p>TCP<br>
+面向连接的，可靠的</p>
+</li>
 </ul>
-<h4>存储同义词集合的三种方法：</h4>
+<p>###网络层</p>
 <ul>
-<li>同义词API，允许动态定义和修改同义词集合。修改同义词集合后会自动重新加载相关的分析器</li>
-<li>同义词文件，同义词集合文件需要上传到所有的集群节点中，并位于Es的配置目录中。要更新现有的同义词集合，需要将新文件上传到集群中，同义词集合文件必须在每个集群节点上保持同步。当同义词集合更新时，需要通过重载搜索分析器API刷新搜索分析器。即手动同步和重载。</li>
-<li>内联，直接在token过滤器定义中添加同义词。警告：生产环境禁止，大量的内联同义词会不必要的增加集群大小，并可能导致性能问题。</li>
-</ul>
-<h4>配置同义词token过滤器和分析器（在创建同义词集合之后）</h4>
-<ul>
-<li>警告1.同义词集合必须在添加到索引之前存在。如果一个新建的索引，引用了不存在的同义词集合，该索引将保持在部分创建和不可操作的状态。恢复正常的唯一方法是确保同义词集合存在，然后要么删除并重建索引，要么关闭并重新打开索引。</li>
-<li>警告2.无效的同义词规则会在应用分析器更改时导致错误，阻止可重新加载的分析器重新加载和应用更改。必须纠正同义词规则的错误并重新加载分析器。具有无效同义词规则的索引无法重新打开，导致索引在以下情况无法操作：包含该索引的节点启动时；从关闭状态打开索引时；节点重启时（会重新打开分配给该节点的分片）。</li>
-<li></li>
+<li>IP，TCP/TP协议中最重要的协议之一，属于网络层的协议，主要作用是定义数据包的格式，对数据包进行路由和寻址，以便于它们可以跨网络传播并到达正确的目的地。目前IP协议分为IPv4和IPv6，后者已经被提议取代前者。</li>
+<li>ARP，解决网络层地址和链路层地址之间的转换问题。因为一个IP数据报在物理上传输的过程中，总是需要知道下一跳（物理上的下一个目的地）该去哪里，但IP属于逻辑地址，而MAC地址才是物理地址，ARP协议解决了IP地址转MAC地址的一些问题。</li>
+<li>ICMP——Internet Control Message Protocol，用于传输网络状态和错误消息，进而用于网络诊断和故障排查。例如Ping工具就用了ICMP来测试网络连通性。</li>
+<li>NAT——Network Address Translation，用于内部网到外部网的地址转换过程中，具体的说在局域网（LAN）中，各主机使用同一个局域网（LAN）下的IP地址，但在局域网（WAN）外，广域网（LAN）中，需要一个统一的IP地址来标识该局域网在整个Internet上的位置</li>
+<li>OSPF</li>
+<li>RIP</li>
+<li>BGP</li>
 </ul></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 

@@ -10,41 +10,15 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="# part1
-## 讲讲最近的项目，都有哪些模块？
-司乘双端的登录模块，司机端需要人脸认证
-预估订单数据模块
-乘客下单模块
-司机抢单模块
-订单执行的业务逻辑，包括超时订单自动取消
-订单支付模块
-优惠券模块
-
-
-## 你觉得哪个模块比较难？
-司机抢单模块
-方案1：数据库隔离级别，效率低下，不适合高并发需求
-方案2：乐观锁，基于版本号，若并发冲突频繁，大量请求会因版本号不一致导致更新失败。">
-<meta property="og:title" content="面经_阿里国际面经506">
-<meta property="og:description" content="# part1
-## 讲讲最近的项目，都有哪些模块？
-司乘双端的登录模块，司机端需要人脸认证
-预估订单数据模块
-乘客下单模块
-司机抢单模块
-订单执行的业务逻辑，包括超时订单自动取消
-订单支付模块
-优惠券模块
-
-
-## 你觉得哪个模块比较难？
-司机抢单模块
-方案1：数据库隔离级别，效率低下，不适合高并发需求
-方案2：乐观锁，基于版本号，若并发冲突频繁，大量请求会因版本号不一致导致更新失败。">
+<meta name="description" content="### 什么是事务：
+事务是逻辑上的一组操作，要么都执行，要么都不执行。">
+<meta property="og:title" content="MySQL_事务">
+<meta property="og:description" content="### 什么是事务：
+事务是逻辑上的一组操作，要么都执行，要么都不执行。">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://therain2020.github.io/post/mian-jing-_-a-li-guo-ji-mian-jing-506.html">
+<meta property="og:url" content="https://therain2020.github.io/post/MySQL_-shi-wu.html">
 <meta property="og:image" content="https://github.githubassets.com/favicons/favicon.svg">
-<title>面经_阿里国际面经506</title>
+<title>MySQL_事务</title>
 
 
 
@@ -77,7 +51,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 
 <body>
     <div id="header">
-<h1 class="postTitle">面经_阿里国际面经506</h1>
+<h1 class="postTitle">MySQL_事务</h1>
 <div class="title-right">
     <a href="https://therain2020.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
         <svg class="octicon" width="16" height="16">
@@ -85,7 +59,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
         </svg>
     </a>
     
-    <a href="https://github.com/therain2020/therain2020.github.io/issues/21" target="_blank" class="btn btn-invisible circle" title="Issue">
+    <a href="https://github.com/therain2020/therain2020.github.io/issues/35" target="_blank" class="btn btn-invisible circle" title="Issue">
         <svg class="octicon" width="16" height="16">
             <path id="pathIssue" fill-rule="evenodd"></path>
         </svg>
@@ -101,107 +75,20 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 </div>
     <div id="content">
-<div class="markdown-body" id="postBody"><h1>part1</h1>
-<h2>讲讲最近的项目，都有哪些模块？</h2>
-<p>司乘双端的登录模块，司机端需要人脸认证<br>
-预估订单数据模块<br>
-乘客下单模块<br>
-司机抢单模块<br>
-订单执行的业务逻辑，包括超时订单自动取消<br>
-订单支付模块<br>
-优惠券模块</p>
-<h2>你觉得哪个模块比较难？</h2>
-<p>司机抢单模块<br>
-方案1：数据库隔离级别，效率低下，不适合高并发需求<br>
-方案2：乐观锁，基于版本号，若并发冲突频繁，大量请求会因版本号不一致导致更新失败。<br>
-方案3：加锁解决，从从setnx一直说到redission</p>
-<h2>优惠券并发超卖怎么解决</h2>
-<p>思路为</p>
+<div class="markdown-body" id="postBody"><h3>什么是事务：</h3>
+<p>事务是逻辑上的一组操作，要么都执行，要么都不执行。</p>
+<h3>数据库事务又是什么：</h3>
+<h3>事务特性：</h3>
 <ul>
-<li>乐观锁，增加版本号</li>
-<li>分布式锁way1，引入Redission，同一时间只能有一个客户端拿到锁key，其它客户端陷入无限等待来尝试获取锁，缺点是多用户同时对一个商品下单的情况下，会基于分布式锁串行化处理，无法同时处理同一个商品的大量下单的请求。</li>
-<li>分布式锁way2，在way1的基础上，把数据分成很多段，每个段是一个单独的锁，所以多个线程过来并发修改数据的时候，可以并发的修改不同段的数据。例如当前优惠劵有100库存，在redis存放5个库存key，用户下单时对用户id进行%5计算，落在哪个key上就去取哪个，但这个方案复杂度较高，且必须实现当某段锁的库存不足，要能够自动释放锁然后换下一个分段库存再次尝试加锁处理。</li>
-</ul>
-<h2>redis的key是什么，value是什么</h2>
-<ul>
-<li>key，String，订单ID+当前线程ID</li>
-<li>value，Integer，1代表成功，0代表失败</li>
-</ul>
-<h1>part2</h1>
-<p>6.分布式锁是锁从哪儿到哪儿<br>
-想考察业务逻辑？<br>
-从抢单请求触发到订单状态更新的完整流程：</p>
-<ul>
-<li>司机端发起抢单</li>
-<li>获取分布式锁</li>
-<li>执行业务逻辑：检查订单状态是否可以抢单，更新订单状态并关联司机信息</li>
-<li>服务器返回抢单成功或失败</li>
-<li>finally代码块中调用unlock方法</li>
-</ul>
-<p>7.分布式锁就能减少打过来的请求量了吗，去请求锁不还是会打到redis上？<br>
-想考察分布式锁的真正效果<br>
-并不是减少请求量，而是保证一个订单只能被一个司机接取。<br>
-redis能够减少打在数据库上面的请求，因为redis位于内存且数据结构支持高效处理crud操作，所有处理请求的速度远远快于数据库。</p>
-<h1>part3</h1>
-<p>8.异步存数据库线程池怎么设计的<br>
-想考察线程池是否有实际设计经验<br>
-CompletableFuture：CPU密集型，核心线程数=CPU核数+1，最大线程数=核心线程数<em>2，队列容量=任务峰值</em>平均处理时间，拒绝策略AbortPolicy+报警<br>
-目的：把串行执行的变为并行方式执行，提高代码执行速度<br>
-CompletableFuture提供操作方法，多一个参数，用来传递自定义线程池，如果不进行传递使用默认线程池</p>
-<p>具体业务逻辑：<br>
-① 订单状态更新（MySQL）<br>
-② 费用计算（Redis缓存）<br>
-③ 分账记录写入（分库分表）<br>
-④ 消息通知推送（RabbitMQ）</p>
-<p>9.单线程的线程池不还是串行执行吗<br>
-这就发现你小子的鸡爪了吧，使用线程池的目的就是把串行执行的变为并行方式执行，提高代码执行速度</p>
-<p>10.如果我数据库连接池是10，响应时间1s，线程池数量应该设置为多少<br>
-用户的响应时间是1秒，说明可能有较多的IO等待，属于IO密集型任务。<br>
-线程池核心线程数与连接池大小匹配，均为10；最大线程数不超过10，否则多余的线程无法获取连接而一直等待。<br>
-理由</p>
-<blockquote>
-<p>1.确保每个活跃线程都能分配到数据库连接，减少资源争抢<br>
-2.少量冗余应对突发流量</p>
-</blockquote>
-<p>11.如果响应时间10ms呢，应该设置为多少<br>
-用户的响应时间是10ms，说明IO等待不长，属于CPU密集型任务。<br>
-核心线程数n+1（n为CPU核心数）；最大线程数不应该超过10，否则多余的线程无法获取连接而一直等待。</p>
-<p>12.线程池的数量和连接池数量有关系吗<br>
-这里才是10和11两个问题想考察的点：<strong>线程池参数和连接池数量、响应时间的关系</strong><br>
-线程池的大小设置通常需要考虑任务类型。<br>
-数据库连接池的大小限制了同时能够执行的数据库操作数量。<br>
-线程池参数和连接池参数的关系：线程池的大小应该与连接池的大小协调，避免过多的线程竞争有限的连接资源，最大线程数不能超过连接池数量太多。<br>
-线程池参数和响应时间的关系：响应时间长，说明是IO密集型，需要更多线程来避免阻塞、CPU空闲；响应时间短，说明是CPU密集型任务，需要避免多线程导致上下文切换开销。</p>
-<p>13.线程是什么<br>
-OS中，比进程更小的能独立运行的基本单位，就是线程。<br>
-换句话说：线程是进程当中的一条执行流程。</p>
-<blockquote>
-<p>同一个进程内多个线程之间可以共享代码段、数据段、打开的文件等资源，<br>
-但每个线程各自都有一套独立的寄存器和栈，这样可以确保线程的控制流是相对独立的。</p>
-</blockquote>
-<p>拓展：线程和进程的比较</p>
-<blockquote>
-<p>1.进程是资源（包括内存、打开的文件等）分配的单位，线程是 CPU 调度的单位；<br>
-2.进程拥有一个完整的资源平台，而线程只独享必不可少的资源，如寄存器和栈；<br>
-3.线程同样具有就绪、阻塞、执行三种基本状态，同样具有状态之间的转换关系；<br>
-4.线程能减少并发执行的时间和空间开销；</p>
-</blockquote>
-<h1>part4</h1>
-<p>14.你知道事务吗，如果写入数据库失败了会怎么样，redis怎么处理<br>
-1.考察对数据库中的事务的理解：A<strong>C</strong>ID</p>
-<blockquote>
-<p>A：原子性，依赖undo log<br>
-I：隔离性，依赖MVCC<br>
-D：持久性，依赖redo log<br>
-C：一致性，依赖AID</p>
-</blockquote>
-<p>2.考察数据库和缓存如何保证一致性</p>
-<blockquote>
-<p>如果数据更新方案是<strong>更新数据库+更新缓存</strong>，且没有加分布式锁，那么需要直接删除redis里的数据。<br>
-如果数据更新方案是<strong>先更新数据库，再删除缓存</strong>，则影响不大。</p>
-</blockquote>
-<p>15.失败了这时候再去redis看一人一单，原来的用户还能通过吗<br>
-因为数据库写入失败的同时，redis做了保证数据一致性的操作，所以用户依然可以发起申请。</p></div>
+<li>原子性，要么全做，要么都不做。<br>
+依赖undo log（回滚日志）实现</li>
+<li>持久性，事务结束后，对数据的修改是永久的，系统故障也不会丢失。<br>
+依赖redo log（重做日志）实现</li>
+<li>隔离性，多个事务同时使用相同数据时，不会相互干扰，每个事务都有独立的数据空间，与其他事务隔离，防止多个事务并发时交叉执行导致数据不一致。<br>
+依赖MVCC（多版本并发控制）实现</li>
+<li>一致性，数据操作前后，数据满足完整性约束，数据库保持一致性状态。例如A有6块糖果，B有8块糖果，一共14块，A给B  2块糖果，包含A减少2块，B增加2块两个操作。一致性就是当完成上述步骤后，糖果总量仍为14。<br>
+依赖 原子性+持久性+隔离性 实现</li>
+</ul></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>

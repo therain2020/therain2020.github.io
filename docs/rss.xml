@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>therain2020</title><link>https://therain2020.github.io</link><description>the path to future</description><copyright>therain2020</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://therain2020.github.io</link></image><lastBuildDate>Thu, 22 May 2025 12:20:47 +0000</lastBuildDate><managingEditor>therain2020</managingEditor><ttl>60</ttl><webMaster>therain2020</webMaster><item><title>Linux基本命令</title><link>https://therain2020.github.io/post/Linux-ji-ben-ming-ling.html</link><description>在Linux中，命令以 **命令名+参数**（可选）组成
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>therain2020</title><link>https://therain2020.github.io</link><description>the path to future</description><copyright>therain2020</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://therain2020.github.io</link></image><lastBuildDate>Thu, 22 May 2025 16:18:55 +0000</lastBuildDate><managingEditor>therain2020</managingEditor><ttl>60</ttl><webMaster>therain2020</webMaster><item><title>Linux基本命令</title><link>https://therain2020.github.io/post/Linux-ji-ben-ming-ling.html</link><description>在Linux中，命令以 **命令名+参数**（可选）组成
 其中，参数用于指定命令的具体操作
 注意，参数可以叠加一起使用
 
@@ -36,7 +36,12 @@
 
 ## 6.创建文件
 `touch 文件名称`本来用于更新文件的修改时间，但如果文件不存在则会创建一个新的文件。</description><guid isPermaLink="true">https://therain2020.github.io/post/Linux-ji-ben-ming-ling.html</guid><pubDate>Thu, 22 May 2025 12:20:17 +0000</pubDate></item><item><title>MySQL_MVCC</title><link>https://therain2020.github.io/post/MySQL_MVCC.html</link><description>### 是什么：
-- 允许多个事务同时读取同一行数据，而不会彼此阻塞，所以每个事务看到的是当前事务开始时的数据版本。</description><guid isPermaLink="true">https://therain2020.github.io/post/MySQL_MVCC.html</guid><pubDate>Thu, 22 May 2025 10:03:31 +0000</pubDate></item><item><title>JUC_线程池</title><link>https://therain2020.github.io/post/JUC_-xian-cheng-chi.html</link><description>  # 线程池的核心参数
+- 允许多个事务同时读取同一行数据，而不会彼此阻塞，所以每个事务看到的是当前事务开始时的数据版本。</description><guid isPermaLink="true">https://therain2020.github.io/post/MySQL_MVCC.html</guid><pubDate>Thu, 22 May 2025 10:03:31 +0000</pubDate></item><item><title>MySQL_事务</title><link>https://therain2020.github.io/post/MySQL_-shi-wu.html</link><description>### 什么是事务：
+事务是逻辑上的一组操作，要么都执行，要么都不执行。</description><guid isPermaLink="true">https://therain2020.github.io/post/MySQL_-shi-wu.html</guid><pubDate>Thu, 22 May 2025 10:02:05 +0000</pubDate></item><item><title>JUC_多线程</title><link>https://therain2020.github.io/post/JUC_-duo-xian-cheng.html</link><description># 为什么用多线程
+
+1线程间的切换和调度的成本远远小于进程；多核 CPU 时代意味着多个线程可以同时运行，这减少了线程上下文切换的开销
+2多线程并发编程正是开发高并发系统的基础，利用好多线程机制可以大大提高系统整体的并发能力以及性能
+3单核时代多线程主要是为了提高单进程利用 CPU 和 IO 系统的效率；一个线程被 IO 阻塞，其他线程还可以继续使用 CPU。</description><guid isPermaLink="true">https://therain2020.github.io/post/JUC_-duo-xian-cheng.html</guid><pubDate>Thu, 22 May 2025 09:54:56 +0000</pubDate></item><item><title>JUC_线程池</title><link>https://therain2020.github.io/post/JUC_-xian-cheng-chi.html</link><description>  # 线程池的核心参数
 ```
 
   public ThreadPoolExecutor(int corePoolSize,//线程池的核心线程数量
@@ -49,7 +54,50 @@
                                )
 ```
 # 线程池处理任务的流程：
-如果当前运行的线程数小于核心线程数，那么就会新建一个线程来执行任务。</description><guid isPermaLink="true">https://therain2020.github.io/post/JUC_-xian-cheng-chi.html</guid><pubDate>Thu, 22 May 2025 09:54:39 +0000</pubDate></item><item><title>算法_枚举Part1</title><link>https://therain2020.github.io/post/suan-fa-_-mei-ju-Part1.html</link><description>枚举
+如果当前运行的线程数小于核心线程数，那么就会新建一个线程来执行任务。</description><guid isPermaLink="true">https://therain2020.github.io/post/JUC_-xian-cheng-chi.html</guid><pubDate>Thu, 22 May 2025 09:54:39 +0000</pubDate></item><item><title>OS_内存管理</title><link>https://therain2020.github.io/post/OS_-nei-cun-guan-li.html</link><description># 内存管理的主要功能
+
+- 内存分配与回收：malloc函数申请内存；free函数释放内存
+
+- 地址转换：将程序中的虚拟内存转换为内存中的物理内存
+
+- 内存扩充：当内存不足时，使用虚拟内存技术或自动覆盖技术从逻辑上扩充内存
+
+- 内存映射：将一个文件直接映射到内存中，这样可以通过内存指针读写内存的办法直接读取文件内容，速度更快
+
+- 内存优化：调整内存分配策略和回收算法优化内存使用效率
+
+- 内存安全：保证进程间使用内存互不干扰，避免恶意程序修改内存影响系统安全性。</description><guid isPermaLink="true">https://therain2020.github.io/post/OS_-nei-cun-guan-li.html</guid><pubDate>Thu, 22 May 2025 09:39:55 +0000</pubDate></item><item><title>Net_Socket</title><link>https://therain2020.github.io/post/Net_Socket.html</link><description>SOCKET（套接字）
+是什么：
+&gt; 对网络中不同主机上的应用程序之间进行双向通信的端点的抽象
+
+有什么用(为什么需要socket)
+&gt; 上联应用进程，下联网络协议栈，是应用程序之间通过网络协议进行通信的接口，是应用程序与网络协议栈进行交互的接口
+。</description><guid isPermaLink="true">https://therain2020.github.io/post/Net_Socket.html</guid><pubDate>Thu, 22 May 2025 09:21:46 +0000</pubDate></item><item><title>Net_经典问题</title><link>https://therain2020.github.io/post/Net_-jing-dian-wen-ti.html</link><description># 从输入URL到页面展示到底发生了什么（非常重要！）
+HTTP版本
+&gt; 1在浏览器中输入URL
+&gt; 2浏览器根据DNS协议获取IP地址
+&gt; 3浏览器根据IP地址和端口号 ，向目标服务器发送一个TCP连接请求
+&gt; 4浏览器TCP连接后，向目标服务器发送HTTP请求报文，请求获取网页的内容
+&gt; 5服务器收到HTTP请求报文后，处理请求，返回HTTP响应报文
+&gt; 6浏览器收到HTTP响应报文后，解析响应体中的HTML代码，渲染网页结构和代码，同时根据HTMl中其他资源的URL，再次发送HTTP请求报文，直到网页完全加载出来
+&gt; 7浏览器不需要和服务器通信时，可以主动关闭TCP连接，或等待服务器的关闭请求
+
+# 访问网页的全过程
+
+从网络结构五层模型出发描述：
+```
+应用层
+1打开浏览器输入URL（URL组成：协议+域名+端口+资源路径+参数+锚点。</description><guid isPermaLink="true">https://therain2020.github.io/post/Net_-jing-dian-wen-ti.html</guid><pubDate>Thu, 22 May 2025 09:13:55 +0000</pubDate></item><item><title>Net_网络协议</title><link>https://therain2020.github.io/post/Net_-wang-luo-xie-yi.html</link><description>### 应用层网络协议
+- HTTP——Hypertext Transfer Protocol，基于TCP，用于传输超文本和多媒体内容，为Web浏览器和Web服务器之间的通信而设计
+- SMTP——Simple Mail Transfer Protocol，基于TCP，用于发送电子邮件，只负责发送
+- POP3/IMAP——邮件接收协议，基于TCP，用于电子邮件接收，IMAP比POP3强大，支持邮件搜索、标记、分类、归档等，且可以在多个设备之间同步邮件状态。</description><guid isPermaLink="true">https://therain2020.github.io/post/Net_-wang-luo-xie-yi.html</guid><pubDate>Thu, 22 May 2025 09:12:20 +0000</pubDate></item><item><title>Net_网络分层模型</title><link>https://therain2020.github.io/post/Net_-wang-luo-fen-ceng-mo-xing.html</link><description># 计网基础
+
+## 网络分层模型
+### 为什么网络需要分层
+为什么网络要分层？
+从理论需求来说，复杂的系统需要分层，因为每一层都需要专注于一类事情。</description><guid isPermaLink="true">https://therain2020.github.io/post/Net_-wang-luo-fen-ceng-mo-xing.html</guid><pubDate>Thu, 22 May 2025 08:54:30 +0000</pubDate></item><item><title>算法_递归与分治Part1</title><link>https://therain2020.github.io/post/suan-fa-_-di-gui-yu-fen-zhi-Part1.html</link><description>## 递归
+
+递归的基本思想是某个函数直接或者间接地调用自身，这样原问题的求解就转换为了许多性质相同但是规模更小的子问题。</description><guid isPermaLink="true">https://therain2020.github.io/post/suan-fa-_-di-gui-yu-fen-zhi-Part1.html</guid><pubDate>Thu, 22 May 2025 08:48:45 +0000</pubDate></item><item><title>算法_枚举Part1</title><link>https://therain2020.github.io/post/suan-fa-_-mei-ju-Part1.html</link><description>枚举
 
 思想是不断地猜测，从可能的集合中一一尝试，然后再判断题目的条件是否成立。</description><guid isPermaLink="true">https://therain2020.github.io/post/suan-fa-_-mei-ju-Part1.html</guid><pubDate>Thu, 22 May 2025 08:46:54 +0000</pubDate></item><item><title>数据结构_链表Part1</title><link>https://therain2020.github.io/post/shu-ju-jie-gou-_-lian-biao-Part1.html</link><description>Part1
 
@@ -57,7 +105,7 @@
 什么是链表：
 &gt; 链表是一种用于存储数据的数据结构，通过如链条一般的指针来连接元素。</description><guid isPermaLink="true">https://therain2020.github.io/post/shu-ju-jie-gou-_-lian-biao-Part1.html</guid><pubDate>Thu, 22 May 2025 08:45:05 +0000</pubDate></item><item><title>JavaSE_正则表达式Part1</title><link>https://therain2020.github.io/post/JavaSE_-zheng-ze-biao-da-shi-Part1.html</link><description>
 有什么用：
-- 正则表达式可以校验字符串是否满足一定的规则，并用来校验数据格式的合法性。</description><guid isPermaLink="true">https://therain2020.github.io/post/JavaSE_-zheng-ze-biao-da-shi-Part1.html</guid><pubDate>Thu, 22 May 2025 08:37:13 +0000</pubDate></item><item><title>API_BigInteger</title><link>https://therain2020.github.io/post/API_BigInteger.html</link><description># BigInteger
+- 正则表达式可以校验字符串是否满足一定的规则，并用来校验数据格式的合法性。</description><guid isPermaLink="true">https://therain2020.github.io/post/JavaSE_-zheng-ze-biao-da-shi-Part1.html</guid><pubDate>Thu, 22 May 2025 08:37:13 +0000</pubDate></item><item><title>JavaSE_API_BigInteger</title><link>https://therain2020.github.io/post/JavaSE_API_BigInteger.html</link><description># BigInteger
 
 ## 1.有什么用：可以表示**大整数**，超出Long范围的那种
 
@@ -108,7 +156,7 @@ final int signum//正负符号，-1表示整数，0表示负数
 final int[] mag//具体数值数据，大数拆成几段存储：先转成二进制，再从右往左拆，每段32bit
 `
 
-。</description><guid isPermaLink="true">https://therain2020.github.io/post/API_BigInteger.html</guid><pubDate>Thu, 22 May 2025 08:36:46 +0000</pubDate></item><item><title>API_BigDecimal</title><link>https://therain2020.github.io/post/API_BigDecimal.html</link><description># BigDecimal
+。</description><guid isPermaLink="true">https://therain2020.github.io/post/JavaSE_API_BigInteger.html</guid><pubDate>Thu, 22 May 2025 08:36:46 +0000</pubDate></item><item><title>JavaSE_API_BigDecimal</title><link>https://therain2020.github.io/post/JavaSE_API_BigDecimal.html</link><description># BigDecimal
 
 float：4个字节，32bit，23bit小数
 double：8个字节，64bit，52bit小数
@@ -142,7 +190,7 @@ public BigDecimal divide(BigDecimal val,int 精确几位,RoundingMode 舍入模�
 
 
 ## 底层存储方式
-遍历得到字符串的每一个字符，获取字符对应ASCII数值，形成数组。</description><guid isPermaLink="true">https://therain2020.github.io/post/API_BigDecimal.html</guid><pubDate>Thu, 22 May 2025 08:35:59 +0000</pubDate></item><item><title>面经_阿里国际506</title><link>https://therain2020.github.io/post/mian-jing-_-a-li-guo-ji-506.html</link><description># part1
+遍历得到字符串的每一个字符，获取字符对应ASCII数值，形成数组。</description><guid isPermaLink="true">https://therain2020.github.io/post/JavaSE_API_BigDecimal.html</guid><pubDate>Thu, 22 May 2025 08:35:59 +0000</pubDate></item><item><title>面经_阿里国际506</title><link>https://therain2020.github.io/post/mian-jing-_-a-li-guo-ji-506.html</link><description># part1
 ## 讲讲最近的项目，都有哪些模块？
 司乘双端的登录模块，司机端需要人脸认证
 预估订单数据模块
@@ -156,7 +204,23 @@ public BigDecimal divide(BigDecimal val,int 精确几位,RoundingMode 舍入模�
 ## 你觉得哪个模块比较难？
 司机抢单模块
 方案1：数据库隔离级别，效率低下，不适合高并发需求
-方案2：乐观锁，基于版本号，若并发冲突频繁，大量请求会因版本号不一致导致更新失败。</description><guid isPermaLink="true">https://therain2020.github.io/post/mian-jing-_-a-li-guo-ji-506.html</guid><pubDate>Mon, 12 May 2025 09:28:35 +0000</pubDate></item><item><title>进程管理</title><link>https://therain2020.github.io/post/jin-cheng-guan-li.html</link><description># 1.进程、线程基础知识
+方案2：乐观锁，基于版本号，若并发冲突频繁，大量请求会因版本号不一致导致更新失败。</description><guid isPermaLink="true">https://therain2020.github.io/post/mian-jing-_-a-li-guo-ji-506.html</guid><pubDate>Mon, 12 May 2025 09:28:35 +0000</pubDate></item><item><title>面经_阿里国际429</title><link>https://therain2020.github.io/post/mian-jing-_-a-li-guo-ji-429.html</link><description>手撕：HashMap
+
+自我介绍
+
+
+# 负载均衡
+
+1.常见负载均衡算法（这题可以微服务、SpringCloud、Net等等角度切入考察）
+&gt; 简单轮询：将请求按顺序分发给后端服务器，不关心服务器当前状态（性能、当前负载等）
+&gt; 加权轮询：将请求按顺序和权重（根据性能设置权重）分发给后端服务器，让高性能机器处理更多请求
+&gt; 简单随机：将请求随机分发给后端服务器，请求越多，各个服务器收到的请求越平均
+&gt; 加权随机：将请求按权重（根据性能设置权重）随机分发给后端服务器
+&gt; 一致性哈希：**根据请求的客户端IP、或请求参数通过哈希算法得到一个数值，利用该数值取模映射出对应的后端服务器，保证同一个客户端或相同参数的请求每次都使用同一台服务器**
+&gt; 最小活跃数：将请求分发给请求活跃数最少（统计每台服务器当前正在处理的请求数目）的后台服务器
+
+**系统设计角度的负载均衡：**
+&gt; 硬件负载均衡：使用专用的硬件设备来分配流量。</description><guid isPermaLink="true">https://therain2020.github.io/post/mian-jing-_-a-li-guo-ji-429.html</guid><pubDate>Mon, 12 May 2025 09:28:19 +0000</pubDate></item><item><title>OS_进程管理</title><link>https://therain2020.github.io/post/OS_-jin-cheng-guan-li.html</link><description># 1.进程、线程基础知识
 
 ## 1.1 进程
 
@@ -167,7 +231,7 @@ public BigDecimal divide(BigDecimal val,int 精确几位,RoundingMode 舍入模�
 &gt; CPU可以从进程1切换到进程2，记录进程1当前状态，要恢复执行进程1就需要向CPU发送中断
 
 并行和并发的区别
-&gt; 并行：同一时刻，进行多个任务。</description><guid isPermaLink="true">https://therain2020.github.io/post/jin-cheng-guan-li.html</guid><pubDate>Sat, 10 May 2025 11:31:20 +0000</pubDate></item><item><title>Net_IP</title><link>https://therain2020.github.io/post/Net_IP.html</link><description># 1IP基础知识全家桶
+&gt; 并行：同一时刻，进行多个任务。</description><guid isPermaLink="true">https://therain2020.github.io/post/OS_-jin-cheng-guan-li.html</guid><pubDate>Sat, 10 May 2025 11:31:20 +0000</pubDate></item><item><title>Net_IP</title><link>https://therain2020.github.io/post/Net_IP.html</link><description># 1IP基础知识全家桶
 
 
 ## 1.1认识IP
@@ -188,12 +252,12 @@ KMP算法
 
 
 ### ES分词错误的情况如何处理/es分词导致查询结果不准确
-问题的具体描述是：索引里面有数据，却无法查询出来。</description><guid isPermaLink="true">https://therain2020.github.io/post/mian-jing-_-he-fei-da-zhi-hui-er-mian.html</guid><pubDate>Sat, 10 May 2025 06:36:16 +0000</pubDate></item><item><title>华资软件二面面经</title><link>https://therain2020.github.io/post/hua-zi-ruan-jian-er-mian-mian-jing.html</link><description>基础：
+问题的具体描述是：索引里面有数据，却无法查询出来。</description><guid isPermaLink="true">https://therain2020.github.io/post/mian-jing-_-he-fei-da-zhi-hui-er-mian.html</guid><pubDate>Sat, 10 May 2025 06:36:16 +0000</pubDate></item><item><title>面经_华资软件二面</title><link>https://therain2020.github.io/post/mian-jing-_-hua-zi-ruan-jian-er-mian.html</link><description>基础：
 ### 1.Mybatis中的#和$的区别
-- 在处理 #{} 时，会创建预编译的 SQL 语句，将 SQL 中的 #{} 替换为 ? 号，在执行 SQL 时会为预编译 SQL 中的占位符（?）赋值，调用 PreparedStatement 的 set 方法来赋值，预编译的 SQL 语句执行效率高，并且可以防止SQL 注入，提供更高的安全性，适合传递参数值。</description><guid isPermaLink="true">https://therain2020.github.io/post/hua-zi-ruan-jian-er-mian-mian-jing.html</guid><pubDate>Sat, 10 May 2025 06:33:58 +0000</pubDate></item><item><title>Redis_持久化</title><link>https://therain2020.github.io/post/Redis_-chi-jiu-hua.html</link><description># Redis持久化
+- 在处理 #{} 时，会创建预编译的 SQL 语句，将 SQL 中的 #{} 替换为 ? 号，在执行 SQL 时会为预编译 SQL 中的占位符（?）赋值，调用 PreparedStatement 的 set 方法来赋值，预编译的 SQL 语句执行效率高，并且可以防止SQL 注入，提供更高的安全性，适合传递参数值。</description><guid isPermaLink="true">https://therain2020.github.io/post/mian-jing-_-hua-zi-ruan-jian-er-mian.html</guid><pubDate>Sat, 10 May 2025 06:33:58 +0000</pubDate></item><item><title>Redis_持久化</title><link>https://therain2020.github.io/post/Redis_-chi-jiu-hua.html</link><description># Redis持久化
 
 ## 持久化是什么
-&gt; 持久化即将内存中的数据写入硬盘，目标是为了之后重用数据或做数据同步。</description><guid isPermaLink="true">https://therain2020.github.io/post/Redis_-chi-jiu-hua.html</guid><pubDate>Thu, 08 May 2025 08:12:46 +0000</pubDate></item><item><title>Redis相关面经</title><link>https://therain2020.github.io/post/Redis-xiang-guan-mian-jing.html</link><description>### Redis 常见数据类型和应用场景
+&gt; 持久化即将内存中的数据写入硬盘，目标是为了之后重用数据或做数据同步。</description><guid isPermaLink="true">https://therain2020.github.io/post/Redis_-chi-jiu-hua.html</guid><pubDate>Thu, 08 May 2025 08:12:46 +0000</pubDate></item><item><title>面经_Redis相关</title><link>https://therain2020.github.io/post/mian-jing-_Redis-xiang-guan.html</link><description>### Redis 常见数据类型和应用场景
 
 常见的有五种：String、Hash、List、Set、Zset
 
@@ -205,7 +269,7 @@ KMP算法
 （Redis实现的数据结构支持对数据进行高效的增删改查操作）
 
 &gt; PS:
-&gt; Redis数据结构并不是数据类型（String、List、Hash、Zset、Set），数据类型是Redis键值对中value的数据类型，即数据的保存形式。</description><guid isPermaLink="true">https://therain2020.github.io/post/Redis-xiang-guan-mian-jing.html</guid><pubDate>Thu, 08 May 2025 08:10:54 +0000</pubDate></item><item><title>模拟面试_AI提示词</title><link>https://therain2020.github.io/post/mo-ni-mian-shi-_AI-ti-shi-ci.html</link><description>这里的提示词可以用于模拟面试，也可以用来回答面试问题。</description><guid isPermaLink="true">https://therain2020.github.io/post/mo-ni-mian-shi-_AI-ti-shi-ci.html</guid><pubDate>Thu, 08 May 2025 08:05:13 +0000</pubDate></item><item><title>面经_HashMap相关</title><link>https://therain2020.github.io/post/mian-jing-_HashMap-xiang-guan.html</link><description># hash方法源码参考
+&gt; Redis数据结构并不是数据类型（String、List、Hash、Zset、Set），数据类型是Redis键值对中value的数据类型，即数据的保存形式。</description><guid isPermaLink="true">https://therain2020.github.io/post/mian-jing-_Redis-xiang-guan.html</guid><pubDate>Thu, 08 May 2025 08:10:54 +0000</pubDate></item><item><title>模拟面试_AI提示词</title><link>https://therain2020.github.io/post/mo-ni-mian-shi-_AI-ti-shi-ci.html</link><description>这里的提示词可以用于模拟面试，也可以用来回答面试问题。</description><guid isPermaLink="true">https://therain2020.github.io/post/mo-ni-mian-shi-_AI-ti-shi-ci.html</guid><pubDate>Thu, 08 May 2025 08:05:13 +0000</pubDate></item><item><title>面经_HashMap相关</title><link>https://therain2020.github.io/post/mian-jing-_HashMap-xiang-guan.html</link><description># hash方法源码参考
 ```
 JDK 1.8
     static final int hash(Object key) {

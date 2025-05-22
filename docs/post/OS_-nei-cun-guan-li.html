@@ -10,13 +10,37 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="这里的提示词可以用于模拟面试，也可以用来回答面试问题。">
-<meta property="og:title" content="模拟面试提示词">
-<meta property="og:description" content="这里的提示词可以用于模拟面试，也可以用来回答面试问题。">
+<meta name="description" content="# 内存管理的主要功能
+
+- 内存分配与回收：malloc函数申请内存；free函数释放内存
+
+- 地址转换：将程序中的虚拟内存转换为内存中的物理内存
+
+- 内存扩充：当内存不足时，使用虚拟内存技术或自动覆盖技术从逻辑上扩充内存
+
+- 内存映射：将一个文件直接映射到内存中，这样可以通过内存指针读写内存的办法直接读取文件内容，速度更快
+
+- 内存优化：调整内存分配策略和回收算法优化内存使用效率
+
+- 内存安全：保证进程间使用内存互不干扰，避免恶意程序修改内存影响系统安全性。">
+<meta property="og:title" content="OS_内存管理">
+<meta property="og:description" content="# 内存管理的主要功能
+
+- 内存分配与回收：malloc函数申请内存；free函数释放内存
+
+- 地址转换：将程序中的虚拟内存转换为内存中的物理内存
+
+- 内存扩充：当内存不足时，使用虚拟内存技术或自动覆盖技术从逻辑上扩充内存
+
+- 内存映射：将一个文件直接映射到内存中，这样可以通过内存指针读写内存的办法直接读取文件内容，速度更快
+
+- 内存优化：调整内存分配策略和回收算法优化内存使用效率
+
+- 内存安全：保证进程间使用内存互不干扰，避免恶意程序修改内存影响系统安全性。">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://therain2020.github.io/post/mo-ni-mian-shi-ti-shi-ci.html">
+<meta property="og:url" content="https://therain2020.github.io/post/OS_-nei-cun-guan-li.html">
 <meta property="og:image" content="https://github.githubassets.com/favicons/favicon.svg">
-<title>模拟面试提示词</title>
+<title>OS_内存管理</title>
 
 
 
@@ -59,7 +83,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 
 <body>
     <div id="header">
-<h1 class="postTitle">模拟面试提示词</h1>
+<h1 class="postTitle">OS_内存管理</h1>
 <div class="title-right">
     <a href="https://therain2020.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
         <svg class="octicon" width="16" height="16">
@@ -67,7 +91,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
         </svg>
     </a>
     
-    <a href="https://github.com/therain2020/therain2020.github.io/issues/13" target="_blank" class="btn btn-invisible circle" title="Issue">
+    <a href="https://github.com/therain2020/therain2020.github.io/issues/32" target="_blank" class="btn btn-invisible circle" title="Issue">
         <svg class="octicon" width="16" height="16">
             <path id="pathIssue" fill-rule="evenodd"></path>
         </svg>
@@ -83,26 +107,49 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 </div>
     <div id="content">
-<div class="markdown-body" id="postBody"><p>这里的提示词可以用于模拟面试，也可以用来回答面试问题。</p>
-<pre class="notranslate"><code class="notranslate"># 指令：针对互联网技术面试问题，提供分段式核心要点回答
-
-## 角色
-你是一位经验丰富的技术讲解者，擅长将复杂的技术概念拆解成清晰、易于理解的部分，并能用连贯的语言进行阐述，帮助他人快速掌握核心知识。
-
-## 任务
-请根据我提出的具体技术面试问题，按照以下要求进行回答：
-
-1.  **聚焦核心内容**：直接围绕问题的关键知识点展开，避免无关的背景信息或过深的细节。
-2.  **分段式阐述**：使用**段落**来组织答案。**每个段落应集中讨论问题的一个主要方面、步骤或核心概念**。确保段落之间逻辑清晰、衔接自然。
-3.  **适度展开**：每个段落应提供**足够清晰的解释**，帮助理解该段落聚焦的核心内容。要做到简明扼要，既要说清楚，又不能过于冗长或包含太多技术细节。
-4.  **突出重点**：在阐述时，应能明确体现出哪些是关键点。请将每个段落中的核心词语或关键语句使用加粗格式（例如 **核心概念**）标示出来。
-5.  **适度关联**：如果存在与当前问题答案**高度相关且非常重要**的补充概念，可以用简洁的语句（例如一两句话）在相关段落中提及，但不要深入展开。
-6.  **语言要求**：请务必使用**中文**进行回答。
-
-## 目标
-你的回答应该像一篇精炼的技术短文，结构清晰，便于阅读、理解和记忆核心内容，特别适合面试前的快速复习。
-
-</code></pre></div>
+<div class="markdown-body" id="postBody"><h1>内存管理的主要功能</h1>
+<ul>
+<li>
+<p>内存分配与回收：malloc函数申请内存；free函数释放内存</p>
+</li>
+<li>
+<p>地址转换：将程序中的虚拟内存转换为内存中的物理内存</p>
+</li>
+<li>
+<p>内存扩充：当内存不足时，使用虚拟内存技术或自动覆盖技术从逻辑上扩充内存</p>
+</li>
+<li>
+<p>内存映射：将一个文件直接映射到内存中，这样可以通过内存指针读写内存的办法直接读取文件内容，速度更快</p>
+</li>
+<li>
+<p>内存优化：调整内存分配策略和回收算法优化内存使用效率</p>
+</li>
+<li>
+<p>内存安全：保证进程间使用内存互不干扰，避免恶意程序修改内存影响系统安全性。</p>
+</li>
+</ul>
+<h1>什么是内存碎片</h1>
+<p>内部内存碎片：已经分配的内存里面未被使用的部分。例如：按2的幂次方分配，需要65字节内存，分配了128，就会产生63字节内部内存碎片。</p>
+<p>外部内存碎片：未被分配且无法被使用，即，碎片太小不能满足任意进程的内存分配请求。</p>
+<p>后果：</p>
+<blockquote>
+<p>内存碎片会导致内存利用率下降，我们需要减少内存碎片。</p>
+</blockquote>
+<h1>内存管理方式</h1>
+<pre class="notranslate"><code class="notranslate">- 连续内存管理：为一个用户程序分配连续的内存空间，内存利用率一般不高。
+- 非连续内存管理：运行一个程序使用不相邻的内存空间，更为灵活。
+</code></pre>
+<p>连续内存管理包括：块式管理、伙伴系统（Linux采用）算法等</p>
+<ul>
+<li>块式管理，将内存分为几个固定大小的块，一个块供一个进程使用，造成极大的内存浪费，且极容易产生内、外部内存碎片。</li>
+<li>伙伴系统算法，内存按2的幂次方划分，相邻的内存块划为一对伙伴。分配时，系统会尝试找到最合适的一块内存，如果内存太大则不断一分为二，直到大小合适。当两个相邻内存块都被释放时，又会合二为一。进而解决了外部内存碎片的问题。</li>
+</ul>
+<p>非连续内存管理包括：段式管理、页式管理、段页式管理机制</p>
+<ul>
+<li>段式管理：以段（一段连续的物理内存）的形式管理/分配内存。应用程序的虚拟地址空间被划分为大小不同的段，段是有实际意义的，每个段定义了一组逻辑信息，例如主程序段MAIN、子程序段X、数据段D及栈段S等</li>
+<li>页式管理：把物理内存分为连续等长的物理页。应用程序的虚拟地址也分配连续等长的虚拟页。</li>
+<li>段页式管理机制：先把物理内存分成若干段，每个段继续分为若干大小相等的连续页</li>
+</ul></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>

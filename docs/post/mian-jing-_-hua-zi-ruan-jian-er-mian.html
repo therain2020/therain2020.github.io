@@ -10,17 +10,17 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="
-有什么用：
-- 正则表达式可以校验字符串是否满足一定的规则，并用来校验数据格式的合法性。">
-<meta property="og:title" content="正则表达式Part1">
-<meta property="og:description" content="
-有什么用：
-- 正则表达式可以校验字符串是否满足一定的规则，并用来校验数据格式的合法性。">
+<meta name="description" content="基础：
+### 1.Mybatis中的#和$的区别
+- 在处理 #{} 时，会创建预编译的 SQL 语句，将 SQL 中的 #{} 替换为 ? 号，在执行 SQL 时会为预编译 SQL 中的占位符（?）赋值，调用 PreparedStatement 的 set 方法来赋值，预编译的 SQL 语句执行效率高，并且可以防止SQL 注入，提供更高的安全性，适合传递参数值。">
+<meta property="og:title" content="面经_华资软件二面">
+<meta property="og:description" content="基础：
+### 1.Mybatis中的#和$的区别
+- 在处理 #{} 时，会创建预编译的 SQL 语句，将 SQL 中的 #{} 替换为 ? 号，在执行 SQL 时会为预编译 SQL 中的占位符（?）赋值，调用 PreparedStatement 的 set 方法来赋值，预编译的 SQL 语句执行效率高，并且可以防止SQL 注入，提供更高的安全性，适合传递参数值。">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://therain2020.github.io/post/zheng-ze-biao-da-shi-Part1.html">
+<meta property="og:url" content="https://therain2020.github.io/post/mian-jing-_-hua-zi-ruan-jian-er-mian.html">
 <meta property="og:image" content="https://github.githubassets.com/favicons/favicon.svg">
-<title>正则表达式Part1</title>
+<title>面经_华资软件二面</title>
 
 
 
@@ -53,7 +53,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 
 <body>
     <div id="header">
-<h1 class="postTitle">正则表达式Part1</h1>
+<h1 class="postTitle">面经_华资软件二面</h1>
 <div class="title-right">
     <a href="https://therain2020.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
         <svg class="octicon" width="16" height="16">
@@ -61,7 +61,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
         </svg>
     </a>
     
-    <a href="https://github.com/therain2020/therain2020.github.io/issues/24" target="_blank" class="btn btn-invisible circle" title="Issue">
+    <a href="https://github.com/therain2020/therain2020.github.io/issues/16" target="_blank" class="btn btn-invisible circle" title="Issue">
         <svg class="octicon" width="16" height="16">
             <path id="pathIssue" fill-rule="evenodd"></path>
         </svg>
@@ -77,37 +77,38 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 </div>
     <div id="content">
-<div class="markdown-body" id="postBody"><p>有什么用：</p>
+<div class="markdown-body" id="postBody"><p>基础：</p>
+<h3>1.Mybatis中的#和$的区别</h3>
 <ul>
-<li>正则表达式可以校验字符串是否满足一定的规则，并用来校验数据格式的合法性。</li>
-<li>在一段文本中查找满足要求的内容</li>
+<li>在处理 #{} 时，会创建预编译的 SQL 语句，将 SQL 中的 #{} 替换为 ? 号，在执行 SQL 时会为预编译 SQL 中的占位符（?）赋值，调用 PreparedStatement 的 set 方法来赋值，预编译的 SQL 语句执行效率高，并且可以防止SQL 注入，提供更高的安全性，适合传递参数值。</li>
+<li>在处理 ${} 时，只是创建普通的 SQL 语句，然后在执行 SQL 语句时 MyBatis 将参数直接拼入到 SQL 里，不能防止 SQL 注入，因为参数直接拼接到 SQL 语句中，如果参数未经过验证、过滤，可能会导致安全问题。</li>
 </ul>
-<p>是什么：</p>
-<ul>
-<li>只匹配一个字符的时候<br>
-ps：&amp;&amp; 表示取交集，单个&amp;则仅代表可以匹配这个符号</li>
-</ul>
-<blockquote>
-<p>字符类（只匹配一个字符）<br>
-[abc]			只能是a，b或c<br>
-[^abc]		除了a，b，c之外的任何字符<br>
-[a-zA-z]		a到z A到Z，包括（范围）<br>
-[a-d[m-p]]		a到d，或m到p<br>
-[a-z&amp;&amp;[def]]	a-z和def的交集，为d，e，f<br>
-[a-z&amp;&amp;[^bc]]	a-z和除了bc之外的任何字符的交集，等价于[ad-z]<br>
-[a-z&amp;&amp;[^m-p]] 	a-z和除了m-p之外的任何字符的交集，等价于[a-lq-z]]</p>
-</blockquote>
-<p>ps：Java中 反斜杠（\）是转义字符 能够改变后面那个字符原本的含义，两个\可以得到一个转义后的\</p>
-<blockquote>
-<p>预定义字符（只匹配一个字符）<br>
-.			任何字符<br>
-\d			一个数字[0-9]<br>
-\D			非数字[^0-9]<br>
-\s			一个空白字符串[\t\n\x0B\f\r]<br>
-\S			非空白字符[^\s]<br>
-\w			（单词字符）英文、数字、下划线[a-zA-Z_0-9]<br>
-\W			一个非单词字符[^\w]</p>
-</blockquote></div>
+<h3>2.Java命名：</h3>
+<p>类名，大驼峰，首字母大写，名字开头，避免缩写。<br>
+方法名，小驼峰，首字母小写，动词开头，描述动作。<br>
+变量名，小驼峰，首字母小写，名词开头，避免单字符。<br>
+常量，全大写+下划线<br>
+枚举，全大写</p>
+<h3>3.设计多对多的实体数据库表</h3>
+<p>多对多，三张表，联合主键的关系表加外键<br>
+比如学生和课程之间的多对多关系<br>
+student 主键id+各种信息字段<br>
+course  主键id+各种信息字段<br>
+student_course student_id+course_id，（student_id和course_id作为联合主键）+（student_id作为外键关联student表，course也一样）</p>
+<h3>4.设计一对多的实体数据库表</h3>
+<p>一对多，两张表，多的表加外键（在一对多的关系中，存在两张表（一张父表一张子表），父表的一条数据对应子表的多条数据，那么子表（多）就需要添加上父表（一）的外键字段）<br>
+部门和员工之间的1：n关系<br>
+department： id + name + location等<br>
+employee：	id + name + dept_id（外键）</p>
+<h3>4.5 一对一呢？</h3>
+<p>一对一和一对多语法上并没有什么太大区别，只是在外键处加了一个唯一性约束；</p>
+<h3>5.select从两张表（表1两行数据，表2三行数据）中查询，但是缺少where关键词，会查询到几行数据，为什么</h3>
+<p>2*3=6行<br>
+默认执行笛卡尔积，即两表所有行的组合</p>
+<h3>6.常见的排序算法</h3>
+<p><a href="https://xiaolincoding.com/interview/data.html#%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95" rel="nofollow">这部分小林code数据结构与算法面试篇讲的很好</a></p>
+<h3>7.冒泡排序为什么叫做冒泡排序</h3>
+<p>通过相邻元素的比较和交换，每次将最大（或最小）的元素逐步“冒泡”到最后（或最前）</p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://github.githubassets.com/favicons/favicon.svg"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="手撕：HashMap
+
+自我介绍
+
+
+# 负载均衡
+
+1.常见负载均衡算法（这题可以微服务、SpringCloud、Net等等角度切入考察）
+> 简单轮询：将请求按顺序分发给后端服务器，不关心服务器当前状态（性能、当前负载等）
+> 加权轮询：将请求按顺序和权重（根据性能设置权重）分发给后端服务器，让高性能机器处理更多请求
+> 简单随机：将请求随机分发给后端服务器，请求越多，各个服务器收到的请求越平均
+> 加权随机：将请求按权重（根据性能设置权重）随机分发给后端服务器
+> 一致性哈希：**根据请求的客户端IP、或请求参数通过哈希算法得到一个数值，利用该数值取模映射出对应的后端服务器，保证同一个客户端或相同参数的请求每次都使用同一台服务器**
+> 最小活跃数：将请求分发给请求活跃数最少（统计每台服务器当前正在处理的请求数目）的后台服务器
+
+**系统设计角度的负载均衡：**
+> 硬件负载均衡：使用专用的硬件设备来分配流量。">
+<meta property="og:title" content="面经_阿里国际429">
+<meta property="og:description" content="手撕：HashMap
+
+自我介绍
+
+
+# 负载均衡
+
+1.常见负载均衡算法（这题可以微服务、SpringCloud、Net等等角度切入考察）
+> 简单轮询：将请求按顺序分发给后端服务器，不关心服务器当前状态（性能、当前负载等）
+> 加权轮询：将请求按顺序和权重（根据性能设置权重）分发给后端服务器，让高性能机器处理更多请求
+> 简单随机：将请求随机分发给后端服务器，请求越多，各个服务器收到的请求越平均
+> 加权随机：将请求按权重（根据性能设置权重）随机分发给后端服务器
+> 一致性哈希：**根据请求的客户端IP、或请求参数通过哈希算法得到一个数值，利用该数值取模映射出对应的后端服务器，保证同一个客户端或相同参数的请求每次都使用同一台服务器**
+> 最小活跃数：将请求分发给请求活跃数最少（统计每台服务器当前正在处理的请求数目）的后台服务器
+
+**系统设计角度的负载均衡：**
+> 硬件负载均衡：使用专用的硬件设备来分配流量。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://therain2020.github.io/post/mian-jing-_-a-li-guo-ji-429.html">
+<meta property="og:image" content="https://github.githubassets.com/favicons/favicon.svg">
+<title>面经_阿里国际429</title>
+
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">面经_阿里国际429</h1>
+<div class="title-right">
+    <a href="https://therain2020.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/therain2020/therain2020.github.io/issues/20" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><p>手撕：HashMap</p>
+<p>自我介绍</p>
+<h1>负载均衡</h1>
+<p>1.常见负载均衡算法（这题可以微服务、SpringCloud、Net等等角度切入考察）</p>
+<blockquote>
+<p>简单轮询：将请求按顺序分发给后端服务器，不关心服务器当前状态（性能、当前负载等）<br>
+加权轮询：将请求按顺序和权重（根据性能设置权重）分发给后端服务器，让高性能机器处理更多请求<br>
+简单随机：将请求随机分发给后端服务器，请求越多，各个服务器收到的请求越平均<br>
+加权随机：将请求按权重（根据性能设置权重）随机分发给后端服务器<br>
+一致性哈希：<strong>根据请求的客户端IP、或请求参数通过哈希算法得到一个数值，利用该数值取模映射出对应的后端服务器，保证同一个客户端或相同参数的请求每次都使用同一台服务器</strong><br>
+最小活跃数：将请求分发给请求活跃数最少（统计每台服务器当前正在处理的请求数目）的后台服务器</p>
+</blockquote>
+<p><strong>系统设计角度的负载均衡：</strong></p>
+<blockquote>
+<p>硬件负载均衡：使用专用的硬件设备来分配流量。优点是，性能强大，支持高并发；缺点是太贵，一个就百万。<br>
+软件负载均衡：软件应用程序，比如Nginx。优点，灵活便宜，易于修改和拓展；缺点，性能不如硬件方案，但其实够用。<br>
+DNS负载均衡：通过DNS服务器将流量分配到多个服务器上，不同客户端请求可能获得不同的IP地址。优点，简单易用，无需额外硬件或软件；缺点，无法感知服务器的实时状态，缓存问题可能导致不均匀负载。<br>
+内容分发网络（CDN）：CDN是一种分布式的网络结构，可以将内容分发到距离用户最近的节点上。优点，低延迟高体验；缺点，适用于静态内容，动态请求仍需要其他形式的负载均衡。</p>
+</blockquote>
+<p><strong>Nginx（位于7层模型中的应用层）支持的负载均衡策略（算法）</strong></p>
+<blockquote>
+<p>轮询：将请求......，最简单，但无法处理某个节点变慢或者客户端操作有连续性的情况<br>
+加权轮询：将请求......，可以提高高性能服务器的利用率<br>
+最短响应时间：将请求优先分发给响应时间短的服务器，可以将请求发送到响应时间快的服务器，应对某个节点变慢的情况<br>
+IP哈希：根据客户端IP地址的哈希值来确定分配请求的后端服务器，应对客户端操作有连续性的情况，如会话保持<br>
+URL哈希：按访问的URL的哈希结果来分配请求，使每个URL定向到一台后端服务器，进一步提高后端缓存服务器的效率，同样可以应对客户端有连续性操作的情况</p>
+</blockquote>
+<h1>传输对象、多线程通信</h1>
+<p>2.常见序列化方式<br>
+先了解序列化是干嘛的</p>
+<blockquote>
+<p>和反序列化成对出现，作用是把一个对象从一个JVM 转移到另外一个JVM，过程是：先序列化为字节流，发送到另一个JVM，然后反序列化恢复对象。JAVA提供ObjectOutputStream和ObjectInputStream来实现</p>
+</blockquote>
+<p>能实现相同作用（对象在不同JVM之间传输）的还有</p>
+<blockquote>
+<p>1.消息传递机制：利用消息队列（RabbitMQ、Kafka）或者网络套接字进行通信，将对象从一个JVM发送到另外一个。需要自定义协议来序列化对象并在另外一个JVM中反序列化。<br>
+2.使用远程方法调用（RPC）框架，如gRPC，可以在分布式系统中调用远程JVM上的对象的方法。<br>
+3.将对象存储在共享数据库（MySQL、PostgreSQL）或共享缓存（Redis），不同JVM可以访问共享数据，适用于需要共享数据，但不需要直接传输对象的场景。</p>
+</blockquote>
+<p>介绍各种序列化方式：</p>
+<blockquote>
+<p>1.Java默认的序列化和反序列化，虽然方便，但存在不跨语言、安全漏洞以及性能差等缺陷</p>
+</blockquote>
+<ul>
+<li>不跨语言：目前只适用于基于Java语言实现的框架，其他语言大部分都没有使用Java的序列化框架，也就没有实现Java序列化这套协议，所以无法实现跨语言的对象传输。</li>
+<li>安全漏洞：Java的对象通过在ObjectInputStream上调用readObject（）方法进行反序列化。这个方法可以将类路径上几乎所有实现了Serializable接口的对象都实例化，这意味着在反序列化字节流的过程中，这个方法可以执行任意类型的代码</li>
+<li>性能差：序列化后的二进制流大小可以体现序列化的性能。序列化后端二进制数组越大，所占用的存储空间就越大，存储硬件的成本就越高。如果进行网络传输，则占用的带宽越多，影响到系统的吞吐量。</li>
+</ul>
+<blockquote>
+<p>2.FastJson框架</p>
+</blockquote>
+<blockquote>
+<p>3.Protobuf框架</p>
+</blockquote>
+<ul>
+<li>高性能：因为压缩存储数据的效果好、编码解码也很高效。编码解码的过程中结合.proto文件格式，加上Protocol Buffer独特的的编码格式，只需要简单的数据运算以及位移等操作就可以完成编码与解码。</li>
+</ul>
+<p>3.各种序列化方式的优缺点</p>
+<h1>多线程安全</h1>
+<p>4.hashmap的线程安全<br>
+hashmap不是线程安全的，hashmap在多线程会存在下面的问题：</p>
+<blockquote>
+<p>JDK 1.7 HashMap 采用数组 + 链表的数据结构，多线程背景下，在数组扩容的时候，存在 Entry 链死循环和数据丢失问题。<br>
+JDK 1.8 HashMap 采用数组 + 链表 + 红黑二叉树的数据结构，解决了 Entry 链死循环和数据丢失问题。但是多线程背景下，put 方法存在数据覆盖的问题。</p>
+</blockquote>
+<p>要保证线程安全，可以通过以下方法来保证</p>
+<blockquote>
+<p>1.多线程环境可以使用Collections.synchronizedMap同步加锁的方式，还可以使用HashTable，但是同步的方式显然性能不达标，而ConurrentHashMap更适合高并发场景使用。<br>
+2.ConcurrentHashmap在JDK1.7，使用Segment+HashEntry分段锁的方式实现<br>
+3.ConcurrentHashmap在JDK1.8，抛弃了Segment，改为使用CAS+synchronized+Node实现，同样也加入了红黑树，避免链表过长导致性能的问题。</p>
+</blockquote>
+<p>5.如果有一个long类型变量，一个线程要修改，另一个线程要读，这个时候需要加锁吗<br>
+两种情况都可以<br>
+不加锁：如果是简单修改，直接使用volatile关键字即可，可以实现一旦修改立即刷新到主内存，确保所有线程看到该变量的最新值。<br>
+加锁：如果是复合修改操作（自增），则使用synchronized关键字加锁。</p>
+<h1>6.还有什么其他方式来保证这个long类型变量多线程的安全问题</h1>
+<p>这里抽象一下问题，考察的点是怎么去保证多线程安全<br>
+对于代码块和方法：</p>
+<blockquote>
+<p>synchronized关键字:加锁，确保同一时刻只有一个线程可以访问这些代码。通过synchronized关键字锁定对象的监视器（monitor）实现对象锁。</p>
+</blockquote>
+<p>对于变量：</p>
+<blockquote>
+<p>volatile关键字：一旦修改立即刷新到主内存，确保所有线程看到的是该变量的最新值，而不是可能存储在本地寄存器中的副本。<br>
+原子类：Java并发库（java.util.concurrent.atomic）提供了原子类，如AtomicInteger、AtomicLong等，这些类提供了原子操作，可以用于更新基本类型的变量而无需额外的同步。<br>
+线程局部变量：ThreadLocal类可以为每个线程提供独立的变量副本，每个线程都拥有自己的变量，消除了竞争条件。</p>
+</blockquote>
+<p>通用的方法</p>
+<blockquote>
+<p>Lock接口和ReentrantLock类:java.util.concurrent.locks.Lock接口提供了比synchronized更强大的锁定机制，ReentrantLock是一个实现该接口的例子，提供了更灵活的锁管理和更高的性能。<br>
+并发集合:使用java.util.concurrent包中的线程安全集合，如ConcurrentHashMap、ConcurrentLinkedQueue等，这些集合内部已经实现了线程安全的逻辑。<br>
+JUC工具类:使用java.util.concurrent包中的一些工具类可以用于控制线程间的同步和协作。例如：Semaphore和CyclicBarrier等。</p>
+</blockquote>
+<h1>内存泄露</h1>
+<h2>7.什么情况下会有内存泄露</h2>
+<p>内存泄露是什么、有什么影响、产生的原因、如何避免<br>
+是什么：</p>
+<blockquote>
+<p>指程序在运行过程中不再使用的对象仍然被引用，而无法被垃圾收集器回收，从而导致可用内存逐渐减少。</p>
+</blockquote>
+<p>影响</p>
+<blockquote>
+<p>如果有对象仍被不再使用的引用持有，垃圾收集器无法回收这些内存，导致程序的内存使用不断增加</p>
+</blockquote>
+<p>产生的原因</p>
+<blockquote>
+<p>静态集合：使用静态数据结构（如<code class="notranslate">HashMap</code>或<code class="notranslate">ArrayList</code>）存储对象，且未清理。<br>
+事件监听：未取消对事件源的监听，导致对象持续被引用。<br>
+线程：未停止的线程可能持有对象引用，无法被回收。</p>
+</blockquote>
+<p>如何避免<br>
+针对大量使用静态属性(static)导致内存泄露</p>
+<blockquote>
+<p>1.减少静态变量<br>
+2.如果使用单例，尽量采用懒加载。</p>
+</blockquote>
+<p>针对未关闭的资源导致内存泄露</p>
+<blockquote>
+<p>1.始终记得在finally中进行资源的关闭<br>
+2.关闭连接的自身代码不能发生异常<br>
+3.Java7以上版本可使用try-with-resources代码方式进行资源关闭</p>
+</blockquote>
+<p>针对ThreadLocal导致的内存泄露：具体情况是，如果线程一直不结束，且有用到ThreadLocal。每个Thread维护一个ThreadLocalMap映射表，key是ThreadLocal实例本身，value是真正需要存储的Object；ThreadLocalMap使用ThreadLocal的弱引用作为key，如果一个ThreadLocal没有外部强引用来引用它，那么系统GC时，这个ThreadLocal就会被回收，ThreadLocalMap的key就会变成null，就没有办法访问对应的value了。而value存在一条强引用链：Thread Ref -&gt;Thread -&gt; ThreaLocalMap -&gt; Entry -&gt; value永远无法回收，造成内存泄漏</p>
+<blockquote>
+<p>1.使用ThreadLocal提供的remove方法，可对当前线程中的value值进行移除；<br>
+2.不要使用ThreadLocal.set(null) 的方式清除value，它实际上并没有清除值，而是查找与当前线程关联的Map并将键值对分别设置为当前线程和null。<br>
+3.最好将ThreadLocal视为需要在finally块中关闭的资源，以确保即使在发生异常的情况下也始终关闭该资源。</p>
+</blockquote>
+<h1>垃圾回收</h1>
+<p>8.介绍下可达性分析（垃圾回收知识点）<br>
+和引用计数器法一样，都是判断对象是否为垃圾的算法。</p>
+<p>引用计数器法：</p>
+<ul>
+<li>原理：为每个对象分配一个引用计数器。计数器加1，表示又有一个地方引用它；计数器减1，有一个地方的引用失效；计数器为0，表示对象不再被任何变量引用，可以被回收。</li>
+<li>缺点：不能解决循环引用，即两个对象相互引用，但不再被其他任何对象引用，导致引用计数器不会为0，导致对象无法被回收。</li>
+</ul>
+<p>可达性分析算法：</p>
+<ul>
+<li>原理：从一组称为GC Roots（垃圾收集根）的对象出发，向下追溯它们引用的对象，以及这些对象引用的其他对象，以此类推。如果一个对象到GC Roots没有任何引用链相连（即从GC Roots到这个对象不可达），）那么这个对象就被认为是不可达的，可以被回收。</li>
+</ul>
+<p>9.什么东西可以作为GC roots（垃圾收集根，垃圾回收知识点）</p>
+<ul>
+<li>1.虚拟机栈（栈帧中的本地变量表）中正在引用的对象</li>
+<li>2.本地方法栈（Java Native Interface）中正在引用的对象</li>
+<li>3.方法区静态属性引用的对象</li>
+<li>4.方法区常量引用的对象</li>
+<li>5.活跃线程的引用</li>
+</ul>
+<p>拓展：<br>
+垃圾回收算法 是什么、有什么用、有哪些<br>
+垃圾回收器 是什么、有什么用、有哪些</p>
+<p>垃圾回收算法是什么、有什么用</p>
+<blockquote>
+<p>一种自动检测和回收不再使用的对象，从而释放它们所占用的内存空间的机制<br>
+避免内存泄漏（一些对象被分配了内存却无法被释放，导致内存资源的浪费）<br>
+防止内存溢出（即程序需要的内存超过了可用内存的情况）。</p>
+</blockquote>
+<p>垃圾回收算法有哪些</p>
+<blockquote>
+<p>标记-清除算法:两个阶段，标记，通过可达性分析，标记出所有需要回收的对象；清除，统一回收所有被标记的对象。两个缺点，标记和清除的过程效率都不高；清除结束后会造成大量的碎片空间，在申请大块内存的时候如果没有足够的连续空间会再次 GC。<br>
+复制算法：为了解决碎片空间的问题而出现。原理，将内存分成A、B两块，先使用A来分配内存，当A内存不够时，将内存块A中所有存活的复制到内存块B上，再整个清除内存块A。新缺点，每次申请内存只能使用一半的内存空间，利用率很低。<br>
+标记-整理算法（又叫标记-压缩算法）：改良标记-清除算法，标记之后不会直接清理，而是将所有存活对象都移动到内存的一端，再清理掉剩余部分。两个优点，存活对象多的情况下比复制算法效率高；整理操作减少了碎片空间。<br>
+分代回收算法：依据对象的生存周期（经历过的 GC 次数），将内存划分成了新生代和老年代。对象创建时，一般在新生代申请内存。对象每活过一次 GC，年龄 +1。对象活过一定年龄（默认15，可以通过参数 -XX:MaxTenuringThreshold 来设定）后，进入老年代。</p>
+</blockquote>
+<p>垃圾回收器有哪些<br>
+<strong>复制算法</strong>垃圾收集器</p>
+<blockquote>
+<p>Serial收集器: 新生代单线程收集器，标记和清理都是单线程，优点是简单高效；<br>
+ParNew收集器 : 新生代收并行集器，实际上是Serial收集器的多线程版本，在多核CPU环境下有着比Serial更好的表现；<br>
+Parallel Scavenge收集器: 新生代并行收集器，追求高吞吐量，高效利用 CPU。吞吐量 = 用户线程时间/(用户线程时间+GC线程时间)，高吞吐量可以高效率的利用CPU时间，尽快完成程序的运算任务，适合后台应用等对交互相应要求不高的场景；</p>
+</blockquote>
+<p><strong>标记-清除算法</strong>垃圾回收器</p>
+<blockquote>
+<p>CMS(Concurrent Mark Sweep)收集器： 老年代并行收集器，以获取最短回收停顿时间为目标的收集器，具有高并发、低停顿的特点，追求最短GC回收停顿时间。</p>
+</blockquote>
+<p><strong>标记-整理算法</strong>垃圾回收器</p>
+<blockquote>
+<p>Serial Old收集器 : 老年代单线程收集器，Serial收集器的老年代版本；<br>
+Parallel Old收集器 ： 老年代并行收集器，吞吐量优先，Parallel Scavenge收集器的老年代版本；<br>
+G1(Garbage First)收集器 ： Java堆（包括新生代、老年代）并行收集器，G1收集器是JDK1.7提供的一个新收集器，基于“标记-整理”算法实现，也就是说不会产生内存碎片。重要特点是：G1回收的范围是整个Java堆(包括新生代，老年代)，而前六种收集器回收的范围仅限于新生代或老年代</p>
+</blockquote>
+<h1>Java21新特性</h1>
+<p>10.kotlin了解吗</p>
+<p>11.最新Java版本的新特性<br>
+最新的LTS（long time support）版本是21<br>
+新特性主要分成两块<br>
+1.新语言特性</p>
+<blockquote>
+<p>Switch 语句的模式匹配：允许在switch的case标签中使用模式匹配，减少了样板代码和潜在错误，使得操作更灵活和类型安全。例如，对于不同类型的账户类，可以在switch语句中直接根据账户类型的模式来获取响应的余额，如<code class="notranslate">case savingsAccount sa -&gt;result = sa.getSavings();</code><br>
+数组模式：模式匹配拓展到数组中，允许在条件语句中更高效的解构和检查数组内容。例如，<code class="notranslate">if (arr instanceof int[] {1, 2, 3})</code>，可以直接判断数组<code class="notranslate">arr</code>是否匹配指定的模式<br>
+字符串模板(预览版)：提供了一种更可读、更易于维护的方式来构建复杂字符串，支持在字符串字面量中直接嵌入表达式。变化如下，<code class="notranslate">"hello " + name + ", welcome to the geeksforgeeks!"</code> ，现在是<code class="notranslate">hello {name}, welcome to the geeksforgeeks!</code></p>
+</blockquote>
+<p>2.新并发特性</p>
+<blockquote>
+<p>虚拟线程：一种轻量级并发的新选择。通过共享堆栈的方式，大大降低了内存消耗，提高了应用程序的吞吐量和响应速度。可以通过静态构建方法、构建器或<code class="notranslate">ExecutorService</code>来创建和使用虚拟线程。<br>
+范围值（Scoped Values）：一种在线程间共享不可变数据的新方式，避免使用传统的线程局部存储，促进了更好的封装性和线程安全。在不通过方法参数传递的情况下，也能传递上下文信息，如用户会话或配置设置。</p>
+</blockquote></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://therain2020.github.io">therain2020</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if("04/22/2025"!=""){
+    var startSite=new Date("04/22/2025");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","therain2020/therain2020.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+
+
+</script>
+
+
+</html>

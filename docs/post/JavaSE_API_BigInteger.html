@@ -10,81 +10,115 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="# BigDecimal
+<meta name="description" content="# BigInteger
 
-float：4个字节，32bit，23bit小数
-double：8个字节，64bit，52bit小数
+## 1.有什么用：可以表示**大整数**，超出Long范围的那种
 
-##  1.构造方法
+## 2.怎么用（构造方法）
 ```
-public BigDecimal(double val)//传递double类型数值，不精确
+//获取随机大整数，0~2的num次方-1，含边界
+public BigInterger(int num, Random random)
 
-public BigDecimal(String val)//传递字符串，精确
+//获取指定大整数，字符串中必须是整数，否则报错
+public BigInterger(String val)
 
-public BigDecimal valueOf（double val）//静态方法获取对象，0~10的对象已经提前准备好，其他的值则创建新对象，且值不能超出double
-```
+//获取指定进制（radix）的大整数，字符串必须是整数且符合进制要求，否则报错
+public BigInterger(String val,int radix)
 
-## 成员方法
-
-```
-//加减乘除
-public BigDecimal add(BigDecimal val)
-
-public BigDecimal subtract(BigDecimal val)
-
-public BigDecimal multiply(BigDecimal val)
-
-public BigDecimal divide(BigDecimal val)
-
-public BigDecimal divide(BigDecimal val,int 精确几位,RoundingMode 舍入模式)//一般除不尽使用
-//不记得参数是什么了可以ctrl + p 查看
-//关于RoundingMode枚举类：在数轴上，UP代表远离零方向舍入，DOWN向零方向舍入，CEILING向正无穷大方向舍入，FLOOR向负无穷大方向舍入，HALF_UP四舍五入
+//静态方法获取BigInteger的对象，-16~16内部有优化，只能表示long范围的值
+public BigInterger(long val)
 
 ```
+## 3.有什么特点：对象一旦创建，内部记录的值无法改变
 
-
-## 底层存储方式
-遍历得到字符串的每一个字符，获取字符对应ASCII数值，形成数组。">
-<meta property="og:title" content="API_BigDecimal">
-<meta property="og:description" content="# BigDecimal
-
-float：4个字节，32bit，23bit小数
-double：8个字节，64bit，52bit小数
-
-##  1.构造方法
-```
-public BigDecimal(double val)//传递double类型数值，不精确
-
-public BigDecimal(String val)//传递字符串，精确
-
-public BigDecimal valueOf（double val）//静态方法获取对象，0~10的对象已经提前准备好，其他的值则创建新对象，且值不能超出double
-```
-
-## 成员方法
-
+## 4.有什么常见API方法
 ```
 //加减乘除
-public BigDecimal add(BigDecimal val)
+public BigInterger add(BigInteger val)
+public BigInterger subtract(BigInteger val)
+public BigInterger multiply(BigInteger val)
+public BigInterger divide(BigInteger val)
+//获取商和余数
+public BigInterger[] divideAndRemainder(BigInteger val)
+//次幂
+public BigInterger pow(int exponent)
+//返回较大值或较小值（不会创建新对象）
+public BigInterger max/min(BigInteger val)
+//转为int类型整数，注意超出范围会报错
+public int intValue(BigInteger val)
+public int longValue(BigInteger val)
 
-public BigDecimal subtract(BigDecimal val)
-
-public BigDecimal multiply(BigDecimal val)
-
-public BigDecimal divide(BigDecimal val)
-
-public BigDecimal divide(BigDecimal val,int 精确几位,RoundingMode 舍入模式)//一般除不尽使用
-//不记得参数是什么了可以ctrl + p 查看
-//关于RoundingMode枚举类：在数轴上，UP代表远离零方向舍入，DOWN向零方向舍入，CEILING向正无穷大方向舍入，FLOOR向负无穷大方向舍入，HALF_UP四舍五入
-
+//判断是否相同
+public boolean equals(Object x)
 ```
 
+## 5.底层存储方式
+`
+final int signum//正负符号，-1表示整数，0表示负数
+`
 
-## 底层存储方式
-遍历得到字符串的每一个字符，获取字符对应ASCII数值，形成数组。">
+`
+final int[] mag//具体数值数据，大数拆成几段存储：先转成二进制，再从右往左拆，每段32bit
+`
+
+。">
+<meta property="og:title" content="JavaSE_API_BigInteger">
+<meta property="og:description" content="# BigInteger
+
+## 1.有什么用：可以表示**大整数**，超出Long范围的那种
+
+## 2.怎么用（构造方法）
+```
+//获取随机大整数，0~2的num次方-1，含边界
+public BigInterger(int num, Random random)
+
+//获取指定大整数，字符串中必须是整数，否则报错
+public BigInterger(String val)
+
+//获取指定进制（radix）的大整数，字符串必须是整数且符合进制要求，否则报错
+public BigInterger(String val,int radix)
+
+//静态方法获取BigInteger的对象，-16~16内部有优化，只能表示long范围的值
+public BigInterger(long val)
+
+```
+## 3.有什么特点：对象一旦创建，内部记录的值无法改变
+
+## 4.有什么常见API方法
+```
+//加减乘除
+public BigInterger add(BigInteger val)
+public BigInterger subtract(BigInteger val)
+public BigInterger multiply(BigInteger val)
+public BigInterger divide(BigInteger val)
+//获取商和余数
+public BigInterger[] divideAndRemainder(BigInteger val)
+//次幂
+public BigInterger pow(int exponent)
+//返回较大值或较小值（不会创建新对象）
+public BigInterger max/min(BigInteger val)
+//转为int类型整数，注意超出范围会报错
+public int intValue(BigInteger val)
+public int longValue(BigInteger val)
+
+//判断是否相同
+public boolean equals(Object x)
+```
+
+## 5.底层存储方式
+`
+final int signum//正负符号，-1表示整数，0表示负数
+`
+
+`
+final int[] mag//具体数值数据，大数拆成几段存储：先转成二进制，再从右往左拆，每段32bit
+`
+
+。">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://therain2020.github.io/post/API_BigDecimal.html">
+<meta property="og:url" content="https://therain2020.github.io/post/JavaSE_API_BigInteger.html">
 <meta property="og:image" content="https://github.githubassets.com/favicons/favicon.svg">
-<title>API_BigDecimal</title>
+<title>JavaSE_API_BigInteger</title>
 
 
 
@@ -127,7 +161,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 
 <body>
     <div id="header">
-<h1 class="postTitle">API_BigDecimal</h1>
+<h1 class="postTitle">JavaSE_API_BigInteger</h1>
 <div class="title-right">
     <a href="https://therain2020.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
         <svg class="octicon" width="16" height="16">
@@ -135,7 +169,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
         </svg>
     </a>
     
-    <a href="https://github.com/therain2020/therain2020.github.io/issues/22" target="_blank" class="btn btn-invisible circle" title="Issue">
+    <a href="https://github.com/therain2020/therain2020.github.io/issues/23" target="_blank" class="btn btn-invisible circle" title="Issue">
         <svg class="octicon" width="16" height="16">
             <path id="pathIssue" fill-rule="evenodd"></path>
         </svg>
@@ -151,33 +185,45 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 </div>
     <div id="content">
-<div class="markdown-body" id="postBody"><h1>BigDecimal</h1>
-<p>float：4个字节，32bit，23bit小数<br>
-double：8个字节，64bit，52bit小数</p>
-<h2>1.构造方法</h2>
-<pre class="notranslate"><code class="notranslate">public BigDecimal(double val)//传递double类型数值，不精确
+<div class="markdown-body" id="postBody"><h1>BigInteger</h1>
+<h2>1.有什么用：可以表示<strong>大整数</strong>，超出Long范围的那种</h2>
+<h2>2.怎么用（构造方法）</h2>
+<pre class="notranslate"><code class="notranslate">//获取随机大整数，0~2的num次方-1，含边界
+public BigInterger(int num, Random random)
 
-public BigDecimal(String val)//传递字符串，精确
+//获取指定大整数，字符串中必须是整数，否则报错
+public BigInterger(String val)
 
-public BigDecimal valueOf（double val）//静态方法获取对象，0~10的对象已经提前准备好，其他的值则创建新对象，且值不能超出double
+//获取指定进制（radix）的大整数，字符串必须是整数且符合进制要求，否则报错
+public BigInterger(String val,int radix)
+
+//静态方法获取BigInteger的对象，-16~16内部有优化，只能表示long范围的值
+public BigInterger(long val)
+
 </code></pre>
-<h2>成员方法</h2>
+<h2>3.有什么特点：对象一旦创建，内部记录的值无法改变</h2>
+<h2>4.有什么常见API方法</h2>
 <pre class="notranslate"><code class="notranslate">//加减乘除
-public BigDecimal add(BigDecimal val)
+public BigInterger add(BigInteger val)
+public BigInterger subtract(BigInteger val)
+public BigInterger multiply(BigInteger val)
+public BigInterger divide(BigInteger val)
+//获取商和余数
+public BigInterger[] divideAndRemainder(BigInteger val)
+//次幂
+public BigInterger pow(int exponent)
+//返回较大值或较小值（不会创建新对象）
+public BigInterger max/min(BigInteger val)
+//转为int类型整数，注意超出范围会报错
+public int intValue(BigInteger val)
+public int longValue(BigInteger val)
 
-public BigDecimal subtract(BigDecimal val)
-
-public BigDecimal multiply(BigDecimal val)
-
-public BigDecimal divide(BigDecimal val)
-
-public BigDecimal divide(BigDecimal val,int 精确几位,RoundingMode 舍入模式)//一般除不尽使用
-//不记得参数是什么了可以ctrl + p 查看
-//关于RoundingMode枚举类：在数轴上，UP代表远离零方向舍入，DOWN向零方向舍入，CEILING向正无穷大方向舍入，FLOOR向负无穷大方向舍入，HALF_UP四舍五入
-
+//判断是否相同
+public boolean equals(Object x)
 </code></pre>
-<h2>底层存储方式</h2>
-<p>遍历得到字符串的每一个字符，获取字符对应ASCII数值，形成数组。</p></div>
+<h2>5.底层存储方式</h2>
+<p><code class="notranslate">final int signum//正负符号，-1表示整数，0表示负数</code></p>
+<p><code class="notranslate">final int[] mag//具体数值数据，大数拆成几段存储：先转成二进制，再从右往左拆，每段32bit</code></p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
