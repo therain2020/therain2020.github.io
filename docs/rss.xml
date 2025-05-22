@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>therain2020</title><link>https://therain2020.github.io</link><description>the path to future</description><copyright>therain2020</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://therain2020.github.io</link></image><lastBuildDate>Thu, 22 May 2025 09:42:30 +0000</lastBuildDate><managingEditor>therain2020</managingEditor><ttl>60</ttl><webMaster>therain2020</webMaster><item><title>算法_枚举Part1</title><link>https://therain2020.github.io/post/suan-fa-_-mei-ju-Part1.html</link><description>枚举
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>therain2020</title><link>https://therain2020.github.io</link><description>the path to future</description><copyright>therain2020</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://therain2020.github.io</link></image><lastBuildDate>Thu, 22 May 2025 09:43:14 +0000</lastBuildDate><managingEditor>therain2020</managingEditor><ttl>60</ttl><webMaster>therain2020</webMaster><item><title>算法_枚举Part1</title><link>https://therain2020.github.io/post/suan-fa-_-mei-ju-Part1.html</link><description>枚举
 
 思想是不断地猜测，从可能的集合中一一尝试，然后再判断题目的条件是否成立。</description><guid isPermaLink="true">https://therain2020.github.io/post/suan-fa-_-mei-ju-Part1.html</guid><pubDate>Thu, 22 May 2025 08:46:54 +0000</pubDate></item><item><title>数据结构_链表Part1</title><link>https://therain2020.github.io/post/shu-ju-jie-gou-_-lian-biao-Part1.html</link><description>Part1
 
@@ -92,7 +92,21 @@ public BigDecimal divide(BigDecimal val,int 精确几位,RoundingMode 舍入模�
 
 
 ## 底层存储方式
-遍历得到字符串的每一个字符，获取字符对应ASCII数值，形成数组。</description><guid isPermaLink="true">https://therain2020.github.io/post/API_BigDecimal.html</guid><pubDate>Thu, 22 May 2025 08:35:59 +0000</pubDate></item><item><title>进程管理</title><link>https://therain2020.github.io/post/jin-cheng-guan-li.html</link><description># 1.进程、线程基础知识
+遍历得到字符串的每一个字符，获取字符对应ASCII数值，形成数组。</description><guid isPermaLink="true">https://therain2020.github.io/post/API_BigDecimal.html</guid><pubDate>Thu, 22 May 2025 08:35:59 +0000</pubDate></item><item><title>面经_阿里国际面经506</title><link>https://therain2020.github.io/post/mian-jing-_-a-li-guo-ji-mian-jing-506.html</link><description># part1
+## 讲讲最近的项目，都有哪些模块？
+司乘双端的登录模块，司机端需要人脸认证
+预估订单数据模块
+乘客下单模块
+司机抢单模块
+订单执行的业务逻辑，包括超时订单自动取消
+订单支付模块
+优惠券模块
+
+
+## 你觉得哪个模块比较难？
+司机抢单模块
+方案1：数据库隔离级别，效率低下，不适合高并发需求
+方案2：乐观锁，基于版本号，若并发冲突频繁，大量请求会因版本号不一致导致更新失败。</description><guid isPermaLink="true">https://therain2020.github.io/post/mian-jing-_-a-li-guo-ji-mian-jing-506.html</guid><pubDate>Mon, 12 May 2025 09:28:35 +0000</pubDate></item><item><title>进程管理</title><link>https://therain2020.github.io/post/jin-cheng-guan-li.html</link><description># 1.进程、线程基础知识
 
 ## 1.1 进程
 
