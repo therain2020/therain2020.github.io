@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>therain2020</title><link>https://therain2020.github.io</link><description>the path to future</description><copyright>therain2020</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://therain2020.github.io</link></image><lastBuildDate>Thu, 22 May 2025 08:36:32 +0000</lastBuildDate><managingEditor>therain2020</managingEditor><ttl>60</ttl><webMaster>therain2020</webMaster><item><title>API_BigDecimal</title><link>https://therain2020.github.io/post/API_BigDecimal.html</link><description># BigDecimal
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>therain2020</title><link>https://therain2020.github.io</link><description>the path to future</description><copyright>therain2020</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://therain2020.github.io</link></image><lastBuildDate>Thu, 22 May 2025 08:57:03 +0000</lastBuildDate><managingEditor>therain2020</managingEditor><ttl>60</ttl><webMaster>therain2020</webMaster><item><title>API_BigDecimal</title><link>https://therain2020.github.io/post/API_BigDecimal.html</link><description># BigDecimal
 
 float：4个字节，32bit，23bit小数
 double：8个字节，64bit，52bit小数
@@ -170,7 +170,8 @@ way1
 - [校园快送](https://blog.csdn.net/qq_45195447/article/details/143307640)
 - [诚通出行]()
 
-2.信息概论答辩###4月28日上午
+2.信息概论答辩 
+### 4月28日上午
 
 3.HSBC 面试预约
 
