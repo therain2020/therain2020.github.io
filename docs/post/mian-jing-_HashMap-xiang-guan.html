@@ -36,13 +36,13 @@ JDK 1.7
     return h ^ (h >>> 7) ^ (h >>> 4);
 }
 
-
 ```
 
+拉链法：
+> 即，将链表和数组结合，创建一个链表数组，数组中的每一格就是一个链表，遇到哈希冲突，则将冲突的值加到链表中
 
-# 实现原理
-## 一、从JDK 1.7 和 JDK 1.8 版本区别回答
-- 在 JDK 1.7 版本之前，HashMap 数据结构是数组和链表，通过 **哈希算法** 将元素的Key 映射到数组中的槽位（Bucket）。">
+JDK 1.8以后，变化较大
+ - 链表长度大于阈值（默认为8）时，首先调用treeifyBin（）方法，方法根据HashMap数组长度决定是否转换为红黑树。">
 <meta property="og:title" content="面经_HashMap相关">
 <meta property="og:description" content="# hash方法源码参考
 ```
@@ -70,13 +70,13 @@ JDK 1.7
     return h ^ (h >>> 7) ^ (h >>> 4);
 }
 
-
 ```
 
+拉链法：
+> 即，将链表和数组结合，创建一个链表数组，数组中的每一格就是一个链表，遇到哈希冲突，则将冲突的值加到链表中
 
-# 实现原理
-## 一、从JDK 1.7 和 JDK 1.8 版本区别回答
-- 在 JDK 1.7 版本之前，HashMap 数据结构是数组和链表，通过 **哈希算法** 将元素的Key 映射到数组中的槽位（Bucket）。">
+JDK 1.8以后，变化较大
+ - 链表长度大于阈值（默认为8）时，首先调用treeifyBin（）方法，方法根据HashMap数组长度决定是否转换为红黑树。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://therain2020.github.io/post/mian-jing-_HashMap-xiang-guan.html">
 <meta property="og:image" content="https://github.githubassets.com/favicons/favicon.svg">
@@ -172,8 +172,32 @@ JDK 1.7
     return h ^ (h &gt;&gt;&gt; 7) ^ (h &gt;&gt;&gt; 4);
 }
 
-
 </code></pre>
+<p>拉链法：</p>
+<blockquote>
+<p>即，将链表和数组结合，创建一个链表数组，数组中的每一格就是一个链表，遇到哈希冲突，则将冲突的值加到链表中</p>
+</blockquote>
+<p>JDK 1.8以后，变化较大</p>
+<ul>
+<li>
+<p>链表长度大于阈值（默认为8）时，首先调用treeifyBin（）方法，方法根据HashMap数组长度决定是否转换为红黑树。数组长度＞＝64，转换红黑树，否则只执行resize方法扩容，一般是2的幂次方倍扩容。</p>
+</li>
+<li>
+<p>HashMap成员变量loadFactor，意思是负载因子，控制数组存放数据的疏密程度，越趋近于1，数组越存放的数据越多，会导致链表长度增加；越趋近于0，数组存放数据越少。</p>
+</li>
+<li>
+<p>官方建议loadFator为0.75f为一个合适的临界值。</p>
+</li>
+<li>
+<p>默认容量（并非最大容量）为16，默认负载因子为0.75，当Map中存放的数据数量超过16*0.75=12时，就需要扩容。扩容因为涉及到rehash、复制数据等操作而非常消耗性能。</p>
+</li>
+<li>
+<p>阈值threshold = 容量capacity * 负载因子loadFactor</p>
+</li>
+<li>
+<p>当Size ＞ threshold 时，扩容</p>
+</li>
+</ul>
 <h1>实现原理</h1>
 <h2>一、从JDK 1.7 和 JDK 1.8 版本区别回答</h2>
 <ul>
