@@ -182,7 +182,7 @@ TCP协议保证传输数据的可靠
 第三次握手：客户端向服务器发送报文ack包
 证明客户端的接收能力正常
 </code></pre>
-<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/866c45902d4dcde69d816ac235006ec3e6404275c7f8b4fb5547ca3ba07aa36c/68747470733a2f2f7468657261696e323032302e6769746875622e696f2f5443505f436f6e6e6563742e706e67"><img src="https://camo.githubusercontent.com/866c45902d4dcde69d816ac235006ec3e6404275c7f8b4fb5547ca3ba07aa36c/68747470733a2f2f7468657261696e323032302e6769746875622e696f2f5443505f436f6e6e6563742e706e67" alt="image" data-canonical-src="https://therain2020.github.io/TCP_Connect.png" style="max-width: 100%; height: auto;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/866c45902d4dcde69d816ac235006ec3e6404275c7f8b4fb5547ca3ba07aa36c/68747470733a2f2f7468657261696e323032302e6769746875622e696f2f5443505f436f6e6e6563742e706e67"><img src="https://camo.githubusercontent.com/866c45902d4dcde69d816ac235006ec3e6404275c7f8b4fb5547ca3ba07aa36c/68747470733a2f2f7468657261696e323032302e6769746875622e696f2f5443505f436f6e6e6563742e706e67" alt="image" data-canonical-src="https://therain2020.github.io/TCP_Connect.png" style="max-width: 100%;"></a></p>
 <h4>四次挥手</h4>
 <pre class="notranslate"><code class="notranslate">四次挥手：
 数据传输完毕后，双方都可释放连接。
@@ -200,7 +200,7 @@ TCP协议保证传输数据的可靠
 客户端为什么要等待2MSL：为了保证客户端发送的第一个ACK报文能到达服务器，因为这个ACK报文可能丢失，而2MSL是任何报文在网络上存在的最长时间，超过这个时间，报文将被丢弃，这样新的连接不会出现旧连接的请求报文。
 
 </code></pre>
-<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/dc993695c47cc707b1931c050f578e477bdc2594b1c129d5814a3de319f575dc/68747470733a2f2f7468657261696e323032302e6769746875622e696f2f5443505f446973636f6e6e6563742e706e67"><img src="https://camo.githubusercontent.com/dc993695c47cc707b1931c050f578e477bdc2594b1c129d5814a3de319f575dc/68747470733a2f2f7468657261696e323032302e6769746875622e696f2f5443505f446973636f6e6e6563742e706e67" alt="image" data-canonical-src="https://therain2020.github.io/TCP_Disconnect.png" style="max-width: 100%; height: auto;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/dc993695c47cc707b1931c050f578e477bdc2594b1c129d5814a3de319f575dc/68747470733a2f2f7468657261696e323032302e6769746875622e696f2f5443505f446973636f6e6e6563742e706e67"><img src="https://camo.githubusercontent.com/dc993695c47cc707b1931c050f578e477bdc2594b1c129d5814a3de319f575dc/68747470733a2f2f7468657261696e323032302e6769746875622e696f2f5443505f446973636f6e6e6563742e706e67" alt="image" data-canonical-src="https://therain2020.github.io/TCP_Disconnect.png" style="max-width: 100%;"></a></p>
 <p>为什么需要三次握手：</p>
 <blockquote>
 <p>对于一个半双工通信协议，只需要客户端向服务端发起一次请求，服务端响应一次请求即可确认连接。<br>
