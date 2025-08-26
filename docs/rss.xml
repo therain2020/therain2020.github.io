@@ -1,5 +1,59 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>therain2020</title><link>https://therain2020.github.io</link><description>the path to future</description><copyright>therain2020</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://therain2020.github.io</link></image><lastBuildDate>Thu, 22 May 2025 16:18:55 +0000</lastBuildDate><managingEditor>therain2020</managingEditor><ttl>60</ttl><webMaster>therain2020</webMaster><item><title>Linux基本命令</title><link>https://therain2020.github.io/post/Linux-ji-ben-ming-ling.html</link><description>在Linux中，命令以 **命令名+参数**（可选）组成
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>therain2020</title><link>https://therain2020.github.io</link><description>the path to future</description><copyright>therain2020</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://therain2020.github.io</link></image><lastBuildDate>Tue, 26 Aug 2025 09:15:09 +0000</lastBuildDate><managingEditor>therain2020</managingEditor><ttl>60</ttl><webMaster>therain2020</webMaster><item><title>实习日常1</title><link>https://therain2020.github.io/post/shi-xi-ri-chang-1.html</link><description>## 类注解
+ ```@Tag(name = '', description = '')```
+- 用于OpenAPI文档生成，定义该controller的名称为name所指，描述为description所指
+
+```@RestController```
+- 标识该类是一个REST控制器，能够处理HTTP请求并返回JSON数据
+
+```@RequestMapping('default/v1')```
+- 定义该controller的基础路径为default/v1，所有方法的路径都基于此路径
+
+---
+
+## 成员变量
+
+```@Autowired private FeedTransformService feedTransformService```
+- 使用@Aitpwired注解将FeedTransformService自动注入到controller中，用于处理业务逻辑
+
+---
+
+## 方法```getDefaultValue```
+```@GetMapping('/hello')```
+- 映射HTTP GET请求到路径/default/v1/hello
+
+```@Operation(summary = 'Hello api')```
+- 用于OpenAPI文档生成，描述该API的摘要为“Hello.api”
+
+```@ApiResponses```
+- 定义该API的可能响应：
+
+方法内容：返回字符串“xxController created from xx”，用于测试控制器是否正常工作
+
+---
+
+## 方法```feedtransformation```
+```@GetMapping('/feedtransformation')```
+- 映射HTTP GET请求到路径/default/v1/feedtransformation
+
+```@Operation(summary = 'feed transformation')```
+- 用于OpenAPI文档生成，描述该API的摘要为“feed transformation.api”
+
+```@ApiResponses```
+- 定义该API的可能响应：
+
+方法参数：
+- `@RequestParam`:从请求中获取参数 
+        - calcRunId：计算运行ID
+        - site：站点名称
+        - 结算日期
+
+方法内容：调用feedTransformService.feedTransForSite（calcRunId, site, cobDate）
+
+---
+
+## POJO 
+Plain Old Java Object 是一个简单的Java对象，通常没用继承特定的类或实现特定的接口。</description><guid isPermaLink="true">https://therain2020.github.io/post/shi-xi-ri-chang-1.html</guid><pubDate>Tue, 26 Aug 2025 09:14:42 +0000</pubDate></item><item><title>Linux基本命令</title><link>https://therain2020.github.io/post/Linux-ji-ben-ming-ling.html</link><description>在Linux中，命令以 **命令名+参数**（可选）组成
 其中，参数用于指定命令的具体操作
 注意，参数可以叠加一起使用
 
